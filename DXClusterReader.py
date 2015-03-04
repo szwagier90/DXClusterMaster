@@ -1,44 +1,58 @@
 import telnetlib
-
-#tn = telnetlib.Telnet(host="sr4dxc.jestok.com", port=9000)
-tn = telnetlib.Telnet(host="128.192.52.40", port=599)
-
-print tn.read_some(),
-
-callsign = "sq6sfs"
-tn.write(callsign + "\n")
-
-#(1)read whole welcome message
-print tn.read_until(">"),
-print tn.read_until("\n")
-#(1)
-
-telnetString = ""
-spots = []
-
 import time
-while True:
-    read = tn.read_eager()
 
-    if read:
-        telnetString += read
-        lines = telnetString.split("\n")
-        if len(lines) > 1:
-            spots.extend(lines[:-1])
-            telnetString = lines[-1]
+class UsernameError(ValueError):
+    def __init__(self, arg):
+        self.args = arg
 
-        for i, spot in enumerate(spots):
-            print i+1,
-            print ": ",
-            print spot
-            
-        print 20*"- ",
-        print len(spots),
-        print 20*" -"
+class DXClusterReader:
+    def __init__(self, host="128.192.52.40", port=599, callsign="sq6sfs"):
+        self.callsign = callsign
+        self.spots = []
 
-        if telnetString:
-            print telnetString
+        self.cluster = telnetlib.Telnet(host=host, port=port)
+        self.login(self.callsign)
+        self.cluster.read_until(">"),
+        self.cluster.read_until("\n")
 
-        print 80*'#'
+    def login(self, callsign):
+        self.cluster.read_some()
+        self.cluster.write(callsign + "\r\n")
+        welcome = self.cluster.read_some()
+        if "invalid" in welcome:
+            raise UsernameError
+
+    def get_new_spots(self):
+        while True:
+            read = self.cluster.read_until('\n')
+
+            if read:
+                self.spots.append(read)
+
+                for i, spot in enumerate(self.spots):
+                    print i+1,
+                    print ": ",
+                    print spot,
+                    
+                print 20*"- ",
+                print len(self.spots),
+                print 20*" -"
+            else:
+                time.sleep(1)
+
+    def disconnect(self):
+        print "Disconnecting 2..."
+        self.cluster.close()
+
+if __name__ == '__main__':
+    try:
+        d = DXClusterReader()
+    except UsernameError:
+        print "Login Error - Bad Username"
+    except KeyboardInterrupt:
+        print "Ending program!!!"
     else:
-        time.sleep(1)
+        d.get_new_spots()
+    finally:
+        print "Disconnecting 1..."
+        d.disconnect()
