@@ -47,12 +47,11 @@ class DXClusterReader:
 if __name__ == '__main__':
     try:
         d = DXClusterReader()
+        d.get_new_spots()
     except UsernameError:
         print "Login Error - Bad Username"
     except KeyboardInterrupt:
         print "Ending program!!!"
-    else:
-        d.get_new_spots()
     finally:
         print "Disconnecting 1..."
         d.disconnect()
