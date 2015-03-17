@@ -22,23 +22,14 @@ class DXClusterReader:
         if "invalid" in welcome:
             raise UsernameError
 
-    def get_new_spots(self):
-        while True:
-            read = self.cluster.read_until('\n')
+    def get_next_spot(self):
+        read = self.cluster.read_until('\n')
 
-            if read:
-                self.spots.append(read)
-
-                for i, spot in enumerate(self.spots):
-                    print i+1,
-                    print ": ",
-                    print spot,
-                    
-                print 20*"- ",
-                print len(self.spots),
-                print 20*" -"
-            else:
-                time.sleep(1)
+        if read:
+            self.spots.append(read)
+            yield read
+        else:
+            time.sleep(1)
 
     def disconnect(self):
         print "Disconnecting 2..."
@@ -47,7 +38,8 @@ class DXClusterReader:
 if __name__ == '__main__':
     try:
         d = DXClusterReader()
-        d.get_new_spots()
+        spots = d.get_next_spot()
+        print spots.next()
     except UsernameError:
         print "Login Error - Bad Username"
     except KeyboardInterrupt:
