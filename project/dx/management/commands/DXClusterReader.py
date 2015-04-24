@@ -1,9 +1,9 @@
+#!/usr/bin/env python
+
+from UsernameError import UsernameError
+
 import telnetlib
 import time
-
-class UsernameError(ValueError):
-    def __init__(self, arg):
-        self.args = arg
 
 class DXClusterReader:
     def __init__(self, host="128.192.52.40", port=599, callsign="sq6sfs"):
@@ -23,13 +23,16 @@ class DXClusterReader:
             raise UsernameError
 
     def get_next_spot(self):
+
+        read = None
         read = self.cluster.read_until('\n')
+        while not read:
+	    time.sleep(1)
+            read = self.cluster.read_until('\n')
 
         if read:
             self.spots.append(read)
-            yield read
-        else:
-            time.sleep(1)
+            return read
 
     def disconnect(self):
         print "Disconnecting 2..."
