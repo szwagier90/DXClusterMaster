@@ -8,12 +8,12 @@ class Spot(models.Model):
     time = models.DateTimeField()
     locator = models.CharField(max_length=10)
 
-    def __unicode__():
-        ret = ""
-        ret += spotter + " "
-        ret += station + " "
-        ret += frequency + " "
-        ret += comment + " "
-        ret += time + " "
-        ret += locator + " "
+    def __unicode__(self):
+        ret = "DX de "
+        ret += (self.spotter+":").ljust(7, ' ') + ' '
+        ret += str(self.frequency).rjust(10, ' ') + '  '
+        ret += self.station.ljust(13, ' ')
+        ret += self.comment + " "
+        ret += str(self.time.strftime('%H%M')) + "Z "
+        ret += self.locator + " "
         return ret
