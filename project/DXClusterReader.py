@@ -35,7 +35,6 @@ class DXClusterReader:
             return read
 
     def disconnect(self):
-        print >> sys.stderr, "Disconnecting 2..."
         self.cluster.close()
 
 if __name__ == '__main__':

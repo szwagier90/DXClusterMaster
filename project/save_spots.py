@@ -17,6 +17,8 @@ from DXClusterReader import DXClusterReader
 from UsernameError import UsernameError
 import spot
 
+from datetime import datetime
+
 try:
     while True:
         new_spot = None
@@ -39,9 +41,9 @@ try:
         except UsernameError:
             print >> sys.stderr, "Login Error - Bad Username"
         except TypeError:
-            print new_spot
+            print >> sys.stderr, "TypeError: ",
         finally:
-            print >> sys.stderr, "Disconnecting 1..."
+            print >> sys.stderr, datetime.now()
             d.disconnect()
 except KeyboardInterrupt:
     print >> sys.stderr, "KeyboardInterrupt!!!"
