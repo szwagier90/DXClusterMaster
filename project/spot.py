@@ -1,5 +1,6 @@
 import re
-from django.utils import timezone
+from datetime import datetime
+import pytz
 
 class Spot(object):
     def __init__(self, raw_spot):
@@ -58,7 +59,7 @@ class Spot(object):
             self.dx_call = re.sub('[^A-Za-z0-9\/]+', '', raw_string[26:38])
             self.comment = re.sub('[^\sA-Za-z0-9\.,;\#\+\-!\?\$\(\)@\/]+', ' ', raw_string[39:69])
             time_temp = re.sub('[^0-9]+', '', raw_string[70:74])
-            self.time = timezone.now().replace(hour=int(time_temp[0:2]), minute=int(time_temp[2:4]), second=0, microsecond = 0)
+            self.time = datetime.utcnow().replace(hour=int(time_temp[0:2]), minute=int(time_temp[2:4]), second=0, microsecond = 0, tzinfo=pytz.utc)
             self.locator = re.sub('[^A-Za-z0-9]+', '', raw_string[75:80])
             return(True)
         except Exception as e:
