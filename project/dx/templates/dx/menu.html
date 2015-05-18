@@ -1,0 +1,12 @@
+{% url 'index' as index_url %}
+{% url 'register' as register_url %}
+{% url 'upload' as upload_url %}
+
+					<ul class="nav navbar-nav">
+						<li{% ifequal request.path index_url %} class="active"{% endifequal %}><a href="{% url 'index' %}">Strona Główna</a></li>
+{% if not user.is_authenticated %}
+						<li{% ifequal request.path register_url %} class="active"{% endifequal %}><a href="{% url 'register' %}">Zarejestruj</a></li>
+{% else %}
+						<li{% ifequal request.path upload_url %} class="active"{% endifequal %}><a href="{% url 'upload' %}">Log Upload</a></li>
+{% endif %}
+					</ul>

@@ -1,0 +1,40 @@
+{% extends 'dx/base.html' %}
+
+{% block title %}Witaj w DX Master Advisor{% endblock title %}
+
+{% block content %}
+		<div class="jumbotron">
+			<div class="container">
+				<h1>DX Master Advisor</h1>
+				<p><strong>Dodaj</strong> swój log<br />
+				<strong>Dowiedz się</strong> kiedy słuchać aby usłyszeć<br />
+			{% if not user.is_authenticated %}	
+				<p><a href="{% url 'register' %}" class="btn btn-primary btn-lg" role="button">Zarejestruj się... &raquo;</a></p>
+			{% endif %}
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h4><center>Ostatnio dodane przejazdy</center></h4>
+		            <table class="table table-bordered table-condensed table-striped">
+		                <thead>
+		                    <tr>
+		                        <th>Tags</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		    {% for record in last_five_spots %}
+		                    <tr>
+								<td><p>{{ record }}</p></td>
+		                    </tr>
+		    {% endfor %}
+		                </tbody>
+		            </table>
+ 
+				</div>
+			</div>
+		</div>
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "dx/base.html" %}
+{% load static %}
+
+{% url 'register' as register_url %}
+
+{% block title %}DX Master Advisor - Logowanie{% endblock title %}
+
+{% block style %}
+		<link href="{% static 'css/login.css' %}" rel="stylesheet">		
+{% endblock style %}
+
+{% block content %}
+	<div class="container">
+		<form method="post" class="form-signin{% if form.errors %} has-error{% endif %}" role="form" action="{% url 'login' %}">
+			<h2 class="form-signin-heading">Zaloguj się</h2>
+{% if form.errors %}
+                               <div class="alert alert-danger">
+                                       <strong>Logowanie przerwane!</strong><br />
+                                       {% for error in form.errors.values %}
+                                       {{ error }}
+                                       {% endfor %}
+                               </div>
+{% endif %}
+			{{ form.username }}
+			{{ form.password }}
+			<input type="hidden" name="next" value="{{ next }}" />
+{% csrf_token %}
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
+		</form>
+	</div>
+{% endblock content %}
