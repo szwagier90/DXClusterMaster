@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
 from models import Spot
+from forms import LogUploadForm
 
 class IndexView(TemplateView):
     template_name = 'dx/index.html'
@@ -33,3 +34,12 @@ class RegisterView(FormView):
             if user.is_active:
                 login(self.request, user)
         return super(RegisterView, self).form_valid(form)
+
+class LogUploadView(FormView):
+    template_name = 'dx/upload.html'
+    form_class = LogUploadForm
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        print self.request.FILES['file']
+        return super(LogUploadView, self).form_valid(form)
