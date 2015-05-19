@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
@@ -22,14 +22,14 @@ class IndexView(TemplateView):
 class RegisterView(FormView):
     template_name = 'dx/register.html'
     form_class = UserCreationForm
-    success_url = '/'#reverse('index', current_app='dx')
+    success_url = reverse_lazy('index')
 
     def form_valid(self, form):
-        print form.cleaned_data['username']
-        print form.cleaned_data['password1']
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password1']
         user = form.save()
-        user = authenticate(username=user.username, password=user.password)
+        user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
+                login(self.request, user)
         return super(RegisterView, self).form_valid(form)
