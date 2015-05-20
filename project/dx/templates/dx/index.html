@@ -21,23 +21,23 @@
                     <table class="table table-bordered table-condensed table-striped">
                         <thead>
                             <tr>
-                                <th>DX de</th>
-                                <th>Freq</th>
-                                <th>DX</th>
-                                <th>Comments</th>
-                                <th>UTC</th>
-                                <th>Locator</th>
+                                <th class="col-md-1 text-center">DX de</th>
+                                <th class="col-md-1 text-center">Freq</th>
+                                <th class="col-md-1 text-center">DX</th>
+                                <th class="col-md-4 text-center">Comments</th>
+                                <th class="col-md-1 text-center">UTC</th>
+                                <th class="col-md-1 text-center">Locator</th>
                             </tr>
                         </thead>
                         <tbody>
             {% for record in ten_recent_spots %}
                             <tr>
-                                <td><p>{{ record.spotter }}</p></td>
-                                <td><p>{{ record.frequency }}</p></td>
-                                <td><p>{{ record.station }}</p></td>
-                                <td><p>{{ record.comment }}</p></td>
-                                <td><p>{{ record.time|date:"H:i" }}</p></td>
-                                <td><p>{{ record.locator }}</p></td>
+                                <td><p class="text-left">{{ record.spotter }}</p></td>
+                                <td><p class="text-right">{{ record.frequency }}</p></td>
+                                <td><p class="text-left"><strong>{{ record.station }}</strong></p></td>
+                                <td><p class="text-left">{{ record.comment }}</p></td>
+                                <td><p class="text-center">{{ record.time|date:"H:i" }}</p></td>
+                                <td><p class="text-center">{{ record.locator }}</p></td>
                             </tr>
             {% endfor %}
                         </tbody>
