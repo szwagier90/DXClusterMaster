@@ -3,38 +3,48 @@
 {% block title %}Witaj w DX Master Advisor{% endblock title %}
 
 {% block content %}
-		<div class="jumbotron">
-			<div class="container">
-				<h1>DX Master Advisor</h1>
-				<p><strong>Dodaj</strong> swój log<br />
-				<strong>Dowiedz się</strong> kiedy słuchać aby usłyszeć<br />
-			{% if not user.is_authenticated %}	
-				<p><a href="{% url 'register' %}" class="btn btn-primary btn-lg" role="button">Zarejestruj się... &raquo;</a></p>
-			{% endif %}
-			</div>
-		</div>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>DX Master Advisor</h1>
+                <p><strong>Dodaj</strong> swój log<br />
+                <strong>Dowiedz się</strong> kiedy słuchać aby usłyszeć<br />
+            {% if not user.is_authenticated %}  
+                <p><a href="{% url 'register' %}" class="btn btn-primary btn-lg" role="button">Zarejestruj się... &raquo;</a></p>
+            {% endif %}
+            </div>
+        </div>
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h4><center>Ostatnio dodane przejazdy</center></h4>
-		            <table class="table table-bordered table-condensed table-striped">
-		                <thead>
-		                    <tr>
-		                        <th>Tags</th>
-		                    </tr>
-		                </thead>
-		                <tbody>
-		    {% for record in last_five_spots %}
-		                    <tr>
-								<td><p>{{ record }}</p></td>
-		                    </tr>
-		    {% endfor %}
-		                </tbody>
-		            </table>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><center>Ostatnio dodane przejazdy</center></h4>
+                    <table class="table table-bordered table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th>DX de</th>
+                                <th>Freq</th>
+                                <th>DX</th>
+                                <th>Comments</th>
+                                <th>UTC</th>
+                                <th>Locator</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            {% for record in ten_recent_spots %}
+                            <tr>
+                                <td><p>{{ record.spotter }}</p></td>
+                                <td><p>{{ record.frequency }}</p></td>
+                                <td><p>{{ record.station }}</p></td>
+                                <td><p>{{ record.comment }}</p></td>
+                                <td><p>{{ record.time|date:"H:i" }}</p></td>
+                                <td><p>{{ record.locator }}</p></td>
+                            </tr>
+            {% endfor %}
+                        </tbody>
+                    </table>
  
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
 
 {% endblock content %}
