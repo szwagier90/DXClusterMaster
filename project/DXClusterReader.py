@@ -7,7 +7,8 @@ import time
 import sys
 
 class DXClusterReader:
-    def __init__(self, host="128.192.52.40", port=599, callsign="sq6sfs"):
+    def __init__(self, timeout=60, host="128.192.52.40", port=599, callsign="sq6sfs"):
+        self.timeout = timeout
         self.callsign = callsign
         self.spots = []
 
@@ -25,14 +26,13 @@ class DXClusterReader:
 
     def get_next_spot(self):
         read = None
-        read = self.cluster.read_until('\n')
-        while not read:
-	    time.sleep(1)
-            read = self.cluster.read_until('\n')
 
+        read = self.cluster.read_until('\n', timeout=self.timeout)
         if read:
             self.spots.append(read)
             return read
+        else:
+            raise BufferError
 
     def disconnect(self):
         self.cluster.close()

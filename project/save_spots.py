@@ -19,13 +19,18 @@ import spot
 
 from datetime import datetime
 
-try:
-    while True:
+while True:
+    try:
         new_spot = None
+        d = None
         try:
-            d = DXClusterReader()
+            print "Connecting..."
+            d = DXClusterReader(timeout=60)
+            print "Connected!"
             while True:
+                print "Awaiting a new spot"
                 new_spot = d.get_next_spot()
+                print "Received a new spot!"
                 s = spot.Spot(new_spot)
                 print s
 
@@ -37,13 +42,19 @@ try:
                 spot_object.time = s.time
                 spot_object.locator = s.locator
                 spot_object.save()
+                print "New spot has been SAVED!"
                 
         except UsernameError:
             print >> sys.stderr, "Login Error - Bad Username"
         except TypeError:
-            print >> sys.stderr, "TypeError: ",
+            print >> sys.stderr, "TypeError (Probably an announcement): ",
+        except BufferError:
+            print >> sys.stderr, "BufferError (60s timeout): ",
         finally:
             print >> sys.stderr, datetime.now()
             d.disconnect()
-except KeyboardInterrupt:
-    print >> sys.stderr, "KeyboardInterrupt!!!"
+    except AttributeError:
+        print >> sys.stderr, "AttributeError (Cannot connect - 60s delay): ",
+        for i in range(60):
+            print '.',
+            time.sleep(1)
