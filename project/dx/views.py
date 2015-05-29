@@ -9,7 +9,7 @@ from django.views.generic import View
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
-from models import Spot
+from models import Spot, Operator
 from forms import LogUploadForm
 
 class IndexView(TemplateView):
@@ -29,6 +29,8 @@ class RegisterView(FormView):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password1']
         user = form.save()
+        operator = Operator(user=user)
+        operator.save()
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
