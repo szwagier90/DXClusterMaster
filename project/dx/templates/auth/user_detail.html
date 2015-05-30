@@ -1,0 +1,8 @@
+<h1>{{ object.username }}</h1>
+<p>First name: {{ object.first_name }}</p>
+<p>Last name: {{ object.last_name }}</p>
+<p>Name: {{ object.get_full_name }}</p>
+<p>E-mail: {{ object.email }}</p>
+<p>Joined: {{ object.date_joined }}</p>
+
+<a href="{% url 'profile_edit' %}">Edit</a>

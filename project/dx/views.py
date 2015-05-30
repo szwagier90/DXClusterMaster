@@ -9,6 +9,7 @@ from django.views.generic import View
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
 from models import Spot, Operator
 from forms import LogUploadForm, ProfileForm
@@ -38,11 +39,26 @@ class RegisterView(FormView):
                 login(self.request, user)
         return super(RegisterView, self).form_valid(form)
 
+class ProfileView(DetailView):
+    model = User
+
+    def get_object(self, queryset=None):
+        obj = User.objects.get(username=self.request.user)
+        return obj
+
+class ProfileEdit(UpdateView):
+    model = User
+    fields = ['first_name', 'last_name', 'email']
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        obj = User.objects.get(username=self.request.user)
+        return obj
+
 class OperatorView(DetailView):
     model = Operator
 
     def get_object(self, queryset=None):
-        print "View"
         obj = Operator.objects.get(user__username=self.request.user)
         return obj
 
@@ -52,7 +68,6 @@ class OperatorEdit(UpdateView):
     success_url = reverse_lazy('operator')
 
     def get_object(self, queryset=None):
-        print "Edit"
         obj = Operator.objects.get(user__username=self.request.user)
         return obj
 
