@@ -14,6 +14,10 @@ from django.contrib.auth.models import User
 from models import Spot, Operator
 from forms import LogUploadForm, ProfileForm
 
+from tempfile import NamedTemporaryFile
+
+from AdiLogParser import AdiLogParser
+
 class IndexView(TemplateView):
     template_name = 'dx/index.html'
 
@@ -77,5 +81,12 @@ class LogUploadView(FormView):
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
-        print self.request.FILES['file']
+        self.handle_uploaded_file(self.request.FILES['file'])
         return super(LogUploadView, self).form_valid(form)
+
+    def handle_uploaded_file(self, f):
+        with NamedTemporaryFile() as temp_file:
+            for chunk in f.chunks():
+                temp_file.write(chunk)
+            temp_file.flush()
+            adi = AdiLogParser(temp_file.name)
