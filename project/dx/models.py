@@ -43,3 +43,53 @@ class Operator(models.Model):
         ret += "User: "
         ret += self.user.username
         return ret
+
+class QSO(models.Model):
+    operator = models.ForeignKey(Operator)
+    call = models.CharField(max_length=20)
+
+    cqz = models.SmallIntegerField('CQ Zone', null=True)
+    ituz = models.SmallIntegerField('ITU Zone', null=True)
+    dxcc = models.SmallIntegerField('DXCC Entity', null=True)
+
+    date = models.DateTimeField(null=True)
+    band = models.CharField(max_length=6)
+    frequency = models.FloatField('Frequency [MHz]', null=True)
+    locator = models.CharField(max_length=10, null=True)
+    mode = models.CharField(max_length=5, null=True)
+    rst_sent = models.CharField('RST Sent', max_length=3, null=True)
+    rst_received = models.CharField('RST Received', max_length=3, null=True)
+
+    qsl_confirmed = models.BooleanField('QSL Confirmation', default=False)
+    eqsl_confirmed = models.BooleanField('eQSL Confirmation', default=False)
+    lotw_confirmed = models.BooleanField('LOTW Confirmation', default=False)
+
+    class Meta:
+        verbose_name = "QSO"
+        verbose_name_plural = "QSOs"
+
+    def __unicode__(self):
+        ret = ""
+
+        ret += self.operator.callsign.upper()
+        ret += ' -> '
+        ret += self.call
+
+        ret += ' | '
+
+        if self.date:
+            ret += str(self.date)
+        else:
+            ret += "date undefined"
+
+        ret += ' | '
+
+        if self.is_confirmed():
+            ret += "CONFIRMED"
+        else:
+            ret += "NOT CONFIRMED"
+
+        return ret
+
+    def is_confirmed(self):
+        return self.qsl_confirmed or self.eqsl_confirmed or self.lotw_confirmed

@@ -3,6 +3,7 @@
 import re
 import datetime
 import time
+import pytz
 
 class AdiLogParser:
     def __init__(self, path):
@@ -24,7 +25,7 @@ class AdiLogParser:
                     break
             #--
 
-            raw = adi_file.read().splitlines()
+            raw = adi_file.read().split('\r\n\r\n')
             self.records = [line for line in raw if line]
 
     def parse_all_records(self):
@@ -51,7 +52,7 @@ class AdiLogParser:
                 parsed_record[key] = parsed_value
 
         try:
-            parsed_record['DATE'] = datetime.datetime.combine(parsed_record['QSO_DATE'], parsed_record['TIME_ON'])
+            parsed_record['DATE'] = datetime.datetime.combine(parsed_record['QSO_DATE'], parsed_record['TIME_ON']).replace(tzinfo=pytz.UTC)
         except KeyError:
             parsed_record['DATE'] = None
 
