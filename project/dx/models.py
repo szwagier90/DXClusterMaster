@@ -93,3 +93,14 @@ class QSO(models.Model):
 
     def is_confirmed(self):
         return self.qsl_confirmed or self.eqsl_confirmed or self.lotw_confirmed
+
+class Entity(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True)
+    name = models.CharField('DXCC name', max_length=50)
+
+    class Meta:
+        verbose_name = "Entity"
+        verbose_name_plural = "Entities"
+
+    def __unicode__(self):
+        return "%d: %s" % (self.id, self.name)
