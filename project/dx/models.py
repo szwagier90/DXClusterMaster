@@ -104,3 +104,17 @@ class Entity(models.Model):
 
     def __unicode__(self):
         return "%d: %s" % (self.id, self.name)
+
+class Prefix(models.Model):
+    entity = models.ForeignKey(Entity)
+    name = models.CharField('Prefix', max_length=20)
+    ituz = models.PositiveSmallIntegerField('ITU Zone')
+    cqz = models.PositiveSmallIntegerField('CQ Zone')
+    full_callsign = models.BooleanField('Full callsign', default=False)
+
+    class Meta:
+        verbose_name = "Prefix"
+        verbose_name_plural = "Prefixes"
+
+    def __unicode__(self):
+        return "Prefix"
