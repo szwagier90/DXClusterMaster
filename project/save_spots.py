@@ -19,6 +19,8 @@ import spot
 
 from datetime import datetime
 
+from django.db.utils import OperationalError
+
 while True:
     try:
         new_spot = None
@@ -41,7 +43,20 @@ while True:
                 spot_object.comment = s.comment
                 spot_object.time = s.time
                 spot_object.locator = s.locator
-                spot_object.save()
+
+                save_attempt = 0
+                while True:
+                    save_attempt += 1
+                    if save_attempt > 10:
+                        raise OperationalError
+
+                    try:
+                        spot_object.save()
+                    except OperationalError:
+                        print >> sys.stderr, "OperationalError (wait %d seconds...): " % save_attempt,
+                        time.sleep(save_attempt)
+                    else:
+                        break
                 print "New spot has been SAVED!"
                 
         except UsernameError:
