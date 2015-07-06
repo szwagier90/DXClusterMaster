@@ -44,13 +44,42 @@ class Operator(models.Model):
         ret += self.user.username
         return ret
 
+class Entity(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True)
+    name = models.CharField('DXCC name', max_length=50)
+
+    class Meta:
+        verbose_name = "Entity"
+        verbose_name_plural = "Entities"
+
+    def __unicode__(self):
+        return "%d: %s" % (self.id, self.name)
+
+class Prefix(models.Model):
+    entity = models.ForeignKey(Entity)
+    name = models.CharField('Prefix', primary_key=True, max_length=20)
+    ituz = models.PositiveSmallIntegerField('ITU Zone')
+    cqz = models.PositiveSmallIntegerField('CQ Zone')
+    full_callsign = models.BooleanField('Full callsign', default=False)
+
+    class Meta:
+        verbose_name = "Prefix"
+        verbose_name_plural = "Prefixes"
+
+    def __unicode__(self):
+        return "Prefix %s (%s): ITU:%d CQ: %d [Full: %s]" % (
+            self.name,
+            self.entity.name,
+            self.ituz,
+            self.cqz,
+            str(self.full_callsign),
+        )
+
 class QSO(models.Model):
     operator = models.ForeignKey(Operator)
     call = models.CharField(max_length=20)
 
-    cqz = models.SmallIntegerField('CQ Zone', null=True)
-    ituz = models.SmallIntegerField('ITU Zone', null=True)
-    dxcc = models.SmallIntegerField('DXCC Entity', null=True)
+    prefix = models.ForeignKey(Prefix)
 
     date = models.DateTimeField(null=True)
     band = models.CharField(max_length=6)
@@ -93,34 +122,3 @@ class QSO(models.Model):
 
     def is_confirmed(self):
         return self.qsl_confirmed or self.eqsl_confirmed or self.lotw_confirmed
-
-class Entity(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True)
-    name = models.CharField('DXCC name', max_length=50)
-
-    class Meta:
-        verbose_name = "Entity"
-        verbose_name_plural = "Entities"
-
-    def __unicode__(self):
-        return "%d: %s" % (self.id, self.name)
-
-class Prefix(models.Model):
-    entity = models.ForeignKey(Entity)
-    name = models.CharField('Prefix', primary_key=True, max_length=20)
-    ituz = models.PositiveSmallIntegerField('ITU Zone')
-    cqz = models.PositiveSmallIntegerField('CQ Zone')
-    full_callsign = models.BooleanField('Full callsign', default=False)
-
-    class Meta:
-        verbose_name = "Prefix"
-        verbose_name_plural = "Prefixes"
-
-    def __unicode__(self):
-        return "Prefix %s (%s): ITU:%d CQ: %d [Full: %s]" % (
-            self.name,
-            self.entity.name,
-            self.ituz,
-            self.cqz,
-            str(self.full_callsign),
-        )

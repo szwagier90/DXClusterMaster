@@ -62,6 +62,7 @@ class AdiLogParser:
         function_dictionary = {
             'BAND': None,
             'CALL': None,
+            'COUNTRY': None,
             'CQZ': int,
             'CREDIT_GRANTED': self.ascii_to_credits,
             'DXCC': int,
@@ -69,6 +70,7 @@ class AdiLogParser:
             'GRIDSQUARE': None,
             'ITUZ': int,
             'MODE': None,
+            'PFX': None,
             'QSL_RCVD': self.ascii_to_bool,
             'QSO_DATE': self.ascii_to_date,
             'RST_RCVD': None,
