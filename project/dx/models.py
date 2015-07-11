@@ -122,3 +122,17 @@ class QSO(models.Model):
 
     def is_confirmed(self):
         return self.qsl_confirmed or self.eqsl_confirmed or self.lotw_confirmed
+
+class OperatorConfirmedPrefix(models.Model):
+    operator = models.ForeignKey(Operator)
+    prefix = models.ForeignKey(Prefix)
+
+    class Meta:
+        verbose_name = "OperatorConfirmedPrefix"
+        verbose_name_plural = "OperatorConfirmedPrefixes"
+
+    def __unicode__(self):
+        return '%s ## %s' % (
+            self.operator.callsign,
+            self.prefix.name,
+        )
