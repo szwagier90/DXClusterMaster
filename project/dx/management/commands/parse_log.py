@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 
 from AdiLogParser import AdiLogParser
 
-from dx.models import Operator, Prefix, QSO
+from dx.models import Operator, Prefix, QSO, FileProcessingProgress
 
 from django.db import IntegrityError
 from drafts import colors
@@ -13,55 +13,67 @@ class LogEntryError(Exception):
 class Command(BaseCommand):
     def handle(self, *args, **options):
         adi = AdiLogParser(args[0])
+        try:
+            operator = Operator.objects.get(user__username=args[1])
 
-        operator = Operator.objects.get(user__username=args[1])
+            fpp = FileProcessingProgress.objects.create(
+                operator=operator,
+                goal=len(adi.parsed_records),
+            )
 
-        for record in adi.parsed_records:
-            try:
-                prefix = self.get_or_create_prefix(record)
+            for progress, record in enumerate(adi.parsed_records):
+                fpp.progress = progress
+                fpp.save()
 
-                call = self.read_key_from_record('CALL', record)
-                date = self.read_key_from_record('DATE', record)
-                band = self.read_key_from_record('BAND', record)
-                frequency = self.read_key_from_record('FREQ', record)
-                locator = self.read_key_from_record('GRIDSQUARE', record)
-                mode = self.read_key_from_record('MODE', record)
-                rst_sent = self.read_key_from_record('RST_SENT', record)
-                rst_received = self.read_key_from_record('RST_RCVD', record)
-                qsl_confirmed = self.read_key_from_record('QSL_RCVD', record)
-                eqsl_confirmed = self.read_key_from_record('eQSL_QSL_RCVD', record)
-                lotw_confirmed = self.read_key_from_record('LOTW_QSL_RCVD', record)
+                try:
+                    prefix = self.get_or_create_prefix(record)
 
-                qso, created = QSO.objects.get_or_create(
-                    call=call,
-                    date=date,
-                    band=band,
-                    frequency=frequency,
-                    locator=locator,
-                    mode=mode,
-                    defaults={
-                        'operator': operator,
-                        'prefix': prefix,
-                        'rst_sent': rst_sent,
-                        'rst_received': rst_received,
-                        'qsl_confirmed': qsl_confirmed,
-                        'eqsl_confirmed': eqsl_confirmed,
-                        'lotw_confirmed': lotw_confirmed,
-                    }
-                )
+                    call = self.read_key_from_record('CALL', record)
+                    date = self.read_key_from_record('DATE', record)
+                    band = self.read_key_from_record('BAND', record)
+                    frequency = self.read_key_from_record('FREQ', record)
+                    locator = self.read_key_from_record('GRIDSQUARE', record)
+                    mode = self.read_key_from_record('MODE', record)
+                    rst_sent = self.read_key_from_record('RST_SENT', record)
+                    rst_received = self.read_key_from_record('RST_RCVD', record)
+                    qsl_confirmed = self.read_key_from_record('QSL_RCVD', record)
+                    eqsl_confirmed = self.read_key_from_record('eQSL_QSL_RCVD', record)
+                    lotw_confirmed = self.read_key_from_record('LOTW_QSL_RCVD', record)
 
-                if not created:
-                    qso.qsl_confirmed = qsl_confirmed
-                    qso.eqsl_confirmed = eqsl_confirmed
-                    qso.lotw_confirmed = lotw_confirmed
-                    qso.save()
+                    qso, created = QSO.objects.get_or_create(
+                        call=call,
+                        date=date,
+                        band=band,
+                        frequency=frequency,
+                        locator=locator,
+                        mode=mode,
+                        defaults={
+                            'operator': operator,
+                            'prefix': prefix,
+                            'rst_sent': rst_sent,
+                            'rst_received': rst_received,
+                            'qsl_confirmed': qsl_confirmed,
+                            'eqsl_confirmed': eqsl_confirmed,
+                            'lotw_confirmed': lotw_confirmed,
+                        }
+                    )
 
-            except IntegrityError:
-                print "IntegrityError"
-                continue
-            except LogEntryError:
-                print colors.magenta("LogEntryError!")
-                print colors.cyan(record)
+                    if not created:
+                        qso.qsl_confirmed = qsl_confirmed
+                        qso.eqsl_confirmed = eqsl_confirmed
+                        qso.lotw_confirmed = lotw_confirmed
+                        qso.save()
+
+                except IntegrityError:
+                    print "IntegrityError"
+                    continue
+                except LogEntryError:
+                    print colors.magenta("LogEntryError!")
+                    print colors.cyan(record)
+
+            fpp.delete()
+        except Operator.DoesNotExist:
+            print "User %s does not have an Operator's account" % args[1]
 
     def get_or_create_prefix(self, record):
         prefix = None

@@ -136,3 +136,15 @@ class OperatorConfirmedPrefix(models.Model):
             self.operator.callsign,
             self.prefix.name,
         )
+
+class FileProcessingProgress(models.Model):
+    operator = models.ForeignKey(Operator)
+    progress = models.PositiveIntegerField(default=0)
+    goal = models.PositiveIntegerField()
+
+    def __unicode__(self):
+        return "Operator: %s - %d/%d" % (
+            self.operator.callsign,
+            self.progress,
+            self.goal,
+        )
