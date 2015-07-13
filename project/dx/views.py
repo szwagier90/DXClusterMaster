@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-from models import Spot, Operator, Entity, Prefix, QSO
+from models import Spot, Operator, Entity, Prefix, QSO, FileProcessingProgress
 from forms import LogUploadForm, ProfileForm
 
 from tempfile import NamedTemporaryFile
@@ -25,6 +25,18 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['ten_recent_spots'] = Spot.objects.order_by('-id')[:10]
+
+        try:
+            operator = Operator.objects.get(user__username=self.request.user)
+            progress = FileProcessingProgress.objects.get(operator=operator)
+            print progress
+            context['progress'] = progress
+        except Operator.DoesNotExist:
+            context['progress'] = 'NoOP'
+        except FileProcessingProgress.DoesNotExist:
+            print 'No progress'
+            context['progress'] = "NULL"
+
         return context
 
 class RegisterView(FormView):
@@ -64,14 +76,12 @@ class OperatorView(DetailView):
     model = Operator
 
     def get_object(self, queryset=None):
-        q = QSO.objects.filter(operator=Operator.objects.get(user__username=self.request.user))
-        print q[:10]
         obj = Operator.objects.get(user__username=self.request.user)
         return obj
 
 class OperatorEdit(UpdateView):
     model = Operator
-    fields = ['callsign',  'locator']
+    fields = ['callsign', 'locator']
     success_url = reverse_lazy('operator')
 
     def get_object(self, queryset=None):
