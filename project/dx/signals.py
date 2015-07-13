@@ -3,12 +3,10 @@ from django.dispatch import receiver
 
 from dx.models import Operator, Prefix, QSO, OperatorConfirmedPrefix
 
-from drafts import colors
- 
 @receiver(post_save, sender=QSO)
 def add_confirmed_qso(sender, **kwargs):
     instance = kwargs['instance']
-    
+
     if instance.is_confirmed():
         prefix = instance.prefix
         operator = instance.operator
