@@ -55,6 +55,18 @@ class Entity(models.Model):
     def __unicode__(self):
         return "%d: %s" % (self.id, self.name)
 
+class Band(models.Model):
+    name = models.CharField('Band', max_length=10)
+    start_frequency = models.FloatField()
+    end_frequency = models.FloatField()
+
+    class Meta:
+        verbose_name = "Band"
+        verbose_name_plural = "Bands"
+
+    def __unicode__(self):
+        return "%s" % self.name
+
 class Prefix(models.Model):
     entity = models.ForeignKey(Entity)
     name = models.CharField('Prefix', primary_key=True, max_length=20)
@@ -82,7 +94,7 @@ class QSO(models.Model):
     prefix = models.ForeignKey(Prefix)
 
     date = models.DateTimeField(null=True)
-    band = models.CharField(max_length=6)
+    band = models.ForeignKey(Band)
     frequency = models.FloatField('Frequency [MHz]', null=True)
     locator = models.CharField(max_length=10, null=True)
     mode = models.CharField(max_length=5, null=True)
@@ -148,3 +160,17 @@ class FileProcessingProgress(models.Model):
             self.progress,
             self.goal,
         )
+
+class Filter(models.Model):
+    operator = models.OneToOneField(Operator)
+    bands = models.ManyToManyField(Band)
+    show_qsl_confirmed = models.BooleanField(default=True)
+    show_eqsl_confirmed = models.BooleanField(default=True)
+    show_lotw_confirmed = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Filter"
+        verbose_name_plural = "Filters"
+
+    def __unicode__(self):
+        return "Filter"

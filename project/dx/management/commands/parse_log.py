@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 
 from AdiLogParser import AdiLogParser
 
-from dx.models import Operator, Prefix, QSO, FileProcessingProgress
+from dx.models import Operator, Band, Prefix, QSO, FileProcessingProgress
 
 from django.db import IntegrityError
 from drafts import colors
@@ -30,7 +30,9 @@ class Command(BaseCommand):
 
                     call = self.read_key_from_record('CALL', record)
                     date = self.read_key_from_record('DATE', record)
-                    band = self.read_key_from_record('BAND', record)
+
+                    band = self.get_or_create_band(record)
+
                     frequency = self.read_key_from_record('FREQ', record)
                     locator = self.read_key_from_record('GRIDSQUARE', record)
                     mode = self.read_key_from_record('MODE', record)
@@ -71,9 +73,10 @@ class Command(BaseCommand):
                     print colors.magenta("LogEntryError!")
                     print colors.cyan(record)
 
-            fpp.delete()
         except Operator.DoesNotExist:
             print "User %s does not have an Operator's account" % args[1]
+        finally:
+            fpp.delete()
 
     def get_or_create_prefix(self, record):
         prefix = None
@@ -84,6 +87,11 @@ class Command(BaseCommand):
         except Prefix.DoesNotExist:
             prefix = self.match_prefix(record)
         return prefix
+
+    def get_or_create_band(self, record):
+        band_name = self.read_key_from_record('BAND', record)
+        band, created = Band.objects.get_or_create(name=band_name)
+        return band
 
     def match_prefix(self, record):
         prefix = None
