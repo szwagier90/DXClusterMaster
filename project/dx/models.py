@@ -172,5 +172,16 @@ class Filter(models.Model):
         verbose_name = "Filter"
         verbose_name_plural = "Filters"
 
+    def initialize(self, operator):
+        self.operator = operator
+        self.show_qsl_confirmed = True
+        self.show_eqsl_confirmed = True
+        self.show_lotw_confirmed = True
+
     def __unicode__(self):
-        return "Filter"
+        return "%s \nqsl-%s eqsl-%s lotw-%s" % (
+            '\n'.join([b.name for b in self.bands.all()]),
+            self.show_qsl_confirmed,
+            self.show_eqsl_confirmed,
+            self.show_lotw_confirmed,
+        )
