@@ -26,9 +26,9 @@ while True:
         new_spot = None
         d = None
         try:
-            print >> sys.stderr, "Connecting..."
+            #print >> sys.stderr, "Connecting..."
             d = DXClusterReader(timeout=60)
-            print >> sys.stderr, "Connected!"
+            #print >> sys.stderr, "Connected!"
             while True:
                 print "Awaiting a new spot"
                 new_spot = d.get_next_spot()
