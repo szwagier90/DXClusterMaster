@@ -8,9 +8,9 @@
                 <h4 class="text-center">Dane operatora użytkownika <b>{{ user.username }}</b></h4>
             </div>
             <div style="padding-top:15px" class="panel-body" >
-	            <p><b>Znak wywoławczy:</b> {{ object.callsign|upper }}</p>
-	            <p><b>Locator:</b> {{ object.locator|upper }}</p>
-	                <a class="btn btn-primary" href="{% url 'operator_edit' %}" role="button">Edytuj dane operatora</a>
+                <p><b>Znak wywoławczy:</b> {{ object.callsign|upper }}</p>
+                <p><b>Locator:</b> {{ object.locator|upper }}</p>
+                    <a class="btn btn-primary" href="{% url 'operator_edit' %}" role="button">Edytuj dane operatora</a>
             </div>
         </div>
     </div>
