@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 from models import Spot, Operator, Entity, Band, Prefix, QSO, FileProcessingProgress, Filter
-from forms import LogUploadForm
+from forms import LogUploadForm, ProfileEditForm
 
 from tempfile import NamedTemporaryFile
 
@@ -175,6 +175,7 @@ class ProfileEdit(UpdateView):
     model = User
     fields = ['first_name', 'last_name', 'email']
     success_url = reverse_lazy('profile')
+    form_class = ProfileEditForm
 
     def get_object(self, queryset=None):
         obj = User.objects.get(username=self.request.user)
