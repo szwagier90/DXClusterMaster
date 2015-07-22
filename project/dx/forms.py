@@ -1,4 +1,4 @@
 from django import forms
 
 class LogUploadForm(forms.Form):
-    file = forms.FileField(label='Plik', widget=forms.FileInput(attrs={'class': "form-control"}))
+    file = forms.FileField(label='Plik .adi', widget=forms.FileInput())
