@@ -1,4 +1,18 @@
-<h1>{{ object.callsign }}</h1>
-<p>Locator: {{ object.locator }}</p>
+{% extends "dx/base.html" %}
 
-<a href="{% url 'operator_edit' %}">Edit</a>
+{% block content %}
+<div class="container">
+    <div style="margin-top:50px;" class="mainbox col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="text-center">Dane operatora użytkownika <b>{{ user.username }}</b></h4>
+            </div>
+            <div style="padding-top:15px" class="panel-body" >
+	            <p><b>Znak wywoławczy:</b> {{ object.callsign|upper }}</p>
+	            <p><b>Locator:</b> {{ object.locator|upper }}</p>
+	                <a class="btn btn-primary" href="{% url 'operator_edit' %}" role="button">Edytuj dane operatora</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
