@@ -1,10 +1,32 @@
-<h1>{{ object.operator }}</h1>
-<p>Bands:<br />
-{% for o in object.bands.all %}
-{{ o }} <br />
-{% endfor %}</p>
-show qsl: {{ object.show_qsl_confirmed }}
-show eqsl: {{ object.show_eqsl_confirmed }}
-show lotw: {{ object.show_lotw_confirmed }}
+{% extends "dx/base.html" %}
 
-<a href="{% url 'filter_edit' %}">Edit</a>
+{% block content %}
+<div class="container">
+    <div style="margin-top:50px;" class="mainbox col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="text-center">Filtr operatora <b>{{ object.operator.callsign|upper }}</b></h4>
+            </div>
+            <div style="padding-top:15px" class="panel-body" >
+            <p>
+				<b>Wybrane pasma:</b><br />
+				-
+				{% for o in object.bands.all %}
+					{{ o }} {% if not forloop.last %} | {% endif %}
+				{% endfor %}
+				-
+				<br />
+			</p>
+			<p>
+				<b>Wyróżniać łączności potwierdzone przez:</b><br />
+				QSL: {% if object.show_qsl_confirmed %}Tak{% else %}Nie{% endif %}<br />
+				eQSL: {% if object.show_eqsl_confirmed %}Tak{% else %}Nie{% endif %}<br />
+				LOTW: {% if object.show_lotw_confirmed %}Tak{% else %}Nie{% endif %}<br />
+			</p>
+				<a class="btn btn-primary" href="{% url 'filter_edit' %}" role="button">Edytuj filtr</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
