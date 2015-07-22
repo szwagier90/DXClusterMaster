@@ -9,21 +9,21 @@
             </div>
             <div style="padding-top:15px" class="panel-body" >
             <p>
-				<b>Wybrane pasma:</b><br />
-				-
-				{% for o in object.bands.all %}
-					{{ o }} {% if not forloop.last %} | {% endif %}
-				{% endfor %}
-				-
-				<br />
-			</p>
-			<p>
-				<b>Wyróżniać łączności potwierdzone przez:</b><br />
-				QSL: {% if object.show_qsl_confirmed %}Tak{% else %}Nie{% endif %}<br />
-				eQSL: {% if object.show_eqsl_confirmed %}Tak{% else %}Nie{% endif %}<br />
-				LOTW: {% if object.show_lotw_confirmed %}Tak{% else %}Nie{% endif %}<br />
-			</p>
-				<a class="btn btn-primary" href="{% url 'filter_edit' %}" role="button">Edytuj filtr</a>
+                <b>Wybrane pasma:</b><br />
+                -
+                {% for o in object.bands.all %}
+                    {{ o }} {% if not forloop.last %} | {% endif %}
+                {% endfor %}
+                -
+                <br />
+            </p>
+            <p>
+                <b>Wyróżniać łączności potwierdzone przez:</b><br />
+                QSL: {% if object.show_qsl_confirmed %}Tak{% else %}Nie{% endif %}<br />
+                eQSL: {% if object.show_eqsl_confirmed %}Tak{% else %}Nie{% endif %}<br />
+                LOTW: {% if object.show_lotw_confirmed %}Tak{% else %}Nie{% endif %}<br />
+            </p>
+                <a class="btn btn-primary" href="{% url 'filter_edit' %}" role="button">Edytuj filtr</a>
             </div>
         </div>
     </div>
