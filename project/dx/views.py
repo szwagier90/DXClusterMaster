@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 from models import Spot, Operator, Entity, Band, Prefix, QSO, FileProcessingProgress, Filter
-from forms import LogUploadForm, ProfileEditForm
+from forms import LogUploadForm, ProfileEditForm, OperatorEditForm
 
 from tempfile import NamedTemporaryFile
 
@@ -192,6 +192,7 @@ class OperatorEdit(UpdateView):
     model = Operator
     fields = ['callsign', 'locator']
     success_url = reverse_lazy('operator')
+    form_class = OperatorEditForm
 
     def get_object(self, queryset=None):
         obj = Operator.objects.get(user__username=self.request.user)
