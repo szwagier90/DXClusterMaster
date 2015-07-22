@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th class="col-md-1 text-center">DX de</th>
-                                <th class="col-md-1 text-center">Freq</th>
+                                <th class="col-md-1 text-center">Freq [kHz]</th>
                                 <th class="col-md-1 text-center">DX</th>
                                 <th class="col-md-4 text-center">Comments</th>
                                 <th class="col-md-1 text-center">UTC</th>
@@ -32,12 +32,36 @@
                         <tbody>
             {% for record in ten_recent_spots %}
                             <tr>
-                                <td><p class="text-left">{{ record.spotter }}</p></td>
-                                <td><p class="text-right">{{ record.frequency }}</p></td>
-                                <td><p class="text-left"><strong>{{ record.station }}</strong></p></td>
-                                <td><p class="text-left">{{ record.comment }}</p></td>
-                                <td><p class="text-center">{{ record.time|date:"H:i" }}</p></td>
-                                <td><p class="text-center">{{ record.locator }}</p></td>
+                            {% if record.interesting %}
+                                <td class="success"><p class="text-left">{{ record.spot.spotter }}</p></td>
+                            {% else %}
+                                <td><p class="text-left">{{ record.spot.spotter }}</p></td>
+                            {% endif %}
+                            {% if record.interesting %}
+                                <td class="success"><p class="text-right">{{ record.spot.frequency }}</p></td>
+                            {% else %}
+                                <td><p class="text-right">{{ record.spot.frequency }}</p></td>
+                            {% endif %}
+                            {% if record.interesting %}
+                                <td class="success"><p class="text-left"><strong>{{ record.spot.station }}</strong></p></td>
+                            {% else %}
+                                <td><p class="text-left"><strong>{{ record.spot.station }}</strong></p></td>
+                            {% endif %}
+                            {% if record.interesting %}
+                                <td class="success"><p class="text-left">{{ record.spot.comment }}</p></td>
+                            {% else %}
+                                <td><p class="text-left">{{ record.spot.comment }}</p></td>
+                            {% endif %}
+                            {% if record.interesting %}
+                                <td class="success"><p class="text-center">{{ record.spot.time|date:"H:i" }}</p></td>
+                            {% else %}
+                                <td><p class="text-center">{{ record.spot.time|date:"H:i" }}</p></td>
+                            {% endif %}
+                            {% if record.interesting %}
+                                <td class="success"><p class="text-center">{{ record.spot.locator }}</p></td>
+                            {% else %}
+                                <td><p class="text-center">{{ record.spot.locator }}</p></td>
+                            {% endif %}
                             </tr>
             {% endfor %}
                         </tbody>

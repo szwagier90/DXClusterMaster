@@ -1,0 +1,10 @@
+<h1>{{ object.operator }}</h1>
+<p>Bands:<br />
+{% for o in object.bands.all %}
+{{ o }} <br />
+{% endfor %}</p>
+show qsl: {{ object.show_qsl_confirmed }}
+show eqsl: {{ object.show_eqsl_confirmed }}
+show lotw: {{ object.show_lotw_confirmed }}
+
+<a href="{% url 'filter_edit' %}">Edit</a>
