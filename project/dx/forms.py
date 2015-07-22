@@ -25,3 +25,17 @@ class OperatorEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['callsign', 'locator']
+
+class FilterEditForm(forms.ModelForm):
+    bands = forms.ModelMultipleChoiceField(
+                queryset=Band.objects.all().order_by('start_frequency'),
+                label=u'Pasma',
+                widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+            )
+    show_qsl_confirmed = forms.BooleanField(label=u'QSL', required=False, widget=forms.CheckboxInput(attrs={'class': 'form-control'}))
+    show_eqsl_confirmed = forms.BooleanField(label=u'eQSL', required=False, widget=forms.CheckboxInput(attrs={'class': 'form-control'}))
+    show_lotw_confirmed = forms.BooleanField(label=u'LOTW', required=False, widget=forms.CheckboxInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Filter
+        fields = ['bands', 'show_qsl_confirmed', 'show_eqsl_confirmed', 'show_lotw_confirmed']

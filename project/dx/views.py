@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 from models import Spot, Operator, Entity, Band, Prefix, QSO, FileProcessingProgress, Filter
-from forms import LogUploadForm, ProfileEditForm, OperatorEditForm
+from forms import LogUploadForm, ProfileEditForm, OperatorEditForm, FilterEditForm
 
 from tempfile import NamedTemporaryFile
 
@@ -158,6 +158,7 @@ class FilterEditView(UpdateView):
     model = Filter
     fields = ['bands', 'show_qsl_confirmed', 'show_eqsl_confirmed', 'show_lotw_confirmed']
     success_url = reverse_lazy('filter')
+    form_class = FilterEditForm
 
     def get_object(self, queryset=None):
         operator = Operator.objects.get(user__username=self.request.user)
