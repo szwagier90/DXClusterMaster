@@ -7,7 +7,7 @@
             <div class="container">
                 <h1>DX Master Advisor</h1>
                 <p><strong>Dodaj</strong> swój log<br />
-                <strong>Dowiedz się</strong> kiedy słuchać aby usłyszeć<br />
+                <strong>Dowiedz się</strong> kogo złapać na falach<br />
             {% if not user.is_authenticated %}  
                 <p><a href="{% url 'register' %}" class="btn btn-primary btn-lg" role="button">Zarejestruj się... &raquo;</a></p>
             {% endif %}
@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h4><center>Ostatnio dodane przejazdy # Progress: {{ progress }}</center></h4>
+                    <h4><center><b>Najnowsze Spoty</b></center></h4>
                     <table class="table table-bordered table-condensed table-striped">
                         <thead>
                             <tr>
@@ -70,5 +70,5 @@
                 </div>
             </div>
         </div>
-
+ # Progress: {{ progress }}
 {% endblock content %}
