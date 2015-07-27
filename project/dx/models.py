@@ -96,7 +96,7 @@ class QSO(models.Model):
     date = models.DateTimeField(null=True)
     band = models.ForeignKey(Band)
     frequency = models.FloatField('Frequency [MHz]', null=True)
-    locator = models.CharField(max_length=10, null=True)
+    locator = models.CharField(max_length=10, null=True, blank=True)
     mode = models.CharField(max_length=5, null=True)
     rst_sent = models.CharField('RST Sent', max_length=3, null=True)
     rst_received = models.CharField('RST Received', max_length=3, null=True)
