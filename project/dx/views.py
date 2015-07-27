@@ -93,24 +93,51 @@ class IndexView(TemplateView):
                 except Prefix.DoesNotExist:
                     continue
 
-        print colors.green(prefix)
-        print colors.light_blue(prefix.entity)
+        filtered_spot['entity_name'] = prefix.entity.name
         all_entity_prefixes = Prefix.objects.filter(entity=prefix.entity)
-        print colors.light_red(all_entity_prefixes)
-        print colors.light_red(len(all_entity_prefixes))
-
-        print colors.yellow(filter)
 
         qsos = QSO.objects.filter(operator=operator).filter(prefix__in=all_entity_prefixes)
-        print colors.light_green(qsos)
-        print colors.light_green(len(qsos))
 
-        if band_is_interesting and True:
+        not_confirmed = []
+        if filter.show_qsl_confirmed:
+            qsl_confirmed_qsos = qsos.filter(qsl_confirmed=True)
+            if qsl_confirmed_qsos:
+                not_confirmed.append(False)
+            else:
+                not_confirmed.append(True)
+        else:
+            not_confirmed.append(False)
+
+        if filter.show_eqsl_confirmed:
+            eqsl_confirmed_qsos = qsos.filter(eqsl_confirmed=True)
+            if eqsl_confirmed_qsos:
+                not_confirmed.append(False)
+            else:
+                not_confirmed.append(True)
+        else:
+            not_confirmed.append(False)
+
+        if filter.show_lotw_confirmed:
+            lotw_confirmed_qsos = qsos.filter(lotw_confirmed=True)
+            if lotw_confirmed_qsos:
+                not_confirmed.append(False)
+            else:
+                not_confirmed.append(True)
+        else:
+            not_confirmed.append(False)
+
+        if True in not_confirmed:
+            spot_is_interesting = True
+        else:
+            spot_is_interesting = False
+
+        if band_is_interesting and spot_is_interesting:
             filtered_spot['interesting'] = True
         else:
             filtered_spot['interesting'] = False
 
         filtered_spot['spot'] = spot
+
         return filtered_spot
 
 class RegisterView(FormView):
@@ -202,7 +229,7 @@ class OperatorEdit(UpdateView):
 class LogUploadView(FormView):
     template_name = 'dx/upload.html'
     form_class = LogUploadForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('upload')
 
     def form_valid(self, form):
         self.handle_uploaded_file(self.request.FILES['file'])
