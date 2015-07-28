@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, url
 
 from django.contrib.auth.views import login
-
 from django.contrib.auth.decorators import login_required
 
 from dx import views
@@ -19,6 +18,6 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('django.contrib.auth.views',
-	url(r'^accounts/login/$', 'login', {'template_name': 'dx/login.html'}, name='login'),
-	url(r'^accounts/logout/$', 'logout', {'next_page': '/'}, name='logout'),
+    url(r'^accounts/login/$', 'login', {'template_name': 'dx/login.html'}, name='login'),
+    url(r'^accounts/logout/$', 'logout', {'next_page': '/'}, name='logout'),
 )
