@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load dajaxice_templatetags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +21,7 @@
             }
         </style>        
 {% block style %}{% endblock %}
+{% dajaxice_js_import %}
         <script src="{% static "/static/js/jquery-2.1.4.min.js" %}"></script>
     </head>
 
