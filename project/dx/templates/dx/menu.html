@@ -9,6 +9,6 @@
                         <li{% ifequal request.path register_url %} class="active"{% endifequal %}><a href="{% url 'register' %}">Zarejestruj</a></li>
 {% else %}
                         <li{% ifequal request.path upload_url %} class="active"{% endifequal %}><a href="{% url 'upload' %}">Dodaj log</a></li>
-                        <li{% ifequal request.path upload_url %} class="active"{% endifequal %}><a href="{% url 'filter' %}">Filtr</a></li>
+                        <li{% ifequal request.path filter_url %} class="active"{% endifequal %}><a href="{% url 'filter' %}">Filtr</a></li>
 {% endif %}
                     </ul>
