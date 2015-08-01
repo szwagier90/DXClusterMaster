@@ -1,4 +1,37 @@
 {% extends "dx/base.html" %}
+{% load staticfiles %}
+
+{% block ajax %}
+{% if processing %}
+    <script src="{% static '/static/js/jquery-2.1.4.min.js' %}"></script>
+    <script>
+        function callback(data){
+            alert(data.message);
+        }
+
+        $(document).ready(function() {
+            var interval = setInterval(function(){
+                $.getJSON('{% url "progress" %}', function(data){
+                    var $progressbar = $('.progress-bar');
+                    if (data.finished) {
+                        $progressbar.attr('style', function(){
+                            return 'width: ' + 100 + '%';
+                        });
+                        $progressbar.removeClass('progress-bar-info');
+                        $progressbar.addClass('progress-bar-success');
+                        clearInterval(interval);
+                    }
+                    else{
+                        $progressbar.attr('style', function(){
+                            return 'width: ' + data.width + '%';
+                        });
+                    }
+                });
+            }, 5000)
+        })
+    </script>
+{% endif %}
+{% endblock ajax %}
 
 {% block content %}
 <div class="container">
@@ -8,10 +41,17 @@
                 <h4>Dodaj swój log</h4>
             </div>
             <div style="padding-top:15px" class="panel-body" >
+{% if not processing %}
                 <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary">Dodaj</button>
                 </form>
+{% else %}
+                <p class="text-center">Przetwarzanie pliku</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" style="width: 0%"></div>
+                </div>
+{% endif %}
             </div>
         </div>
     </div>

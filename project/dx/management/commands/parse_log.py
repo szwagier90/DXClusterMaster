@@ -77,6 +77,7 @@ class Command(BaseCommand):
             print "User %s does not have an Operator's account" % args[1]
         finally:
             fpp.delete()
+            fpp = FileProcessingProgress.objects.filter(operator=operator).delete()
 
     def get_or_create_prefix(self, record):
         prefix = None

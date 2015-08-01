@@ -21,8 +21,9 @@
             }
         </style>        
 {% block style %}{% endblock %}
+
 {% dajaxice_js_import %}
-        <script src="{% static "/static/js/jquery-2.1.4.min.js" %}"></script>
+{% block ajax %}{% endblock ajax %}
     </head>
 
     <body {% block body_mod %}{% endblock %}>
@@ -44,7 +45,6 @@
 
 {% block content %} 
 {% endblock content %}
-
         <div class="container">
           <hr>
           <footer>

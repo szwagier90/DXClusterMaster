@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from django.views.generic.base import TemplateView
@@ -231,9 +231,24 @@ class LogUploadView(FormView):
     form_class = LogUploadForm
     success_url = reverse_lazy('upload')
 
-    def form_valid(self, form):
+    def get_context_data(self, **kwargs):
+        context = super(LogUploadView, self).get_context_data(**kwargs)
+
+        operator = Operator.objects.get(user__username=self.request.user)
+        try:
+            fpp = FileProcessingProgress.objects.get(operator=operator)
+        except FileProcessingProgress.DoesNotExist:
+            pass
+        except FileProcessingProgress.MultipleObjectsReturned:
+            pass
+        else:
+            context = {'processing': True}
+
+        return context
+
+    def form_valid(self, form, **kwargs):
         self.handle_uploaded_file(self.request.FILES['file'])
-        return super(LogUploadView, self).form_valid(form)
+        return render(self.request, self.template_name, {'processing': True})
 
     def handle_uploaded_file(self, f):
         temp_file = NamedTemporaryFile(delete=False)
@@ -248,3 +263,15 @@ class LogUploadView(FormView):
             # stdout=subprocess.PIPE,
             # stderr=subprocess.STDOUT,
         )
+
+def progress(request):
+    operator = Operator.objects.get(user__username=request.user)
+    try:
+        fpp = FileProcessingProgress.objects.get(operator=operator)
+    except FileProcessingProgress.DoesNotExist:
+        return JsonResponse({'finished': True})
+    except FileProcessingProgress.MultipleObjectsReturned:
+        fpp = FileProcessingProgress.filter.get(operator=operator).order_by('-id')[0]
+        FileProcessingProgress.filter.get(operator=operator).order_by('-id')[1:].delete()
+    progress = 100*fpp.progress/fpp.goal
+    return JsonResponse({'finished': False, 'width': progress})
