@@ -242,7 +242,8 @@ class LogUploadView(FormView):
         except FileProcessingProgress.MultipleObjectsReturned:
             pass
         else:
-            context = {'processing': True}
+            progress = 100*fpp.progress/fpp.goal
+            context = {'processing': True, 'width': progress}
 
         return context
 
