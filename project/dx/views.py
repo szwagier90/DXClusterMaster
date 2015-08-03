@@ -133,14 +133,7 @@ class IndexView(TemplateView):
         else:
             spots = [filter_spot(spot, operator) for spot in ten_recent_spots]
 
-        for spot in spots:
-            if spot['interesting'] == True:
-                print colors.green(spot['spot'])
-            else:
-                print colors.red(spot['spot'])
-
         context['ten_recent_spots'] = spots
-        print ten_recent_spots[0].id
         context['last_id'] = ten_recent_spots[0].id
 
         return context
@@ -301,12 +294,11 @@ def new_spot(request):
     try:
         operator = Operator.objects.get(user__username=request.user)
         spot = filter_spot(last_spot, operator)
-        print spot
     except Operator.DoesNotExist:
         print "OPERATOR DOES NOT EXIST"
         print spot
 
-    spot_html = render_to_string(template_name, {'spot': spot})
-    print colors.cyan(spot_html)
+    print spot["interesting"]
+    spot_html = render_to_string(template_name, {'spot': spot['spot']})
 
-    return JsonResponse({'id': id, 'spot': spot_html})
+    return JsonResponse({'id': id, 'interesting': spot['interesting'], 'spot': spot_html})

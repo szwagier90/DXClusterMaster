@@ -16,6 +16,13 @@
                     document.getElementById('spots').tBodies[0].deleteRow(rows_count-1);
                     var new_row = document.getElementById('spots').tBodies[0].insertRow(0);
                     new_row.innerHTML = data.spot;
+
+                    if (data.interesting){
+                        new_row.className = 'success';
+                    };
+                },
+                fail: function(){
+                    last_id += 1;
                 },
                 dataType: "json",
                 complete: poll,
@@ -58,37 +65,13 @@
                         </thead>
                         <tbody>
             {% for record in ten_recent_spots %}
-                            <tr>
-                            {% if record.interesting %}
-                                <td class="success"><p class="text-left">{{ record.spot.spotter }}</p></td>
-                            {% else %}
+                            <tr{% if record.interesting %} class="success"{% endif %}>
                                 <td><p class="text-left">{{ record.spot.spotter }}</p></td>
-                            {% endif %}
-                            {% if record.interesting %}
-                                <td class="success"><p class="text-right">{{ record.spot.frequency }}</p></td>
-                            {% else %}
                                 <td><p class="text-right">{{ record.spot.frequency }}</p></td>
-                            {% endif %}
-                            {% if record.interesting %}
-                                <td class="success"><p class="text-left"><strong>{{ record.spot.station }}</strong></p></td>
-                            {% else %}
                                 <td><p class="text-left"><strong>{{ record.spot.station }}</strong></p></td>
-                            {% endif %}
-                            {% if record.interesting %}
-                                <td class="success"><p class="text-left">{{ record.spot.comment }}</p></td>
-                            {% else %}
                                 <td><p class="text-left">{{ record.spot.comment }}</p></td>
-                            {% endif %}
-                            {% if record.interesting %}
-                                <td class="success"><p class="text-center">{{ record.spot.time|date:"H:i" }}</p></td>
-                            {% else %}
                                 <td><p class="text-center">{{ record.spot.time|date:"H:i" }}</p></td>
-                            {% endif %}
-                            {% if record.interesting %}
-                                <td class="success"><p class="text-center">{{ record.spot.locator }}</p></td>
-                            {% else %}
                                 <td><p class="text-center">{{ record.spot.locator }}</p></td>
-                            {% endif %}
                             </tr>
             {% endfor %}
                         </tbody>
