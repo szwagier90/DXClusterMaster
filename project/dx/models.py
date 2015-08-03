@@ -174,9 +174,9 @@ class Filter(models.Model):
 
     def initialize(self, operator):
         self.operator = operator
-        self.show_qsl_confirmed = True
-        self.show_eqsl_confirmed = True
-        self.show_lotw_confirmed = True
+        self.show_qsl_confirmed = False
+        self.show_eqsl_confirmed = False
+        self.show_lotw_confirmed = False
 
     def __unicode__(self):
         return "%s \nqsl-%s eqsl-%s lotw-%s" % (
