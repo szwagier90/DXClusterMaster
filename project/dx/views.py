@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
+
 from django.http import HttpResponse, JsonResponse
 from django.core.urlresolvers import reverse, reverse_lazy
 
@@ -18,8 +20,95 @@ from tempfile import NamedTemporaryFile
 
 import sys
 import subprocess
+import time
 
 from drafts import colors
+
+def filter_spot(spot, operator):
+    filtered_spot = {}
+
+    frequency = spot.frequency / 1000
+
+    try:
+        band = Band.objects.get(
+            start_frequency__lte=frequency,
+            end_frequency__gte=frequency,
+        )
+    except Band.DoesNotExist:
+        print 'Frequency.DoesNotExist: %f' % frequency
+        return {'spot': spot, 'interesting': False}
+
+    filter = Filter.objects.get(operator=operator)
+    interesting_bands = filter.bands.all()
+
+    if band.name in [band.name for band in interesting_bands]:
+        band_is_interesting = True
+    else:
+        band_is_interesting = False
+
+    try:
+        prefix = Prefix.objects.get(full_callsign=True, name=spot.station)
+    except Prefix.DoesNotExist:
+        cut = 0
+        prefix = None
+        while not prefix:
+            cut += 1
+            if cut == len(spot.station):
+                return None
+
+            prefix_filter = spot.station[:-cut]
+
+            try:
+                prefix = Prefix.objects.get(name=prefix_filter)
+            except Prefix.DoesNotExist:
+                continue
+
+    filtered_spot['entity_name'] = prefix.entity.name
+    all_entity_prefixes = Prefix.objects.filter(entity=prefix.entity)
+
+    qsos = QSO.objects.filter(operator=operator).filter(prefix__in=all_entity_prefixes)
+
+    not_confirmed = []
+    if filter.show_qsl_confirmed:
+        qsl_confirmed_qsos = qsos.filter(qsl_confirmed=True)
+        if qsl_confirmed_qsos:
+            not_confirmed.append(False)
+        else:
+            not_confirmed.append(True)
+    else:
+        not_confirmed.append(False)
+
+    if filter.show_eqsl_confirmed:
+        eqsl_confirmed_qsos = qsos.filter(eqsl_confirmed=True)
+        if eqsl_confirmed_qsos:
+            not_confirmed.append(False)
+        else:
+            not_confirmed.append(True)
+    else:
+        not_confirmed.append(False)
+
+    if filter.show_lotw_confirmed:
+        lotw_confirmed_qsos = qsos.filter(lotw_confirmed=True)
+        if lotw_confirmed_qsos:
+            not_confirmed.append(False)
+        else:
+            not_confirmed.append(True)
+    else:
+        not_confirmed.append(False)
+
+    if True in not_confirmed:
+        spot_is_interesting = True
+    else:
+        spot_is_interesting = False
+
+    if band_is_interesting and spot_is_interesting:
+        filtered_spot['interesting'] = True
+    else:
+        filtered_spot['interesting'] = False
+
+    filtered_spot['spot'] = spot
+
+    return filtered_spot
 
 class IndexView(TemplateView):
     template_name = 'dx/index.html'
@@ -42,7 +131,7 @@ class IndexView(TemplateView):
             context['progress'] = 'NoOP'
             spots = [{'spot': spot, 'interesting': False} for spot in ten_recent_spots]
         else:
-            spots = [self.filter_spot(spot, operator) for spot in ten_recent_spots]
+            spots = [filter_spot(spot, operator) for spot in ten_recent_spots]
 
         for spot in spots:
             if spot['interesting'] == True:
@@ -51,94 +140,10 @@ class IndexView(TemplateView):
                 print colors.red(spot['spot'])
 
         context['ten_recent_spots'] = spots
+        print ten_recent_spots[0].id
+        context['last_id'] = ten_recent_spots[0].id
 
         return context
-
-    def filter_spot(self, spot, operator):
-        filtered_spot = {}
-
-        frequency = spot.frequency / 1000
-
-        try:
-            band = Band.objects.get(
-                start_frequency__lte=frequency,
-                end_frequency__gte=frequency,
-            )
-        except Band.DoesNotExist:
-            print 'Frequency.DoesNotExist: %f' % frequency
-            return {'spot': spot, 'interesting': False}
-
-        filter = Filter.objects.get(operator=operator)
-        interesting_bands = filter.bands.all()
-
-        if band.name in [band.name for band in interesting_bands]:
-            band_is_interesting = True
-        else:
-            band_is_interesting = False
-
-        try:
-            prefix = Prefix.objects.get(full_callsign=True, name=spot.station)
-        except Prefix.DoesNotExist:
-            cut = 0
-            prefix = None
-            while not prefix:
-                cut += 1
-                if cut == len(spot.station):
-                    raise Prefix.DoesNotExist
-
-                prefix_filter = spot.station[:-cut]
-
-                try:
-                    prefix = Prefix.objects.get(name=prefix_filter)
-                except Prefix.DoesNotExist:
-                    continue
-
-        filtered_spot['entity_name'] = prefix.entity.name
-        all_entity_prefixes = Prefix.objects.filter(entity=prefix.entity)
-
-        qsos = QSO.objects.filter(operator=operator).filter(prefix__in=all_entity_prefixes)
-
-        not_confirmed = []
-        if filter.show_qsl_confirmed:
-            qsl_confirmed_qsos = qsos.filter(qsl_confirmed=True)
-            if qsl_confirmed_qsos:
-                not_confirmed.append(False)
-            else:
-                not_confirmed.append(True)
-        else:
-            not_confirmed.append(False)
-
-        if filter.show_eqsl_confirmed:
-            eqsl_confirmed_qsos = qsos.filter(eqsl_confirmed=True)
-            if eqsl_confirmed_qsos:
-                not_confirmed.append(False)
-            else:
-                not_confirmed.append(True)
-        else:
-            not_confirmed.append(False)
-
-        if filter.show_lotw_confirmed:
-            lotw_confirmed_qsos = qsos.filter(lotw_confirmed=True)
-            if lotw_confirmed_qsos:
-                not_confirmed.append(False)
-            else:
-                not_confirmed.append(True)
-        else:
-            not_confirmed.append(False)
-
-        if True in not_confirmed:
-            spot_is_interesting = True
-        else:
-            spot_is_interesting = False
-
-        if band_is_interesting and spot_is_interesting:
-            filtered_spot['interesting'] = True
-        else:
-            filtered_spot['interesting'] = False
-
-        filtered_spot['spot'] = spot
-
-        return filtered_spot
 
 class RegisterView(FormView):
     template_name = 'dx/register.html'
@@ -276,3 +281,32 @@ def progress(request):
         FileProcessingProgress.filter.get(operator=operator).order_by('-id')[1:].delete()
     progress = 100*fpp.progress/fpp.goal
     return JsonResponse({'finished': False, 'width': progress})
+
+def new_spot(request):
+    template_name = 'dx/spot.html'
+
+    id = int(request.POST.get('id', ''))
+    id += 1
+
+    sleep_time = 5
+
+    while(True):
+        try:
+            time.sleep(sleep_time)
+            last_spot = Spot.objects.get(id=id)
+            break
+        except Spot.DoesNotExist:
+            sleep_time += 1
+
+    try:
+        operator = Operator.objects.get(user__username=request.user)
+        spot = filter_spot(last_spot, operator)
+        print spot
+    except Operator.DoesNotExist:
+        print "OPERATOR DOES NOT EXIST"
+        print spot
+
+    spot_html = render_to_string(template_name, {'spot': spot})
+    print colors.cyan(spot_html)
+
+    return JsonResponse({'id': id, 'spot': spot_html})

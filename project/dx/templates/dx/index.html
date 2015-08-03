@@ -1,6 +1,33 @@
 {% extends 'dx/base.html' %}
+{% load staticfiles %}
 
 {% block title %}Witaj w DX Master Advisor{% endblock title %}
+
+{% block ajax %}
+    <script src="{% static '/static/js/jquery-2.1.4.min.js' %}"></script>
+    <script>
+        var last_id = {{ last_id }};
+
+        $(document).ready(function poll(){
+            $.ajax({ url: '{% url "new_spot" %}',
+                success: function(data){
+                    last_id = data.id;
+                    var rows_count = document.getElementById('spots').tBodies[0].rows.length;
+                    document.getElementById('spots').tBodies[0].deleteRow(rows_count-1);
+                    var new_row = document.getElementById('spots').tBodies[0].insertRow(0);
+                    new_row.innerHTML = data.spot;
+                },
+                dataType: "json",
+                complete: poll,
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    id: last_id
+                },
+                method: "POST"
+            })
+        })
+    </script>
+{% endblock ajax %}
 
 {% block content %}
         <div class="jumbotron">
@@ -18,7 +45,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4><center><b>Najnowsze Spoty</b></center></h4>
-                    <table class="table table-bordered table-condensed table-striped">
+                    <table id="spots" class="table table-bordered table-condensed table-striped">
                         <thead>
                             <tr>
                                 <th class="col-md-1 text-center">DX de</th>
@@ -66,7 +93,6 @@
             {% endfor %}
                         </tbody>
                     </table>
- 
                 </div>
             </div>
         </div>

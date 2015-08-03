@@ -1,0 +1,8 @@
+<tr{% if spot.interesting %} class="success"{% endif %}>
+    <td><p class="text-left">{{ spot.spot.spotter }}</p></td>
+    <td><p class="text-right">{{ spot.spot.frequency }}</p></td>
+    <td><p class="text-left"><strong>{{ spot.spot.station }}</strong></p></td>
+    <td><p class="text-left">{{ spot.spot.comment }}</p></td>
+    <td><p class="text-center">{{ spot.spot.time|date:"H:i" }}</p></td>
+    <td><p class="text-center">{{ spot.spot.locator }}</p></td>
+</tr>

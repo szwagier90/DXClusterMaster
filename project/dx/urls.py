@@ -7,6 +7,7 @@ from dx import views
 
 urlpatterns = patterns('',
     url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^new_spot/$', views.new_spot, name='new_spot'),
     url(r'^upload/$', views.LogUploadView.as_view(), name='upload'),
     url(r'^progress/$', views.progress, name='progress'),
     url(r'^filter/$', views.FilterDetailView.as_view(), name='filter'),
