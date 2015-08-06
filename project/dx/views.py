@@ -294,11 +294,9 @@ def new_spot(request):
     try:
         operator = Operator.objects.get(user__username=request.user)
         spot = filter_spot(last_spot, operator)
+        spot_html = render_to_string(template_name, {'spot': spot['spot']})
+        return JsonResponse({'id': id, 'interesting': spot['interesting'], 'spot': spot_html})
     except Operator.DoesNotExist:
-        print "OPERATOR DOES NOT EXIST"
-        print spot
+        spot_html = render_to_string(template_name, {'spot': last_spot})
+        return JsonResponse({'id': id, 'interesting': False, 'spot': spot_html})
 
-    print spot["interesting"]
-    spot_html = render_to_string(template_name, {'spot': spot['spot']})
-
-    return JsonResponse({'id': id, 'interesting': spot['interesting'], 'spot': spot_html})
