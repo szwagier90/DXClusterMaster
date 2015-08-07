@@ -1,0 +1,57 @@
+\documentclass[]{mgr}
+
+\usepackage{polski}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{wrapfig}
+\usepackage{psfrag}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{listings}
+\usepackage{url}
+
+\title{System ekspertowy dopasowujący wskazania systemu DXCluster do potrzeb użytkowników}
+\engtitle{Expert system for matching DXCluster system to identify the needs of users}
+\author{Paweł Marcin Szwagierek}
+\supervisor{dr inż. Jerzy Greblicki, I-6}
+\date{2015}
+
+\field{Informatyka (INF)}
+\specialisation{Inżynieria internetowa (INT)}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \Huge\bfseries \thechapter.\space%
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother 
+
+\begin{document}
+    \bibliographystyle{plabbrv} 
+    \maketitle
+
+    \tableofcontents
+
+    \chapter{Problematyka amatorskich systemów radiowych}
+    \label{sec:teoretical_description}
+    W pierwszym rozdziale zostaną wprowadzone podstawowe pojęcia z dziedziny krótkofalarstwa, jego możliwości, zakres działań radioamatorów.
+
+    \nocite{*}
+
+\end{document}
