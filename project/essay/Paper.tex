@@ -198,7 +198,7 @@
         Te zasady oczywiście tak samo stosuje się do kart QSL wysyłanych przez nasłuchowców\footnote{SWL (ang. ShortWave Listener, tzw. nasłuchowiec) - dziedzina krótkofalarstwa polegająca na słuchaniu stacji pracujących głosowo lub za pomocą telegrafii. Do pracy jako nasłuchowiec konieczna jest licencja, dzięki której otrzymuje się znak SWL. Daje to możliwość pracy na własne konto. Można dzięki temu wysyłać karty potwierdzenia SWL słyszanym nadawcom. Organizatorzy wielu zawodów dopuszczają udział nasłuchowców prowadząc dla nich oddzielną klasyfikację.}. Oczywiście karta dotycząca nasłuchu musi zawierać znaki wywoławcze obu stacji, a raport RST musi dotyczyć stacji do której wysyłana jest karta.
 
             \subsection{Karty QSL}
-            TODO WSTAWIĆ ZDJĘCIE ALBO KOLAŻ KART QSL
+            TODO WSTAWIĆ ZDJĘCIE ALBO KOLAŻ KART QSL coolqsl.com
 
             Karty QSL są najstarszym sposobem potwierdzenia łączności i ich historia jest tak długa jak historia radia. Początkowo przesyłane do większych stacji nadawczych jako potwierdzenie odbioru sygnału. Następnie po rozpowszechnieniu dwustronnej komunikacji do potwierdzenia łączności pomiędzy dwiema stacjami. Na przestrzeni lat karta zaczęła przybierać formę pocztówek z wypisanymi z jednej strony szczegółami łączności a z drugiej strony specjalnie zaprojektowaną grafiką, zdjęciami operatora lub jego sprzętu. Projekt karty jest wyłącznie wynikiem inwencji operatora stacji i rozmieszczenie wszystkich stosownych informacji jest dowolne. Karty mają jednak oficjalnie przyjęty standard wymiaru - 140mm x 90mm i tylko takie zostają przesyłane przez biura. Na stronie z informacjami operatorzy często zamieszczają swoje dokładne dane adresowe oraz podziękowanie za łączność lub prośbę o wysłanie zwrotnej (własnej) karty QSL.
 
@@ -360,5 +360,43 @@
             \end{description}
             O sposobie łamania znaku stacji decyduje operator stacji, kierując się powyższymi wskazaniami.
 
-            Podczas pracy radiostacji amatorskiej z terytorium innego państwa (będącego człoenkiem CEPT\footnote{ TODO }), posiadacz pozwolenia musi swój krajowy znak poprzedzić prefiksem obowiązującym w tymże państwie. Prefiks powinien zostać oddzielony od krajowego znaku wywoławczego znakiem ,,/'' (w przypadku telegrafii) lub słowem ,,stroke'' w przypadku fonii.
+            Podczas pracy radiostacji amatorskiej z terytorium innego państwa (będącego człoenkiem CEPT\footnote{ TODO }), posiadacz pozwolenia musi swój krajowy znak poprzedzić prefiksem obowiązującym w tymże państwie. Prefiks powinien zostać oddzielony od krajowego znaku wywoławczego znakiem ,,\textbf{/}'' (w przypadku telegrafii) lub słowem ,,\textbf{stroke}'' w przypadku fonii.
+
+        \section{Logi}
+        \begin{wrapfigure}{r}{0.5\textwidth}
+            \vspace{-25pt}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{qsl_mess}
+            \end{center}
+            \vspace{-20pt}
+            \caption{Duża liczba kart może w pewnym momencie przerodzić się w trudny do opanowania bałagan}
+            \vspace{-10pt}
+            \label{fig:qsl_mess}
+        \end{wrapfigure}
+        Po pewnym czasie pracy radioamatora kolekcjonującego kraje powstają pewne problemy. Liczba krajów, z którymi przerowadzono łączność, rośnie początkowo bardzo szybko i na pewnym etapie trudno pamiętać, które kraje zostały już ,,zrobione''. Sugerowanie się samymi kartami QSL też nie jest najlepszym pomysłem. Radioamator pracujący samodzielnie dostanie mało takich kart, chyba że będzie korzystał z usług biura QSL. Z kolei liczba łączności przeprowadzonych przez stacje klubowe może dojść do tak dużych wielkości, że nadzór nad historią może stać się niemożliwy. Na rysunku \ref{fig:qsl_mess} można zobaczyć próbę porządkowania starych kart QSL przez członków klubu krótkofalowców SP6PWT.
+
+        Konieczne w takiej sytuacji jest prowadzenie \textbf{logu krótkofalarskiego} - specjalnego dziennika, w którym zapisywane są wszystkie szczegóły przeprowadzonych łączności - czas, znak rozmówcy, raporty RST, a nawet imię i nazwisko rozmówcy oraz jego adres. Początkowo takie dzienniki prowadzone były na papierze. Doświadczeni krótkofalowcy posiadali bogate dzienniki łączności zawierające po kilka tysięcy wpisów. Wraz z nadejściem ery komputerów papierowe dzienniki można było zastąpić komputerowymi programami do logowania łącznośći (tzw. Loggery). Dzięki nim znacznie prostsze jest późniejsze wyszukiwanie łączności wg. kryteriów. Przykładem takiego komputerowego logu może być nawet serwis internetowy qrz.com (której podstawowym zadaniem jest możliwość obejrzenia profilu użytkownika identyfikującego się znakiem wywoławczym). W nim możemy na bierząco dodawać nowe łączności lub zmieniać szczegóły poprzednio stworzonych. Dodawać łączności do bazy można także poprzez import pliku w odpowiednim formacie, wygenerowanego z programu komputerowego. Najbardziej popularnym formatem eksportu zbioru łączności jest format \textbf{ADIF}\footnote{ADIF (ang. Amateur Data Interchange Format)} opisany w podpunkcie \ref{sec:adif}. Gotowy plik w formacie ADIF można importować w serwisie qrz.com i w ten sposób dodać na raz wszystkie swoje łączności zapisane w lokalnym programie komputerowym. Istnieje także możliwość eksportu danych w formacie ADIF z serwisu qrz.com, lecz konieczne do tego jest zapłacenie za rozszerzenie możliwości konta.
+            \subsection{Format ADIF}
+            \label{sec:adif}
+            ADIF to otwarty standard wymiany danych pomiędzy programami używanymi przez radioamatorów. Został stworzony w odpowiedzi na potrzeby krótkofalowców, którym doskwierały problemy związane z koniecznością konwertowania danych przenoszonych pomiędzy używanymi przez nich programamami. Zaraz po opracowaniu został zaimplementowany w większości popularnych programach dla krótkofalowców. Jest nieskończenie rozszerzalny. Może przenosić dane zarówno binarne jak i tekstowe. Nowe dane mogą być dodawane bez zmiany struktury starych danych. Jest łatwy w implementacji we wszystkich popularnych językach programowania. Dane same w sobie są łatwe do odczytania gołym okiem w pliku - struktura danych w pliku jest spójna i czytelna.
+
+            Standard ADIF nie ogranicza się tylko do przechowywania i przesyłania wpisów dziennika łączności. Może przekazywać takie dane jak np. zasady zawodów i musi być gotowy na przyjęcie kolejnych typów danych w związku z tym, że hobby cały czas ewoluuje.
+
+            Na standard ADIF składają się 4 komponenty:
+            \begin{description}
+                \item[Specyfikacja fizyczna] - jak mają być zapisywane pola i rekordy w pliku.
+
+                Każde pole musi być poprzedzone nazwą pola oraz długością zapisanej danej otoczonymi nawiasami ostrokątnymi < i >. Nazwa i długość rozdzielone są dwukropkiem. Nazwa może być zapisana wielkimi literami, małymi literami lub w dowolnej kombinacji. Jest to bez znaczenia. Długość pola wartości oznacza liczbę znaków ASCII i może przyjąć dowolną niezerową wartość. Przykładowe pole oznaczające znak wywoławczy rozmówcy: \texttt{<CALL:6>WN4AZY}. 
+
+                Krotki w tworzone są z wielu pól i zakończone są znacznikiem \texttt{<EOR>}\footnote{EOR (ang. End-Of-Record)}. Na przykład: \texttt{<CALL:6>WN4AZY<BAND:3>20M<QSO\_DATE:8>19960513<TIME\_ON:4>1305<EOR>}.
+
+                Przed właściwymi danymi można załączyć nagłówek w którym można dodać informacje o wersji standardu, z jakiego programu zostały wyeksportowane dane itd. Nagłówek musi zaczynać się od znaku innego niż '\texttt{<}' i zostać zakończony znacznikiem \texttt{<EOH>}\footnote{EOH (ang. End-Of-Header)}
+
+                Ważną kwestią jest to, że w obszarze wartości pola może być dowolna liczba znaków, jednak branych pod uwagę jest tylko tyle ile określonych jest w obszarze długości. Po znaczących danych mogą być jeszcze dowolne komentarze, znaki nowej linii itp. Program importujący po odczytaniu obszaru wartości na podstawie określonej długości musi odczytywać kolejne znaki (ignorując je) aż do momentu, gdy natrafi na znak '\texttt{<}' rozpoczynający kolejne pole lub znacznik \texttt{<EOR>} kończący odczytywaną krotkę.
+
+                Nie ma żadnej specyfikacji dotyczącej kolejności pól w krotce. Mogą się one pojawić w dowolnej kolejności. Nieustawione pola zostaną pominięte przy tworzeniu obiektu w bazie danych podczas importu pliku, więc obiekty w bazie danych mogą mieć różne pola. Specyfikacja nie zabrania także pól o zerowej długości, więc programista w tworzonej aplikacji powinien przewidzieć taką ewentualność. Podane przykłady pokazane zostały z użyciem znaków \textbf{ASCII}, lecz specyfikacja pozwala na dowolny typ danych oraz dowolną długość danych. Format ADIF może zostać wykorzystany na przykład do przesyłania obrazów lub dokumentów tekstowych. 
+                \item[Definicje typów pól] - jak konkretny typ danych ma być zapisany w pliku. Dla przykładu data (pole \textbf{DATE}) powinno być zapisane przy pomocy znaków \textbf{ASCII} w formacie \textbf{YYYYMMDD}.
+                \item[Definicje pól] - lista elementów (znak wywoławczy, data, jednostka DXCC itd.) i opis poprawnych wartości w ich polach. Każde pole ma nazwę, która składa się z od 1 do 10 znaków. Możliwymi znakami w nazwie pola są: \textbf{A}-\textbf{Z}, \textbf{0}-\textbf{9} oraz '\_', lecz nazwa musi zaczynać się literą. Na przykład dla pola \textbf{CONT} oznaczającego kontynent poprawnymi wartościami są tylko: \textbf{NA}, \textbf{SA}, \textbf{EU}, \textbf{AF}, \textbf{OC} i \textbf{AS}.
+                \item[Definicje plików] - opis kategorii danych. Na przykład plik \textbf{Logu} jest określany jako wszystkie dane konieczne do zaliczenia łączności (znak wywoławczy rozmówcy, data łączności, pasmo i modulacja) oraz wszystkie informacje uzupełniające (komentarze, punktacja w zawodach, imię korespondenta itd.). Każde dodatkowe pole (spoza kategorii) może być dołączone do pliku, lecz nigdy nie ma gwarancji, że wartości z tego pola zostaną zaimportowane przez docelowy program.
+            \end{description}
 \end{document}
