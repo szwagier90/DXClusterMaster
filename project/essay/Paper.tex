@@ -436,4 +436,38 @@
         Ciekawym problemem do rozwiązania może być ułatwienie pracy radioamatorom kolekcjonującym potwierdzone łączności z różnymi krajami oraz chcącym zdobywać różne dyplomy za osiągnięcia z tej dziedziny hobby. Rozwiązaniem tego problemu może być system ekspertowy bazujący na bazie danych i informacjach odczytywanych z systemu DX Cluster, aby pokazać radioamatorowi specjalnie dla niego przydatne informacje.
 
         Głównymi założeniami tego projektu powinny być: wysoka mobilność całego systemu, zgodność ze standardem plików ADIF oraz prostota i intuicyjność obsługi systemu przez użytkowników.
+
+    \chapter{Przegląd dostępnych rozwiązań}
+    \label{sec:existing_possibilities}
+    Rozdział ten prezentuje różne możliwości realizacji projektu podzielone na jego główne składniki i porównuje je pod kątem jego założeń. Na wstępie należy zaznaczyć, że do tworzenia projektu wybrany został język Python ze względu na jego wysoką czytelność oraz duże wsparcie programowania zorientowanego obiektowo.
+
+        \section{Obsługa systemu DX Cluster}
+        \begin{figure}[hb]
+            \centering
+            \includegraphics[width=0.8\textwidth]{dxheat}
+            \caption{\underline{DX HEAT} - Przykładowy DX Cluster z interfejsem WWW.}
+            \label{fig:dxheat}
+        \end{figure}
+
+        Pierwszym elementem systemu jest zewnętrzny system DX Cluster, do którego będzie można się podłączyć i czytać z niego przesyłane przez innych użytkowników dane. DX Cluster można obsługiwać na dwa sposoby - poprzez protokół Telnet, gdzie do systemu należy się uprzednio zalogować i odpowiednio czytać dane lub wprowadzać do niego komendy. Drugim sposobem pozyskiwania informacji z systemu DX Cluster jest interfejs WWW. Wiele właścicieli Clusterów zaprojektowało estetyczne i czytelne strony internetowe, gdzie prezentowane są dane z Clustera. Przedstawiony na rysunku~\ref{fig:dxheat} to jeden najpopularniejszych publicznie dostępnych Clusterów z interfejsem WWW. Pozwala on na filtrację spotów na podstawie \textbf{modulacji}, \textbf{pasma}, oraz \textbf{kontynentów - swojego i poszukiwanego}. Przedstawia także dwa najpotrzebniejsze wskaźniki dotyczące stanu zakłóceń słonecznych i magnetycznych, które mają znaczący wpływ na jakość propagacji. W bardzo przejrzysty sposób prezentuje także ,,ruch'' na różnych pasmach w zależności od poszukiwanego kontunentu. Oczywiście jeżeli system ma działać automatycznie, wtedy lepiej przygotować go do czytania danych ze źródła przeznaczonego do tego celu - za pomocą protokołu Telnet. Odczytywanie strony WWW, która ma w sobie wiele dynamicznych elementów JavaScript i dane odświeżane za pomocą techniki AJAX nie jest rozsądnym wyborem. Ciągłe odświeżanie strony a następnie parsowanie danych jest niepotrzebną pracą w porównaniu do prostego odczytywania kolejnych linii znaków przesyłanych do klienta Telnet. Kolejny wybór pada na konkretny DX Cluster. Obecnie oficjalnych DX Clusterów działa ponad kilkadziesiąt, więc wybór jest duży. Priorytetami przy wyborze Clustera były:
+
+        \begin{itemize}
+            \item Wysoka niezawodność
+            \item Proste logowanie
+            \item Mała konieczność interakcji z samym Clusterem
+        \end{itemize}
+        \begin{wrapfigure}{r}{0.5\textwidth}
+            \vspace{-25pt}
+            \begin{center}
+                \includegraphics[width=0.45\textwidth]{k4uga}
+            \end{center}
+            \vspace{-20pt}
+            \caption{Klient Telnet podłączony do Clustera \texttt{K4UGA}}
+            \vspace{-20pt}
+            \label{fig:k4uga}
+        \end{wrapfigure}
+
+        Wybór padł na Cluster \texttt{K4UGA} działający w Stanach Zjednoczonych w stanie Georgia. Jest on jednym z najbardziej niezawodnych obecnie działających Clusterów. Logowanie polega na wpisaniu swojego znaku wywoławczego (nie trzeba podawać hasła dostępu) a potem nie są wymagane już żadne działania, Cluster od razu przesyła najnowsze spoty, co widoczne jest na rysunku~\ref{fig:k4uga}.
+
+        Do połączenia poprzez protokół Telnet została stworzona bardzo wygodna biblioteka w języku Python o nazwie \texttt{telnetlib}.
 \end{document}
