@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ADX>
+    <HEADER>
+        <ADIF_VER>3.0.4</ADIF_VER>
+    </HEADER>
+    <RECORDS>
+        <RECORD>
+            <QSO_DATE>19900620</QSO_DATE>
+            <TIME_ON>1523</TIME_ON>
+            <CALL>VK9NS</CALL>
+            <BAND>20M</BAND>
+            <MODE>RTTY</MODE>
+        </RECORD>
+    </RECORDS>
+</ADX>
