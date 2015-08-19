@@ -1,0 +1,16 @@
+gridsquare - https://pl.wikipedia.org/wiki/QTH_locator
+eQSL - https://www.eqsl.cc/
+lotw vs eqsl - https://k9zw.wordpress.com/2007/02/07/fort-knox-easy-rider-two-on-line-qsl-options-lotw-eqsl/
+ITU - http://www.itu.hamatlas.eu/Strefy_strony/Introduction.htm
+DXCC - https://pl.wikipedia.org/wiki/DX_Century_Club
+	http://www.hamatlas.eu/NVK/SP6NVK/Kryteria_pl.htm
+	http://www.hamatlas.eu/NVK/SP6NVK/DXvsGeo_pl.htm
+IOTA - https://pl.wikipedia.org/wiki/Islands_on_the_Air
+	http://www.sp8bwr.com/index.php/iota
+UTC - https://pl.wikipedia.org/wiki/Uniwersalny_czas_koordynowany
+IRC - https://pl.wikipedia.org/wiki/Mi%C4%99dzynarodowy_Kupon_na_Odpowied%C5%BA
+SWL - http://sp3pow.pl/articles.php?article_id=61
+Znak wywoławczy i Prefiks - https://pzk.org.pl/download/public/Pisma_PZK_MAiC_UKE-2014/pismo_pzk_uke-ldz_62_2014_e.pdf
+	https://pl.wikipedia.org/wiki/Znak_wywo%C5%82awczy#Prefiksy
+Prefiks - http://www.sp5zhz.neostrada.pl/znak_kf.html
+ADIF - http://www.adif.org/adif.html
