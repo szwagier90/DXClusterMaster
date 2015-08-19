@@ -472,23 +472,24 @@
         Do połączenia poprzez protokół Telnet została stworzona bardzo wygodna biblioteka w języku Python o nazwie \texttt{telnetlib}.
 
         \section{Format plików dziennika}
-        Format plików jaki będzie przetwarzany już został wybrany i będzie nim format ADIF. Wybór był oczywisty - jest to format niezaprzeczalnie najpopularniejszy i wykorzystany w większości oprogramowania do zastosowań krótkofalarskich. Warto jednak przedstawić ten format na tle innych, także bardzo popularnych formatów plików.
+        Format plików jaki będzie przetwarzany już został wybrany i będzie nim format \textbf{ADIF}. Wybór był oczywisty - jest to format niezaprzeczalnie najpopularniejszy i wykorzystany w większości oprogramowania do zastosowań krótkofalarskich. Warto jednak przedstawić ten format na tle innych, także bardzo popularnych formatów plików.
 
             \subsection{ADIF}
             Format ADIF został już omówiony w rozdziale~\ref{sec:adif}. Jego największymi atutami jest, to że jest otwartym standardem i został stworzony przez krótkofalowców dla krótkofalowców. Jest na tyle rozpowszechniony i używany, że można założyć, że jest formatem najbardziej uniwersalnym. Dodatkowymi założeniami polityki standardu ADIF są: kompatybilność wprzód (plik ADIF zgodny z jedną wersją standardu będzie poprawnie odczytany przez oprogramowanie zgodne z tą samą lub nowszą wersją standardu); zgodność z wycofanymi polami (pola przestarzałe i wycofane z użytku muszą być akceptowane przy imporcie plików ADIF przez oprogramowanie, ale nie powinny być generowane przy eksporcie pliku w tym formacie).
 
             \subsection{ADX - XML ADIF}
-            Dodany do standardu ADIF w najnowszej wersji 3.*, nowy format pliku oparty o składnię XML. Ma to swój cel we wsparciu międzynarodowych typów danych używających znaków Unicode zakodowanych w systemie UTF-8. Po wprowadzeniu formatu ADX, format ADIF został przemianowany na ADI.
+            Dodany do standardu ADIF w najnowszej wersji 3.*, nowy format pliku oparty o składnię \textbf{XML}. Ma to swój cel we wsparciu międzynarodowych typów danych używających znaków Unicode zakodowanych w systemie UTF-8. Po wprowadzeniu formatu \textbf{ADX}, format ADIF został przemianowany na \textbf{ADI}.
 
             Struktura pliku ADX jest bardziej usystematyzowana niż w pliku ADI ze względu na użycie łatwych do przetwarzania znaczników XML. Plik ADX składa się z kilku części. Pierwsza część to jednolinijkowy nagłówek XML określający zgodność z wersją XML oraz zastosowane kodowanie znaków.
 
-            \noindent Na przykład: \texttt{<?xml version="1.0" encoding="UTF-8"?>}
-            Po nagłówku xml jest zapisany cały plik w formacie ADX i jest musi być otoczony znacznikami \texttt{<ADX>} i \texttt{</ADX>}. Następnie podobnie jak w~formacie ADI można zapisać kilka istotnych danych dla samego pliku w nagłówku ADX. Cały nagłówek ADX mieści się pomiędzy znacznikami \texttt{<HEADER>} i \texttt{</HEADER>}. Każdy z~wpisów nagłówka zawarty jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i \texttt{</nazwa\_pola>}. Po sekcji nagłówka rozpoczyna się sekcja danych i jest ona otoczona znacznikami \texttt{<RECORDS>} i \texttt{</RECORDS>}. Każda krotka w pliku mieści się pomiędzy znacznikami \texttt{<RECORD>} oraz \texttt{</RECORD>} i podobnie jak w sekcji nagłówka, każde pole z wartością zawarte jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i \texttt{<nazwa\_pola>}. Przykładowy plik ADX został przedstawiony poniżej:
+            \noindent Na przykład: \texttt{<?xml version="1.0" encoding="UTF-8"?>}.
+
+            \noindent Po nagłówku xml jest zapisany cały plik w formacie ADX i jest musi być otoczony znacznikami \texttt{<ADX>} i \texttt{</ADX>}. Następnie podobnie jak w~formacie ADI można zapisać kilka istotnych danych dla samego pliku w nagłówku ADX. Cały nagłówek ADX mieści się pomiędzy znacznikami \texttt{<HEADER>} i \texttt{</HEADER>}. Każdy z~wpisów nagłówka zawarty jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i \texttt{</nazwa\_pola>}. Po sekcji nagłówka rozpoczyna się sekcja danych i jest ona otoczona znacznikami \texttt{<RECORDS>} i \texttt{</RECORDS>}. Każda krotka w pliku mieści się pomiędzy znacznikami \texttt{<RECORD>} oraz \texttt{</RECORD>} i podobnie jak w sekcji nagłówka, każde pole z wartością zawarte jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i \texttt{<nazwa\_pola>}. Przykładowy plik ADX został przedstawiony poniżej:
 
             \lstinputlisting[language=Xml, frame=single, caption=Prosty przykład pliku ADX]{sample_adx.xml}
 
             \subsection{Cabrillo}
-            Drugi najpopularniejszy format zapisu logów krótkofalarskich, lecz wykorzystywany praktycznie tylko w zawodach. Do niedawna powszechnym było stosowanie ręcznie wypełnianych (papierowych) formularzy logów z zawodów. Wraz z upowszechnieniem komputerów zaczęto wykorzystywać tę technologię i wprowadzano wydruki papierowe, wyniki przesyłane na dyskietkach i od kilkunastu lat wysyłkę logów pocztą elektroniczną. Wprowadzenie komputerów znacznie ułatwiło startującym pracę w zawodach i skróciło do minimum najnudniejszą część zawodów, czyli wypełnianie dzienników. Niestety nie było to takie dobre dla komisji zawodów. Przeszkodą był brak standardu plików przesyłanych przez użytkowników zawodów. Wynikało to z tego, że oprogramowanie logujące pracę w zawodach było pisane przez różnych autorów, a co za tym idzie każdy autor przyjmował swój własny standard zapisu logów do pliku. Przyczyniało się to do tego, że praktycznie niemożliwym było napisanie oprogramowania rozliczającego zawody. Rozwiązaniem tego problemu miał być format Cabrillo stworzony około roku 1999. Uczestnicy zawodów mogą korzystać z~dowolnego programu do logowania łączności, pod warunkiem, że potrafi on eksportować dane w formacie Cabrillo. W pliku znajdują się wszystkie niezbędne informacje o przeprowadzonych łącznościach i dane dodatkowe. Minusem formatu Cabrillo jest to, że nie jest on uniwersalny i ma bardzo ścisłą strukturę znaków. Prowadzi to do tego, że każdy organizator zawodów powinien opracować własną odmianę formatu Cabrillo w zależności od regulaminu prowadzonych zawodów. Po opracowaniu tego rozwiązania powinien on zostać rozpowszechniony wśród autorów programów logujących.
+            Drugi najpopularniejszy format zapisu logów krótkofalarskich, lecz wykorzystywany praktycznie \underline{tylko w zawodach}. Do niedawna powszechnym było stosowanie ręcznie wypełnianych (papierowych) formularzy logów z zawodów. Wraz z upowszechnieniem komputerów zaczęto wykorzystywać tę technologię i wprowadzano wydruki papierowe, wyniki przesyłane na dyskietkach i od kilkunastu lat wysyłkę logów pocztą elektroniczną. Wprowadzenie komputerów znacznie ułatwiło startującym pracę w zawodach i skróciło do minimum najnudniejszą część zawodów, czyli wypełnianie dzienników. Niestety nie było to takie dobre dla komisji zawodów. Przeszkodą był brak standardu plików przesyłanych przez użytkowników zawodów. Wynikało to z tego, że oprogramowanie logujące pracę w zawodach było pisane przez różnych autorów, a co za tym idzie każdy autor przyjmował swój własny standard zapisu logów do pliku. Przyczyniało się to do tego, że praktycznie niemożliwym było napisanie oprogramowania rozliczającego zawody. Rozwiązaniem tego problemu miał być format Cabrillo stworzony około roku 1999. Uczestnicy zawodów mogą korzystać z~dowolnego programu do logowania łączności, pod warunkiem, że potrafi on eksportować dane w formacie Cabrillo. W pliku znajdują się wszystkie niezbędne informacje o przeprowadzonych łącznościach i dane dodatkowe. Minusem formatu Cabrillo jest to, że nie jest on uniwersalny i ma bardzo ścisłą strukturę znaków. Prowadzi to do tego, że każdy organizator zawodów powinien opracować własną odmianę formatu Cabrillo w zależności od regulaminu prowadzonych zawodów. Po opracowaniu tego rozwiązania powinien on zostać rozpowszechniony wśród autorów programów logujących.
 
             Sam plik rozpoczyna się znacznikiem \texttt{START-OF-LOG} numerem wersji formatu Cabrillo i kończyć znacznikiem \texttt{END-OF-LOG}. Wewnątrz, składa się z dwóch części: nagłówka i~danych o przeprowadzonych łącznościach. W nagłówku powinny zostać zawarte wszystkie niezbędne dane określone przez organizatora zawodów. Zwykle są to:
             \begin{itemize}
@@ -501,4 +502,42 @@
                 \item Deklarowana suma zdobytych punktów - może zostać pominięta, ponieważ oprogramowanie rozliczające zawody będą wyliczały wynik na podstawie przesłanych wszystkich logów.
             \end{itemize}
             Druga część pliku to właściwy log. Składa się on z kolejno ułożonych wpisów, gdzie każdy jeden wpis to kolejna łączność (każdy wpis w kolejnej linii). Dane w każdym polu są ściśle ustawione na swoich pozycjach. Dla przykładu znak korespondenta może rozpoczynać się na 56 znaku, a kończyć na 68 znaku każdej linii. Umieszczenie danych w niewłaściwej kolejności lub złe wyrównanie znaków spowoduje błędne odczytanie zawartych informacji i nie zaliczenie łączności.
+
+        \section[Web Framework]{Web Framework\footnote{Framework lub platforma programistyczna - szkielet do budowy aplikacji. Definiuje strukturę aplikacji, a także dostarcza zestaw komponentów i bibliotek ogólnego przeznaczenia do wykonywania określonych zadań. Programista tworzy aplikację rozbudowując i dostosowując poszczególne komponenty do wymagań realizowanego projektu, tworząc w ten sposób gotową aplikację.}}
+        Z racji tego, że projekt zakłada komunikację z wieloma użytkownikami jednocześnie oraz wygodną prezentację wyników, należało stworzyć prosty interfejs WWW. Językiem, który został użyty do programowania był \textbf{Python}, więc oczywistym było skorzystanie z~jednego z~kilku dostępnych frameworków. To znacznie skróciło czas tworzenia aplikacji internetowej.
+
+            \subsection{Django}
+            Django to framework w całości napisany w języku Python. Opracowany pod koniec 2003 roku doczekał się 8 oficjalnych wersji. Od 2005 roku jest rozpowszechniany na licencji BSD. Jego głównym założeniem jest ułatwienie tworzenia serwisów internetowych, zwłaszcza tych, których podstawą jest baza danych. Stawia duży nacisk na możliwość ponownego użycia komponentów, szybki rozwój aplikacji i głęboko wspiera zasadę DRY\footnote{DRY (ang. Don't Repeat Yourself, Nie Powtarzaj Się) - reguła zalecająca unikanie różnego rodzaju powtórzeń. Unikanie tych samych (lub bardzo podobnych) fragmentów kodu w wielu miejscach. Powtarzający się kod można zapisać jako oddzielną funkcję i odwoływać się tylko do niej znacząco zwiększając czytelność kodu. Metoda poprawnie zastosowana przynosi znaczną oszczędność czasu zarówno przy poszukiwaniu błędów jak i przy nanoszeniu poprawek (bład trzeba poprawić tylko w jednym miejscu).}. Język Python jest w Django używany praktycznie do wszystkiego, włącznie z ustawianiem parametrów, plików i definiowaniem modeli danych.
+
+            Opiera się na wzorcu projektowym Model-View-Controller (Model-Widok-Kontroler). Model jest reprezentacją problemu bądź logiki aplikacji. Odpowiada za odwzorowanie obiektów w strukturze bazy danych i ich relacje. Widok jest opisem wyświetlania pewnej części modelu. Służy do tworzenia zapytań, filtrowania, szeregowania i agregacji danych. Kontroler przyjmuje dane wejściowe od użytkownika i reaguje na jego poczynania, zarządzając aktualizację modelu i odświeżenie widoków.
+
+            Popularne jest także określenie frameworka Django jako pracującego w formie Model-View-Template (Model-Widok-Szablon). Szablon to graficzny opis struktury strony internetowej. Definiuje gdzie ma się znaleźć jaki element (zwykle tworzony w języku HTML z odpowienimi wstawkami).
+
+            Jego najważniejszymi zaletami są:
+            \begin{itemize}
+                \item Bogata i przyjazna dla programistów dokumentacja
+                \item Ogromna społeczność wspierająca pracę nad projektem i służąca pomocą niedoświadczonym programistom
+                \item Wbudowany serwer WWW służący do szybkiego testowania aplikacji
+                \item Automatycznie generowany i kompletny panel administracyjny z możliwością dalszego dostosowania do potrzeb użytkowników
+                \item Prosty i funkcjonalny system szablonów czytelny zarówno dla grafików jak i programistów
+                \item Wsparcie dla wielojęzycznych aplikacji
+                \item Bardzo duża skalowalność i wydajność pod obciążeniem
+                \item Obsługa baz danych MySQL, PostgreSQL, SQLite oraz Oracle
+            \end{itemize}
+
+            Używany przez takie popularne serwisy jak \textbf{Instagram}, \textbf{The Washington Times}, \textbf{Bitbucket} czy \textbf{Pinterest}.
+
+            \subsection{Flask}
+            Flask to mikroframework do Pythona na licencji BSD. Początkowo został stworzony jako żart prima-aprilisowy, który miał udowodnić, żę można stworzyć framework zawierający się w jednym pliku. W przeciwieństwie do Django nie zapewnia żadnego szkieletu ani podstawy dla tworzonej aplikacji. Nie zawiera gotowych rozwiązań i wbudowanych komponentów. Nie zawiera panelu admina. Ma jednak bogate zaplecze dodatków i rozszerzeń, które można bez problemu dołączać do projektu. Głównie przeznaczony jest do małych, prostych projektów, które wymagają aplikacji opartych o jedną lub dwie funkcje.
+
+            W porównaniu do Django:
+            \begin{itemize}
+                \item Ma równie bogatą, lecz mało uporządkowaną dokumentację
+                \item Nauka pracy z tym frameworkiem polega na studiowaniu tutoriali a nie czytaniu dokumentacji
+                \item Sam z siebie jest bardzo ubogi - jego siła tkwi w możliwych do doinstalowania dodatkach
+                \item W przeciwieństwie do Django dużo częściej wykorzystywany jest do tworzenia prostych projektów
+                \item Nie ma możliwości mapowania obiektowo-relacyjnego - programista sam musi pisać zapytania do wykorzystywanej bazy danych, w Django wystarczyć stworzyć obiekt lub wykonać na tym obiekcie jakąś metodę, a zapytanie do bazy generuje się samo.
+            \end{itemize}
+
+            Frameworka Flask używa popularny serwis \textbf{LinkedIn}.
 \end{document}
