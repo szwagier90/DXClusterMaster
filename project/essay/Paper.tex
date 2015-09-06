@@ -439,7 +439,7 @@
 
     \chapter{Przegląd dostępnych rozwiązań}
     \label{sec:existing_possibilities}
-    Rozdział ten prezentuje różne możliwości realizacji projektu podzielone na jego główne składniki i porównuje je pod kątem jego założeń. Na wstępie należy zaznaczyć, że do tworzenia projektu wybrany został język Python ze względu na jego wysoką czytelność oraz duże wsparcie programowania zorientowanego obiektowo.
+    Rozdział ten prezentuje różne możliwości realizacji projektu podzielone na jego główne składniki i porównuje je pod kątem jego założeń. Na wstępie należy zaznaczyć, że do tworzenia projektu wybrany został język Python ze względu na jego wysoką czytelność oraz duże wsparcie programowania zorientowanego obiektowo. Na końcu rozdziału zostanie przedstrawione podsumowanie, w którym zostanie wybrany komplet komponentów i rozwiązań, które będą stanowić podstawę projektu.
 
         \section{Obsługa systemu DX Cluster}
         \begin{figure}[hb]
@@ -536,8 +536,75 @@
                 \item Nauka pracy z tym frameworkiem polega na studiowaniu tutoriali a nie czytaniu dokumentacji
                 \item Sam z siebie jest bardzo ubogi - jego siła tkwi w możliwych do doinstalowania dodatkach
                 \item W przeciwieństwie do Django dużo częściej wykorzystywany jest do tworzenia prostych projektów
-                \item Nie ma możliwości mapowania obiektowo-relacyjnego - programista sam musi pisać zapytania do wykorzystywanej bazy danych, w Django wystarczyć stworzyć obiekt lub wykonać na tym obiekcie jakąś metodę, a zapytanie do bazy generuje się samo.
+                \item Nie ma możliwości mapowania relacyjno-obiektowe - programista sam musi pisać zapytania do wykorzystywanej bazy danych, w Django wystarczyć stworzyć obiekt lub wykonać na tym obiekcie jakąś metodę, a zapytanie do bazy generuje się samo.
             \end{itemize}
 
             Frameworka Flask używa popularny serwis \textbf{LinkedIn}.
+
+            \subsection{Pylons}
+            Pylons to lekki framework napisany w języku Python, który czerpie najlepsze rozwiązania z języków Ruby, Python i Perl. Jest przez wielu uważany za główną alternatywę dla Django. Umożliwia tworzenie bardzo elastycznych i skalowalnych projektów aplikacji internetowych. Był jednym z pierwszych projektów adaptujących standard WSGI umożliwiający wielokrotne wykorzystanie komponentów lub nawet całych aplikacji w wielu projektach. W swojej budowie jest zbliżony do stworzonego w języku Ruby frameworka Ruby on Rails. Jego pierwotnym założeniem jest tworzenie aplikacji szybko, elastycznie i~prosto.
+
+            W porównaniu do Django:
+            \begin{itemize}
+                \item Doskonałe wsparcie dla techniki Ajax. Django do tej pory nie posiada wbudowanej implementacji Ajax'a.
+                \item Uboga dokumentacja.
+                \item Bardziej uciążliwe korzystanie z formularzy.
+                \item Mapowanie relacyjno-obiektowe oparte o manager SQLObject. Django korzysta z~własnego mapera relacyjno-obiektowego. Ma dużo bardziej elegancką składnię i~lepszą dokumentację.
+                \item Brak wbudowanego panelu administracyjnego - wizytówką Django jest panel administracyjny gdzie praktycznie z miejsca można zarządzać całą swoją zaprojektowaną bazą danych (Dodawać, usuwać, modyfikować obiekty w bazie). We frameworku Pylons panel admina pozostawia dużo do życzenia.
+            \end{itemize}
+
+            \subsection{Pyramid}
+            Pyramid to framework stworzony jako odnoga projektu Pylons. Używany jest jako ,,gotowy do działania'', lecz nie zakłada z miejsca z jakich komponentów ma korzystać.
+
+            Społeczność korzystająca i wspierająca Pyramid rośnie z dnia na dzień. Ogromną zaletą jest także profesjonalna dokumentacja, która w założeniu ma być tak dobra, aby uniknąć wsparcia ze strony społeczności. Głównymi założeniami tego projektu są minimalizm, szybkość i niezawodność. Jest jednym z pierwszych frameworków kompatybilnych z językiem Python 3.
+
+            W porównaniu do Django:
+            \begin{itemize}
+                \item Wsparcie dla Ajax
+                \item Elastyczność przy budowaniu aplikacji - każdy komponent może być włączony i~wyłączony w każdej chwili, każdy problem może być rozwiązany na kilka alternatywnych sposobów, można wykorzystać kilka różnych sposobów podłączenia do bazy danych, a nawet można podłączyć serwis do kilku baz danych.
+                \item Brak panelu administracyjnego
+            \end{itemize}
+
+        \section{Wybór komponentów projektu}
+        Jak już zostało wspomniane projekt zakłada użycie w znaczącej części języka Python (oczywiście z pominięciem języka HTML i CSS do stworzenia interfejsu graficznego strony WWW).
+
+        Po przeanalizowaniu możliwości wykonania projektu i biorąc pod uwagę wszystkie założenia projekt będą charakteryzować:
+        \begin{itemize}
+            \item Obsługa systemu DX Cluster poprzez protokół Telnet. Jest to oczywisty wybór z~racji tego, że w ten sposób otrzymujemy od systemu suche dane, które po mało obciążającej obróbce są gotowe do przetwarzania.
+            \item ADIF jako obsługiwany format plików dziennika (logu krótkofalarskiego). Chociaż nie jest tak uniwersalny i łatwy i przetwarzaniu jak formaty oparte o XML, to jest to format najbardziej rozpowszechniony w środowisku któtkofalarskim.
+            \item Wybór Web Frameworka padł na Django. Choć jest dużo potężniejszy niż inne rozwiązania dostępne na rynku, to ma ogromną dokumentację i wsparcie społeczności, a także mnogość wbudowanych komponentów. To będzie przekładać się na tworzenie dobrej jakości kodu, sprawdzonych rozwiązań i łatwość rozbudowie już istniejącego systemu.
+        \end{itemize}
+
+    \chapter{Realizacja projektu}
+    \label{sec:project_realization}
+    Praca nad projektem składała się z kilku luźno powiązanych ze sobą etapów. Pierwszym etapem było przygotowanie systemu operacyjnego, bazy danych oraz instalacja frameworka Django. Następnie koniecznym było przygotowanie programu odczytującego dane z systemu DX Cluster za pomocą protokołu Telnet, zapis tych danych do bazy oraz poprawne ustawienie systemu operacyjnego aby w razie restartu program ten uruchomił się samoczynnie. Kolejnym etapem było zaprojektowanie klasy służącej do importowania dzienników w formacie ADIF. To wiązało się także z przygotowaniem w bazie danych tabel z informacjami o jednostkach DXCC i ich prefiksach. Następnie koniecznym było przygotowanie konfigurowalnych profili użytkowników, w których można ustalać to, co jest przez użytkownika poszukiwane. Końcowym etapem było powiązanie potrzeb użytkowników z ich zapisanymi łącznościami oraz z danymi na bieżąco odczytywanymi z systemu DX Cluster.
+
+        \section{Przygotowanie systemu}
+        Cały projekt został uruchomiony na systemie operacyjnym GNU/Linux Ubuntu 14.04.2 LTS w wersji serwerowej (bez środowiska graficznego). Interpreter języka Python jest w~systemie wbudowany, więc nie była konieczna jego instalacja. Aplikacja jest oparta na bazie danych SQLite\footnote{SQLite - system zarządzania bazą danych zapisaną w pliku na dysku bez konieczności uruchamiania osobnego procesu bazy danych. Zawartość bazy jest przetrzymywana w jednym pliku binarnym o wielkości maksymalnej 140TB.}, która jest obsługiwana bezpośrednio przez język Python i framework Django, więc nie była konieczna instalacja dodatkowego serwera. Framework Django został zainstalowany w wersji 1.7.7 (najnowszej, stabilnej wersji).
+
+        Po zainstalowaniu oprogramowania i bibliotek Django, należało utworzyć nowy projekt - przestrzeń w której przechowywany będzie kod aplikacji. Zostało to zrobione za pomocą skryptu \texttt{django-admin.py}.
+
+        \texttt{\$ django-admin.py startproject project}\\
+
+        \noindent Django zakłada ścisłą strukturę - projekty, na które składają się poszczególne aplikacje. W obrębie tego projektu została stworzona tylko jedna aplikacja o nazwie \textbf{dx}.
+
+        \texttt{\$ python manage.py startapp dx}\\
+
+        \noindent Istniejący projekt należało skonfigurować w pliku \texttt{project/settings.py}. Wymaganymi ustawieniami były:
+        \begin{itemize}
+            \item Dodanie aplikacji \textbf{dx} do projektu - Należy do listy \mbox{\textbf{INSTALLED\_APPS}} dodać pozycję 'dx'.
+            \clearpage\lstinputlisting[language=Python, firstline=3, lastline=11, frame=single, caption=Dodanie aplikacji \textbf{dx} do projektu]{listings.txt}
+            \item Konfiguracja bazy danych - Należy wybrać rodzaj używanej bazy danych (w tym wypadku \texttt{sqlite3}) oraz podać jej nazwę (w przypadku baz SQLite jest to nazwa pliku na dysku.) Te dane muszą zostać przypisane w formie słownika do zmiennej \texttt{DATABASES}. Jak widać na listingu poniżej, plik bazy danych nazywa się \texttt{DXDB.sqlite3} i jest umieszczony w głównym katalogu projektu.
+            \lstinputlisting[language=Python, firstline=13, lastline=18, frame=single, caption=Konfiguracja bazy danych]{listings.txt}
+            \item Ustawienie języka i strefu czasowej - Te dwie czynności zostały zrealizowane przez przypisanie odpowiednich łańcuchów znaków do zmiennych.
+            \lstinputlisting[language=Python, firstline=20, lastline=21, frame=single, caption=Konfiguracja języka i strefy czasowej]{listings.txt}
+        \end{itemize}
+
+        \noindent Po zakończonej konfiguracji konieczne jest przeprowadzenia migracji bazy danych (za pierwszym razem równa się to ze stworzeniem pliku bazy na dysku). Migracja przeprowadzana jest poleceniami kolejno:
+
+        \texttt{\$ python manage.py makemigrations}
+
+        \texttt{\$ python manage.py migrate}\\
+
+        W starszych wersjach Django migracja była wywoływana tylko jednym poleceniem, w najnowszej wersji zostało to rodzielone. Ma to swój sens w przypadku korzystania z systemów kontroli wersji. Pobierany jest wówczas tylko plik zapisanymi szczegółami migracji, nie potrzeba pobierać całego projektu i generować migracji od nowa.
 \end{document}
