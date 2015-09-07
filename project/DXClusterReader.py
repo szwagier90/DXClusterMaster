@@ -10,11 +10,10 @@ class DXClusterReader:
     def __init__(self, timeout=60, host="128.192.52.40", port=599, callsign="sq6sfs"):
         self.timeout = timeout
         self.callsign = callsign
-        self.spots = []
 
         self.cluster = telnetlib.Telnet(host=host, port=port)
         self.login(self.callsign)
-        self.cluster.read_until(">"),
+        self.cluster.read_until("dxspider"),
         self.cluster.read_until("\n")
 
     def login(self, callsign):
@@ -29,7 +28,6 @@ class DXClusterReader:
 
         read = self.cluster.read_until('\n', timeout=self.timeout)
         if read:
-            self.spots.append(read)
             return read
         else:
             raise BufferError
