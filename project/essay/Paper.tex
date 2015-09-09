@@ -49,6 +49,9 @@
 
     \tableofcontents
 
+    \chapter{Wstęp}
+    TODO
+
     \chapter{Problematyka amatorskich systemów radiowych}
     \label{sec:teoretical_description}
     W pierwszym rozdziale zostaną wprowadzone podstawowe pojęcia z dziedziny krótkofalarstwa, jego możliwości, zakres działań radioamatorów.
@@ -159,7 +162,7 @@
 
                 Właśnie ta tematyka (kolekcjonowanie krajów z którymi została przeprowadzona łączność) będzie poruszona w tej pracy. Zagadnienia bardziej szczegółowo z nią powiązane zostanę opisane w kolejnym rozdziale.
 
-    \chapter{Tematyka i problemy związane z kolekcjonowaniem krajów (TODO)}
+    \chapter{Tematyka i problemy związane z kolekcjonowaniem krajów}
     \label{sec:collecting_entities}
 
     Jak w każdej dziedzinie, również w krótkofalarstwie, pojawiają się różne sfery działalności oraz zainteresowań. W każdej z nich obowiązują pewne ścisłe pojęcia, procedury a także narzędzia, z których można korzystać aby ułatwić sobie pracę. Aby skutecznie bawić się w kolekcjonowanie krajów, z którymi radioamator przeprowadził łączność, należy poznać pojęcie potwierdzenia łączności. Ważnymi są także pojęcia potrzebne do rozróżnienia obszarów w jakich dany kraj leży oraz pojęcie samego kraju, gdyż nie zawsze lista krajów pokrywa się z podziałem terytorialnym w rozumieniu państwa (na przykład USA to 15 oddzielnych krajów). Dodatkowo znacznym ułatwieniem jest dla radioamatora prowadzenie swojego logu (dziennika) wszystkich przeprowadzonych łączności. Osatatnim bardzo ważnym narzędziem przy próbach przeprowadzenia łączności dalekiego zasięgu są systemy przekazywania informacji w kręgu radioamatorów. Najpopularniejszym systemem wymiany takich informacji jest tzw. DX Cluster opisany na końcu tego rozdziału.
@@ -246,7 +249,7 @@
 
             Porównując systemy eQSL oraz LoTW można stwierdzić, że doskonale się uzupełniają. Najlepszym sposobem wykorzystania LoTW jest przechowywanie istotnych potwierdzeń łączności o bardzo wysokiej wiarygodności i kolekcjonowanie krajów w celu otrzymania dyplomu DXCC, a eQSL do przesyłania kart QSL w wersji elektronicznej oraz otrzymywania nagród i dyplomów przyznawanych przez samą społeczność użytkowników.
 
-        \section{Ważne przy kolekcjonowaniu}
+        \section{Pojęcia i zagadnienia ważne przy kolekcjonowaniu}
         Aby skutecznie prowadzić działalność polegającą na kolekcjonowaniu łączności konieczna jest znajomość kilku istotnych zasad i pojęć z tym związanych. Szczególnie ważnymi są: podział świata na regiony, strefy oraz konkretne jednostki, różnica pomiędzy krajem a~jednostką DXCC oraz znajomość formatu znaku wywoławczego z wyróżnieniem części oznaczającej prefiks.
 
             \subsection{CQ Zone}
@@ -446,7 +449,7 @@
         \begin{figure}[hb]
             \centering
             \includegraphics[width=0.8\textwidth]{dxheat}
-            \caption{\underline{DX HEAT} - Przykładowy DX Cluster z interfejsem WWW.}
+            \caption{DX HEAT - Przykładowy DX Cluster z interfejsem WWW.}
             \label{fig:dxheat}
         \end{figure}
 
@@ -742,4 +745,31 @@
             \lstinputlisting[language=Python, firstline=66, lastline=72, frame=single, caption=Dodawanie prefiksów do bazy danych]{listings.txt}
 
             Powyższy listing przedstawia funkcję tworzącą rekord prefiksu do bazy danych. W~przypadku pól \texttt{ituz} i \texttt{cqz} dodatkowo została zastosowana funkcja \textbf{or}. Gdy w łańcuchu znaków nie zostanie znaleziony fragment z inną strefą ITU lub strefą CQ, zostaje do pola przypisana wartość jaka jest domyślna dla całej jednostki DXCC odczytana z pierwszej linii rekordu w pliku \texttt{cty.dat}.
+
+        \section{Profil użytkownika}
+        Aby serwis dostępny był dla wielu użytkowników, musi być możliwość przechowywania ich danych na osobnych kontach. Framework Django ma wbudowane bardzo wygodne narzędzia do obsługi użytkowników. Jednakże model użytkownika domyślnie dostarczanego w Django jest niewystarczający, więc musi zostać rozbudowany.
+
+            \subsection{Przygotowanie bazy danych}
+            Podstawowy model użytkownika w Django składa się z kilkunastu pól:
+            \begin{description}
+                \item[username] - Nazwa użytkownika
+                \item[first\_name] - Imię (opcjonalne)
+                \item[last\_name] - Nazwisko (opcjonalne)
+                \item[email] - Adres e-mail (opcjonalne)
+                \item[password] - Hasło dostępu. W bazie przetrzymywane jako hash.
+                \item[groups] - Pole w relacji wiele-do-wielu zawierające przyporządkowanie użytkownika do grup.
+                \item[user\_permissions] - Pole w relacji wiele-do-wielu zawierające uprawnienia użytkownika.
+                \item[is\_staff] - Pole oznaczające czy dany użytkownik może uzyskać dostęp do panelu administracyjnego
+                \item[is\_active] - Pole oznaczające czy konto użytkownika jest aktywne.
+                \item[is\_superuser] - Pole dające użytkownikowi wszystkie możliwe uprawnienia.
+                \item[last\_login] - Data ostatniego logowania do systemu.
+                \item[date\_joined] - Data rejestracji konta w serwisie.
+            \end{description}
+            Model ten jednak powinien zostać rozszerzony o kilka pól istotnych dla społeczności krótkofalarskiej.
+
+            Na listingu~\ref{lst:operator_model} przedstawiona została klasa operatora, która poprzez pole \texttt{user} pozostaje w relacji jeden-do-jednego z klasą użytkownika w Django (\texttt{User}). Klasa \texttt{Operator} dodaje dwa istotne pola - callsign (znak wywoławczy operatora) oraz jego lokator. Profil operatora musi być uzupełniony przez użytkownika po rejestracji nowego konta w serwisie.
+
+            \lstinputlisting[language=Python, label={lst:operator_model}, firstline=75, lastline=78, frame=single, caption=Klasa Operator w modelu bazy danych]{listings.txt}
+
+            Język Python daje możliwość tego, aby zastosować dziedziczenie i stworzyć klasę \texttt{Operator} dziedziczącą po klasie \texttt{User}, co nieco uprościłoby zapytania do bazy. Jednak przewagą przyjęcia relacji jeden-do-jednego nad dziedziczeniem jest to, że klasa \texttt{User} nadal istnieje w modelu bazy danych i wszystkie mechanizmy Django mogą funkcjonować praktycznie bez żadnych zmian. Gdyby zostało zastosowane dziedziczenie, wszystkie mechanizmy (logowanie, wylogowanie, rejestracja itp.) musiałyby być przepisane lub napisane od nowa.
 \end{document}
