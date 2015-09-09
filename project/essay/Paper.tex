@@ -209,7 +209,7 @@
                 \label{fig:qsl_card}
             \end{wrapfigure}
 
-            Karty QSL są najstarszym sposobem potwierdzenia łączności i ich historia jest tak długa jak historia radia. Początkowo przesyłane do większych stacji nadawczych jako potwierdzenie odbioru sygnału. Następnie po rozpowszechnieniu dwustronnej komunikacji do potwierdzenia łączności pomiędzy dwiema stacjami. Na przestrzeni lat karta zaczęła przybierać formę pocztówek z wypisanymi z jednej strony szczegółami łączności a z drugiej strony specjalnie zaprojektowaną grafiką, zdjęciami operatora lub jego sprzętu (przykład na rysunku~\ref{fig:qsl_card}). Projekt karty jest wyłącznie wynikiem inwencji operatora stacji i rozmieszczenie wszystkich stosownych informacji jest dowolne. Karty mają jednak oficjalnie przyjęty standard wymiaru - 140mm x 90mm i tylko takie zostają przesyłane przez biura. Na stronie z informacjami operatorzy często zamieszczają swoje dokładne dane adresowe oraz podziękowanie za łączność lub prośbę o~wysłanie zwrotnej (własnej) karty QSL.
+            Karty QSL są najstarszym sposobem potwierdzenia łączności i ich historia jest tak długa jak historia radia. Początkowo przesyłane do większych stacji nadawczych jako potwierdzenie odbioru sygnału. Następnie po rozpowszechnieniu dwustronnej komunikacji do potwierdzenia łączności pomiędzy dwiema stacjami. Na przestrzeni lat karta zaczęła przybierać formę pocztówek z wypisanymi z jednej strony szczegółami łączności a z drugiej strony specjalnie zaprojektowaną grafiką, zdjęciami operatora lub jego sprzętu (przykład na rysunku~\ref{fig:qsl_card}). Projekt karty jest wyłącznie wynikiem inwencji operatora stacji i rozmieszczenie wszystkich stosownych informacji jest dowolne. Karty mają jednak oficjalnie przyjęty standard wymiaru - 140mm x 90mm i tylko takie zostają przesyłane przez biura. Na stronie z~informacjami operatorzy często zamieszczają swoje dokładne dane adresowe oraz podziękowanie za łączność lub prośbę o~wysłanie zwrotnej (własnej) karty QSL.
 
             Karty QSL z racji tego, że są fizycznymi obiektami muszą być jakimś sposobem przekazane drugiej osobie. Można zadbać o to samemu lub wykorzystać do tego celu specjalne biuro.
 
@@ -359,12 +359,12 @@
             Czasem można w eterze usłyszeć znaki typu SP5ZHZ/p, SP5ZHZ/m itd. Podczas pracy radiostacji amatorskiej z miejsca innnego niż lokalizacja określona w pozwoleniu zaleca się łamanie znaku przez litery \textbf{d}, \textbf{p}, \textbf{m}, \textbf{mm}, \textbf{am} lub \textbf{cyfrę 1-9}.
 
             \begin{description}
-                \item[d] -- stacje prowadzące łączność w sytuacjach kryzysowych (podczas ćwiczeń łączności kryzysowej)
-                \item[p] -- stacje małej mocy, stacje przenośne lub pracujące z innego miejsca we własnym województwie
-                \item[m] -- stacje pracujące z pojazdów ruchomych (statek na wodach terytorialnych, samochód, rower, pociąg)
-                \item[mm] -- stacje pracujące ze statków na wodach międzynarodowych
-                \item[am] -- stacje pracujące z samolotu - wymagane są do tego dodatkowe zezwolenia
-                \item[1-9] -- stacje podczas pracy z innego okręgu
+                \item[d] -- Stacje prowadzące łączność w sytuacjach kryzysowych (podczas ćwiczeń łączności kryzysowej)
+                \item[p] -- Stacje małej mocy, stacje przenośne lub pracujące z innego miejsca we własnym województwie
+                \item[m] -- Stacje pracujące z pojazdów ruchomych (statek na wodach terytorialnych, samochód, rower, pociąg)
+                \item[mm] -- Stacje pracujące ze statków na wodach międzynarodowych
+                \item[am] -- Stacje pracujące z samolotu - wymagane są do tego dodatkowe zezwolenia
+                \item[1-9] -- Stacje podczas pracy z innego okręgu
             \end{description}
             O sposobie łamania znaku stacji decyduje operator stacji, kierując się powyższymi wskazaniami.
 
@@ -392,7 +392,7 @@
 
             Na standard ADIF składają się 4 komponenty:
             \begin{description}
-                \item[Specyfikacja fizyczna] - jak mają być zapisywane pola i rekordy w pliku.
+                \item[Specyfikacja fizyczna] - Jak mają być zapisywane pola i rekordy w pliku.
 
                 Każde pole musi być poprzedzone nazwą pola oraz długością zapisanej danej otoczonymi nawiasami ostrokątnymi < i >. Nazwa i długość rozdzielone są dwukropkiem. Nazwa może być zapisana wielkimi literami, małymi literami lub w dowolnej kombinacji. Jest to bez znaczenia. Długość pola wartości oznacza liczbę znaków ASCII i może przyjąć dowolną niezerową wartość. Przykładowe pole oznaczające znak wywoławczy rozmówcy: \texttt{<CALL:6>WN4AZY}. 
 
@@ -403,12 +403,13 @@
                 Ważną kwestią jest to, że w obszarze wartości pola może być dowolna liczba znaków, jednak branych pod uwagę jest tylko tyle ile określonych jest w obszarze długości. Po znaczących danych mogą być jeszcze dowolne komentarze, znaki nowej linii itp. Program importujący po odczytaniu obszaru wartości na podstawie określonej długości musi odczytywać kolejne znaki (ignorując je) aż do momentu, gdy natrafi na znak '\texttt{<}' rozpoczynający kolejne pole lub znacznik \texttt{<EOR>} kończący odczytywaną krotkę.
 
                 Nie ma żadnej specyfikacji dotyczącej kolejności pól w krotce. Mogą się one pojawić w dowolnej kolejności. Nieustawione pola zostaną pominięte przy tworzeniu obiektu w bazie danych podczas importu pliku, więc obiekty w bazie danych mogą mieć różne pola. Specyfikacja nie zabrania także pól o zerowej długości, więc programista w tworzonej aplikacji powinien przewidzieć taką ewentualność. Podane przykłady pokazane zostały z użyciem znaków \textbf{ASCII}, lecz specyfikacja pozwala na dowolny typ danych oraz dowolną długość danych. Format ADIF może zostać wykorzystany na przykład do przesyłania obrazów lub dokumentów tekstowych. 
-                \item[Definicje typów pól] - jak konkretny typ danych ma być zapisany w pliku. Dla przykładu data (pole \textbf{DATE}) powinno być zapisane przy pomocy znaków \textbf{ASCII} w~formacie \textbf{YYYYMMDD}.
-                \item[Definicje pól] - lista elementów (znak wywoławczy, data, jednostka DXCC itd.) i opis poprawnych wartości w ich polach. Każde pole ma nazwę, która składa się z od 1~do 10 znaków. Możliwymi znakami w nazwie pola są: \textbf{A}-\textbf{Z}, \textbf{0}-\textbf{9} oraz '\_', lecz nazwa musi zaczynać się literą. Na przykład dla pola \textbf{CONT} oznaczającego kontynent poprawnymi wartościami są tylko: \textbf{NA}, \textbf{SA}, \textbf{EU}, \textbf{AF}, \textbf{OC} i \textbf{AS}.
-                \item[Definicje plików] - opis kategorii danych. Na przykład plik \textbf{Logu} jest określany jako wszystkie dane konieczne do zaliczenia łączności (znak wywoławczy rozmówcy, data łączności, pasmo i modulacja) oraz wszystkie informacje uzupełniające (komentarze, punktacja w zawodach, imię korespondenta itd.). Każde dodatkowe pole (spoza kategorii) może być dołączone do pliku, lecz nigdy nie ma gwarancji, że wartości z~tego pola zostaną zaimportowane przez docelowy program.
+                \item[Definicje typów pól] - Jak konkretny typ danych ma być zapisany w pliku. Dla przykładu data (pole \textbf{DATE}) powinno być zapisane przy pomocy znaków \textbf{ASCII} w~formacie \textbf{YYYYMMDD}.
+                \item[Definicje pól] - Lista elementów (znak wywoławczy, data, jednostka DXCC itd.) i opis poprawnych wartości w ich polach. Każde pole ma nazwę, która składa się z od 1~do 10 znaków. Możliwymi znakami w nazwie pola są: \textbf{A}-\textbf{Z}, \textbf{0}-\textbf{9} oraz '\_', lecz nazwa musi zaczynać się literą. Na przykład dla pola \textbf{CONT} oznaczającego kontynent poprawnymi wartościami są tylko: \textbf{NA}, \textbf{SA}, \textbf{EU}, \textbf{AF}, \textbf{OC} i \textbf{AS}.
+                \item[Definicje plików] - Opis kategorii danych. Na przykład plik \textbf{Logu} jest określany jako wszystkie dane konieczne do zaliczenia łączności (znak wywoławczy rozmówcy, data łączności, pasmo i modulacja) oraz wszystkie informacje uzupełniające (komentarze, punktacja w zawodach, imię korespondenta itd.). Każde dodatkowe pole (spoza kategorii) może być dołączone do pliku, lecz nigdy nie ma gwarancji, że wartości z~tego pola zostaną zaimportowane przez docelowy program.
             \end{description}
 
         \section{DX Cluster}
+        \label{sec:dxcluster}
         Praca radioamatora opiera się na poszukiwaniach. Polega na przeszukiwaniu częstotliwości w celu znalezienia ciekawych i odległych stacji. Nie da się jednak siedzieć przy radioodbiorniku przez cały czas. A nawet jeśli by się dało, to przeszukiwanie wszystkich dostępnych częstotliwości na okrągło jest bardzo monotonne. Dobrym pomysłem jest wzajemnie informowanie się przez krótkofalowców. W tym właśnie pomagają komputerowe serwisy DX Cluster. Kiedy radioamator przeprowadzi łączność ze stacją z rzadko spotykanej jednostki DXCC lub inną ciekawą stacją (znak okolicznościowy, wyprawa krótkofalarska), może poinformować o tym swoich kolegów. Po podłączeniu do serwisu DX Cluster (najczęściej protokołem Telnet, lecz ostatnio często przez interfejs WWW) publikuje się infirmację \textbf{KTO}, \textbf{Z KIM}, \textbf{KIEDY} i \textbf{GDZIE} (częstotliwość) przeprowadził wartą uwagi łączność. Jest to tak zwany \textbf{Spot DX}. 
 
         Użytkownicy podłączeni do DX Clustera mają możliwość publikowania ogłoszeń o~spotach DX i odpowiadania na ogłoszenia, wysłania prywatnych komunikatów do innych użytkowników, wysyłania i odbierania poczty, wyszukiwania i odbierania danych archiwalnych i dostępu do informacji zgromadzonych w bazach danych.
@@ -439,7 +440,7 @@
 
     \chapter{Przegląd dostępnych rozwiązań}
     \label{sec:existing_possibilities}
-    Rozdział ten prezentuje różne możliwości realizacji projektu podzielone na jego główne składniki i porównuje je pod kątem jego założeń. Na wstępie należy zaznaczyć, że do tworzenia projektu wybrany został język Python ze względu na jego wysoką czytelność oraz duże wsparcie programowania zorientowanego obiektowo. Na końcu rozdziału zostanie przedstrawione podsumowanie, w którym zostanie wybrany komplet komponentów i rozwiązań, które będą stanowić podstawę projektu.
+    Rozdział ten prezentuje różne możliwości realizacji projektu podzielone na jego główne składniki i porównuje je pod kątem jego założeń. Na wstępie należy zaznaczyć, że do tworzenia projektu wybrany został język Python ze względu na jego wysoką czytelność oraz duże wsparcie programowania zorientowanego obiektowo. Na końcu rozdziału zostanie przedstrawione podsumowanie, w którym zostanie wybrany komplet komponentów i~rozwiązań, które będą stanowić podstawę projektu.
 
         \section{Obsługa systemu DX Cluster}
         \begin{figure}[hb]
@@ -484,7 +485,7 @@
 
             \noindent Na przykład: \texttt{<?xml version="1.0" encoding="UTF-8"?>}.
 
-            \noindent Po nagłówku xml jest zapisany cały plik w formacie ADX i jest musi być otoczony znacznikami \texttt{<ADX>} i \texttt{</ADX>}. Następnie podobnie jak w~formacie ADI można zapisać kilka istotnych danych dla samego pliku w nagłówku ADX. Cały nagłówek ADX mieści się pomiędzy znacznikami \texttt{<HEADER>} i \texttt{</HEADER>}. Każdy z~wpisów nagłówka zawarty jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i \texttt{</nazwa\_pola>}. Po sekcji nagłówka rozpoczyna się sekcja danych i jest ona otoczona znacznikami \texttt{<RECORDS>} i \texttt{</RECORDS>}. Każda krotka w pliku mieści się pomiędzy znacznikami \texttt{<RECORD>} oraz \texttt{</RECORD>} i podobnie jak w sekcji nagłówka, każde pole z wartością zawarte jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i \texttt{<nazwa\_pola>}. Przykładowy plik ADX został przedstawiony poniżej:
+            \noindent Po nagłówku xml jest zapisany cały plik w formacie ADX i jest musi być otoczony znacznikami \texttt{<ADX>} i \texttt{</ADX>}. Następnie podobnie jak w~formacie ADI można zapisać kilka istotnych danych dla samego pliku w nagłówku ADX. Cały nagłówek ADX mieści się pomiędzy znacznikami \texttt{<HEADER>} i \texttt{</HEADER>}. Każdy z~wpisów nagłówka zawarty jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i \texttt{</nazwa\_pola>}. Po sekcji nagłówka rozpoczyna się sekcja danych i jest ona otoczona znacznikami \texttt{<RECORDS>} i \texttt{</RECORDS>}. Każda krotka w pliku mieści się pomiędzy znacznikami \texttt{<RECORD>} oraz \texttt{</RECORD>} i podobnie jak w sekcji nagłówka, każde pole z wartością zawarte jest pomiędzy znacznikami \texttt{<nazwa\_pola>} i~\texttt{</nazwa\_pola>}. Przykładowy plik ADX został przedstawiony poniżej:
 
             \lstinputlisting[language=Xml, frame=single, caption=Prosty przykład pliku ADX]{sample_adx.xml}
 
@@ -511,7 +512,7 @@
 
             Opiera się na wzorcu projektowym Model-View-Controller (Model-Widok-Kontroler). Model jest reprezentacją problemu bądź logiki aplikacji. Odpowiada za odwzorowanie obiektów w strukturze bazy danych i ich relacje. Widok jest opisem wyświetlania pewnej części modelu. Służy do tworzenia zapytań, filtrowania, szeregowania i agregacji danych. Kontroler przyjmuje dane wejściowe od użytkownika i reaguje na jego poczynania, zarządzając aktualizację modelu i odświeżenie widoków.
 
-            Popularne jest także określenie frameworka Django jako pracującego w formie Model-View-Template (Model-Widok-Szablon). Szablon to graficzny opis struktury strony internetowej. Definiuje gdzie ma się znaleźć jaki element (zwykle tworzony w języku HTML z odpowienimi wstawkami).
+            Popularne jest także określenie frameworka Django jako pracującego w formie Model-View-Template (Model-Widok-Szablon). Szablon to graficzny opis struktury strony internetowej. Definiuje gdzie ma się znaleźć jaki element (zwykle tworzony w języku HTML z~odpowienimi wstawkami).
 
             Jego najważniejszymi zaletami są:
             \begin{itemize}
@@ -606,5 +607,139 @@
 
         \texttt{\$ python manage.py migrate}\\
 
-        W starszych wersjach Django migracja była wywoływana tylko jednym poleceniem, w najnowszej wersji zostało to rodzielone. Ma to swój sens w przypadku korzystania z systemów kontroli wersji. Pobierany jest wówczas tylko plik zapisanymi szczegółami migracji, nie potrzeba pobierać całego projektu i generować migracji od nowa.
+        W starszych wersjach Django migracja była wywoływana tylko jednym poleceniem, w najnowszej wersji zostało to rodzielone. Ma to swój sens w przypadku korzystania z systemów kontroli wersji. Pobierany jest wówczas tylko plik z zapisanymi szczegółami migracji, nie potrzeba pobierać całego projektu i generować migracji od nowa.
+
+        \section{Pobieranie nowych ,,spotów'' z systemu DX Cluster}
+        Cały proces odebrania i zapisania nowego spotu ma kilka kroków, każdy z nich może być rozpatrywany osobno, lecz tworzą one jedną sekwencyjną całość.
+
+            \subsection{Nawiązanie połączenia}
+            Pierwszym krokiem jest nawiązanie połącznia z systemem DX Cluster za pomocą protokołu \textbf{Telnet}. Istnieje bardzo wygodna do tego celu biblioteka w języku Python nazwana \texttt{telnetlib}. Dzięki niej można w bardzo prosty sposób stworzyć program, który działa jak klient Telnet.
+
+            Procedura odczytania kolejnych \textbf{spotów} z systemu DX Cluster zawiera kolejne kroki:
+            \begin{enumerate}
+                \item Otwarcie połączenia protokołem Telnet z odpowiednim adresem IP na konkretnym porcie. W projekcie klient Telnet łączy się z serwerem \textbf{K4UGA} o adresie \texttt{128.192.52.40} na porcie \texttt{599}.
+                \item Logowanie do systemu - po podłączeniu system wysyła kilka znaków zachęty do wpisania swojego znaku wywoławczego (na przykład ,,login''). Należy te znaki odczytać a następnie wysłać swój znak wywoławczy (tutaj \texttt{sq6sfs}) wraz ze znakiem powrotu karetki i znakiem nowej linii (\texttt{\textbackslash{}r\textbackslash{}n}).
+                \item Po wysłaniu łańcucha znaków ze swoim znakiem wywoławczym należy odczytać to, co system wysyła wzamian. Jeżeli w odpowiedzi znajdzie się słowo ,,invalid'' należy przerwać połączenie i ponowić próbę, ponieważ logowanie nie powiodło się. W projekcie wyrzucony zostaje wyjątek o nazwie \texttt{UsernameError} sygnalizujący problem z procesem logowania do systemu.
+                \item Po poprawnym zalogowaniu do systemu, odebrana zostanie wiadomość powitalna oraz informacje szczegółowe o systemie. Dla potrzeb pozyskiwania samych danych o spotach te informacje nie są istotne, więc mogą być pominięte. Ostania linia informacyjna zawiera ciąg \texttt{dxspider} więc do tego momentu wszystko zostaje zignorowane. Następnie należy znaleźć wysłany przez serwer ostatni znak nowej linii przed konkretnymi danymi. Do tego można w wygodny sposób wykorzystać biblioteczne funkcje \texttt{read\_until()}.
+
+                \texttt{self.cluster.read\_until('dxspider')}
+
+                \texttt{self.cluster.read\_until('\textbackslash{}n')}\\
+                \item Na tym etapie DX Cluster wysyłać będzie już tylko najnowsze spoty oraz ogłoszenia wysyłane przez innych użytkowników. Pobranie spotu polega na odczytaniu wszystkich znaków do znaku nowej linii.
+                \lstinputlisting[language=Python, firstline=24, lastline=31, frame=single, caption=Odczyt nowego spotu]{listings.txt}
+                Konieczne jest zastosowanie opcji \textbf{timeout} podczas odczytu. Potrzebne jest to do zabezpieczenia programu przed problemami z~połączeniem. Gdyby opcja timeout nie została zastosowana, w przypadku utraty połączenia z serwerem program zawiesiłby się na oczekiwaniu na kolejne dane. W przypadku zastosowania opcji timeout, gdy czas oczekiwania zostanie przekroczony, program może właściwie zareagować - zerwać połączenie i spróbować połączyć się ponownie z serwerem DC Cluster. W~projekcie polega to na sprawdzeniu wartości zwracanej przez funkcję \texttt{read\_until()}. Jeżeli czas oczekiwania zostanie przekroczony funkcja zwraca pusty ciąg znaków, co jest równoznaczne w języku Python z logicznym fałszem. Jeżeli odebrany ciąg nie jest pusty, oznacza to, że spot został poprawnie odczytany i może zostać przekazany do parsowania i zapisu. Odebranie pustego ciągu spowoduje wyrzucenie wyjątku \texttt{BufferError}. Po złapaniu tego wyjątku zostaje dodany wpis o błędzie do pliku z~logami błędów a następnie połączenie zostaje zamknięte i ponownie otwarte.
+            \end{enumerate}
+            Całą tą procedurą zajmuje się stworzona klasa \texttt{DXClusterReader}. Jej użycie polega wyłącznie na utworzeniu instancji klasy (podając wartości dla adresu serwera, portu oraz czasu oczekiwania - timeout). Kolejne spoty odczytywane są poprzed wywołanie metody \texttt{get\_next\_spot()}. Zwraca ona cały gotowy do parsowania łańcuch znaków. Elementem klasy jest także metoda \texttt{disconnect()} zamykająca połączenie z serwerem.
+
+            \subsection{Odczyt danych}
+            Odczyt danych polega na wybraniu szczególnych fragmentów otrzymanego łańcucha znaków oraz zapisanie ich do zmiennych odpowiedniego typu. Format łańcucha znaków został już przedstawiony w punkcie~\ref{sec:dxcluster}. W projekcie tym procesem zajmuje się klasa \texttt{Spot}. Jej konstruktor po otrzymaniu surowych danych inicjalizuje swoje wewnętrzne pola, a następnie jeżeli w czasie przetwarzania nie został wykryty żaden błąd ustawiana jest wartość poprawności danych ,,valid'' na wartość logicznej prawdy. W przypadku błędu wartość ,,valid'' ustawiana jest na logiczny fałsz, aby poinformować o tym skrypty próbujące odczytać te dane.
+
+            \subsection{Zapis danych do bazy}
+            W celu przechowywania historycznych spotów konieczny był ich zapis w bazie danych. Do tego wymagana jest odpowiednio przygotowana tabela. W związku z tym, że Django korzysta z mapowania relacyjno-obiektowego, wystarczyło stworzyć klasę modelu danych. Model ten zawiera 6 pól (plus atomatyczne pole \texttt{id} zawierające klucz główny tabeli):
+            \begin{description}
+                \item[spotter] - Znak wywoławczy autora spotu
+                \item[station] - Znak wywoławczy spotowanej stacji - rozmówcy
+                \item[frequency] - Częstotliwość, na której przeprowadzona byłą łączność
+                \item[comment] - Komentarz autora spotu
+                \item[time] - Czas przeprowadzonej łączności
+                \item[locator] - 4 z 6 znaków lokatora autora spotu
+            \end{description}
+
+            Po utworzeniu tego modelu wymagana była migracja bazy danych, która stworzyła odpowiednie tabele. Zapis do bazy danych realizowany jest na kilka prób. Jeżeli pierwsza próba zapisu zawiedzie (gdyż prawdopodobnie plik bazy danych jest używany i nie może być drugi raz otwarty), program ma za zadanie poczekać z zapisem kilka sekund i ponowić próbę. Jeżeli po 10 takich próbach zapis do bazy danych nie uda się, można postawić tezę, że dostęp do niej został zablokowany w wyniku niewyjaśnionego błędu.
+
+            Cały ten proces powtarzany jest w nieskończonej pętli. Podstawowym mechanizmem sterowania w tym skrypcie są \textbf{wyjątki}. Złapanie takiego wyjątku w czasie działania skryptu oznacza wystąpienie awaryjnej sytuacji co zostaje oznaczone w pliku z dziennikiem błędów \texttt{error.log}, zostaje zerwane połączenie z systemem DX Cluster, a następnie cała procedura uruchamiana jest od nowa.
+
+            \subsection{Automatyczne uruchamianie skryptu}
+            Często w systemach operacyjnych zachodzi potrzeba automatycznego uruchomienia skryptu po restarcie systemu. Czasami restart systemu występuje automatycznie, wg. ustalonego harmonogramu lub ręcznie na polecenie administratora. W takich przypadkach administrator może nie pamietać o ręcznym uruchomieniu skryptu, więc skrypt musi zostać uruchomiony automatycznie. W systemie Ubuntu Linux można to osiągnąć korzystając z~systemowego pliku \texttt{/etc/rc.local}. Z racji tego, że jest to plik systemowy musi być edytowany z uprawnieniami administratora systemu. Zawartość pliku przedstawiona została poniżej.
+            \lstinputlisting[language=Bash, breaklines=true, frame=single, caption=Struktura pliku \texttt{/etc/rc.local}]{rc.local}
+            Jest to zwykły plik powłoki \texttt{sh} uruchamiany za każdym razem po zakończeniu uruchamiania systemu w trybie obsługi wielu użytkowników. Domyślnie jest on pusty i nie wykonuje żadnych operacji. Jego uruchomienie może byc wyłączone poprzez zmianę prawa jego prawa do uruchomienia w systemie plików. Ważnym szczegółem jest to, aby skrypt za każdym razem zwracał do systemu jakąś wartość. Domyślnie jest to wartość ,,0'' (sukces) zwracana po wykonaniu wszystkich poleceń, ale mogą to być także inne wartości oznaczające błędy w wykonaniu poleceń. W celu automatycznego uruchomienia stworzonego skryptu do pobierania nowych spotów, została dopisana instrukcja wywołująca ten skrypt w powłoce języka Python. Ścieżka dostępu do tego skryptu musi być ścieżką bezwzględną (zaczynać się od korzenia systemu plików). Dodatkową opcją jest przekazanie wszystkich komunikatów ze standardowego strumienia błędów do pliku dziennika błędów znajdującego się w folderze projektu. Można to osiągnąć zapisem 
+            \texttt{2>{}>}. Numer 2 oznacza, że należy przekierować komunikaty z deskryptora o numerze 2 (czyli strumienia \texttt{stderr}), a dwa znaki większości oznaczają dopisywanie kolejnych linii na końcu istniejącego pliku. Ścieżka do tego pliku także musi zaczynać się od korzenia systemu plików. Ostatnim istotnym elementem jest znak \texttt{\&} (ampersand). Oznacza on stworzenie dla uruchamianego skryptu odrębnego procesu w systemie, a co za tym idzie żądanie, aby dany proces działał w tle.
+
+            Na tym etapie cały proces pobierania spotów z systemu DX Cluster jest w pełni automatyczny.
+
+        \section{Przygotowanie listy prefiksów i jednostek DXCC}
+        Na potrzeby projektu należało przygotować informacje w bazie danych potrzebne do rozróżnienia poszczególnych jednostek DXCC a także prefiksów jakie są do nich przypisane. Do tego celu wykorzystane zostały publicznie dostępne pliki \texttt{dxcclist.txt}\footnote{Dostępny na \texttt{www.arrl.org/files/file/dxcclist.txt}} zawierający przypisanie numeru DXCC do nazwy danej jednostki oraz \texttt{cty.dat}\footnote{Dostępny na \texttt{www.country-files.com}}. zawierający przypisanie do nazwy jednostki jej wszystkich prefiksów oraz numerów stref CQ i ITU.
+
+            \subsection{Przygotowanie bazy danych}
+            Na tym etapie w bazie pojawiła się pierwsza relacja pomiędzy tabelami. Przygotowane zostały modele jednostki DXCC (\texttt{Entity}) oraz prefiksów przyporządkowany do tych jednostek (\texttt{Prefix}). 
+
+            \lstinputlisting[language=Python, firstline=1, lastline=3, frame=single, caption=Klasa modelu \texttt{Entity}]{models.txt}
+
+            \noindent Model \texttt{Entity} zawiera 2 pola:
+            \begin{description}
+                \item[id] - Numer przyporządkowany do jednostki DXCC (pole jest kluczem głównym, lecz przypisywane jest ręcznie a nie automatycznie - konkretna jednostka ma swój konkretny numer).
+                \item[name] - Nazwa jednostki DXCC.
+            \end{description}
+
+            \lstinputlisting[language=Python, firstline=5, lastline=10, breaklines=true, frame=single, caption=Klasa modelu \texttt{Prefix}]{models.txt}
+
+            \clearpage
+            \noindent Model \texttt{Prefix} zawiera 5 pól:
+            \begin{description}
+                \item[entity] - Klucz obcy do klasy Entity wiążący tabele w relacji jeden-do-wielu. Wiąże sie to z tym, że jedna jednostka DXCC może mieć wiele prefiksów.
+                \item[name] - Ciąg znaków składający się na prefiks. Pole to jest kluczem głównym tabeli - nie może pojawić się kilka takich samych prefiksów w bazie danych.
+                \item[ituz] - Numer strefy ITU, do której przypisany jest dany prefiks. Pole to nie znajduje sie w~klasie Entity, ponieważ jednostka zawierająca wiele prefiksów, może być rozciągnięta na wiele stref ITU. Wartość ta musi być więc przypisana do klasy Prefix.
+                \item[cqz] - j.w. - Numer strefy CQ.
+                \item[full\_callsign] - Zdarza się, że jako prefiks uznaje się cały znak wywoławczy, dopasowany musi być cały znak. Konieczne jest oznaczenie tego w bazie danych.
+            \end{description}
+
+            \subsection{Parsowanie pliku \texttt{dxcclist.txt}}
+            Plik przed parsowaniem musiał zostać delikatnie do tego parsowania przygotowany. Został usunięty nagłówek, ponieważ nie było tam żadnych istotnych informacji. Musiały być także poprawione linie, w których wystąpiło więcej stref ITU lub CQ. Autor pliku przeniósł niemieszczące się liczby do następnej linii co było kłopotliwe. Te linie zostały usunięte, ponieważ przyporządkowanie stref ITU i CQ było mało szczegółowe, więc mogło być pominięte.
+
+            \lstinputlisting[language=Clean, firstline=34, lastline=37, frame=single, caption=Przykładowe linie z pliku dxcclist.txt]{listings.txt}
+
+            Struktura pliku to 6 kolumn oddzielonych wielokrotnymi spacjami. Te kolumny to:
+            \begin{itemize}
+                \item Prefiks lub przedział prefiksów (mało szczgółowe - nieużywane)
+                \item Nazwa jednostki DXCC
+                \item Skrót kontynentu (nieistotne)
+                \item Strefa ITU (mało szczegółowe - nieużywane)
+                \item Strefa CQ (mało szczegółowe - nieużywane)
+                \item Numer jednostki DXCC
+            \end{itemize}
+            Plik po otwarciu przez skrypt został podzielony na pojedyncze linie. Każda z linii została podzielona na poszczególne kolumny za pomocą wyrażenia regularnego wyszukującego przynajmniej dwa znaki białe w łańcuchu znaków.
+
+            \texttt{columns = re.split('\textbackslash s\{2,\}', line)}
+
+            \noindent Z podzielonych kolumn zostały wybrane tylko dwie - o indeksach 1 i 5, czyli kolumna 2 (nazwa) i kolumna 6 (numer). Następnie te dwie wartości zapisywane są w tabeli Entity. Jeżeli napotkany zostanie błąd, który oznacza, że w tabeli już jest zapisana jednostka DXCC o podanym numerze, skrypt zapyta o decyzję czy wpis jest poprawny z możliwością wpisania wartości ręcznie.
+
+            \subsection{Parsowanie pliku \texttt{cty.dat}}
+            Plik \texttt{cty.dat} ma zupełnie inną strukturę niż \texttt{dxcclist.txt}.
+
+            \lstinputlisting[language=Clean, label={lst:cty}, firstline=40, lastline=54, frame=single, caption=Przykładowe linie z pliku cty.dat]{listings.txt}
+
+            Składa się z rekordów rozciągniętych na kilka linii. W pierwszej linii zapisane są szczegóły danej jednostki DXCC, w drugiej i kolejnych zapisane są wszystkie prefiksy przyporządkowane do tej jednostki. Pierwsza linia składa się z pól ustawionych w odpowiednich pozycjach, zakończonych znakiem ,,\textbf{:}'' i są to kolejno:
+            \begin{description}
+                \item[Znaki 1-26] - Nazwa jednostki DXCC
+                \item[Znaki 27-31] - Strefa CQ
+                \item[Znaki 32-36] - Strefa ITU
+                \item[Znaki 37-41] - Skrót kontynentu (nieistotne)
+                \item[Znaki 42-50] - Szerokość geograficzna (nieistotne)
+                \item[Znaki 51-60] - Długość geograficzna (nieistotne)
+                \item[Znaki 61-69] - Przesunięcie czasu względem czasu UTC
+                \item[Znaki 70-75] - Podstawowy prefiks danej jednostki DXCC
+            \end{description}
+
+            Kolejne linie to prefiksy oddzielone między sobą znakiem ,,\textbf{,}''. Dopuszczone zostały w~tym pliku wpisy, gdzie prefiksy zajmują wiele linii. Każda z linii, która nie jest ostatnia powinna także kończyć się znakiem ,,\textbf{,}'', a linia ostatnia powinna zostać zakończona znakiem ,,\textbf{;}''.
+
+            Jeżeli przed prefiksem ustawiony jest znak ,,\textbf{=}'', oznacza to, że prefiks powinien być traktowany jako cały znak wywoławczy - musi być w pełnym dopasowaniu. Dodatkowo przy prefiksie może wystąpić liczba oznaczająca inne niż domyślne oznaczenie dla szczegółów jednostki (np. strefy CQ). Te oznaczenia to:
+            \begin{description}
+                \item[(\#)] - Inna strefa CQ dla danego prefiksu
+                \item[[\#{]}] - Inna strefa ITU
+                \item[<\#/\#>] - Inne współrzędne geograficzne
+                \item[\{aa\}] - Inny kontynent
+            \end{description}
+            Widoczny na listingu~\ref{lst:cty} przykład Yemenu dobrze to obrazuje. Yemen określony jest jako leżący w strefie CQ nr \textbf{21} oraz strefie ITU nr \textbf{39}. Pomimo tego prefiks \texttt{=7O2A(37)[48]} określony jest jako leżący w strefie CQ nr \textbf{37} i strefie ITU nr \textbf{48}. Dodatkowo przed prefiksem ustawiony jest znak ,,\texttt{=}'', więc prefiks musi być brany pod uwagę jako cały znak wywoławczy.
+
+            Pierwszą operacją wykonaną na pliku było podzielenie go na pojednyncze rekordy. Plik został podzielony w miejscach wystąpienia sekwencji znaków ,,\texttt{;\textbackslash r\textbackslash n}''. Jak zostało wspomniane każdy rekord zakończony musi być znakiem ,,\textbf{;}'', więc takie rozwiązanie było najbardziej praktyczne. Znaki powrotu karetki i nowej linii przy podziale ułatwiają tylko przetwarzanie - po podziale są one usuwane, więc nie trzeba się nimi przejmować. Następnie każdy rekord podzielony został na linie z wyróżnieniem pierwszej linii (opisującej szczegółowe dane jednostki DXCC) i pozostałych linii z listą prefiksów. Z pierwszej linii zostają odczytane istotne pola: nazwa jednostki DXCC, strefa CQ, strefa ITU oraz główny prefiks danej jednostki. Wszystkie kolejne linie rekordu zostały podzielone w miejscach wystąpienia znaku ,,\textbf{,}''. Następnie wszystkie zmienne na liście, które okazały się po podziale puste zostają odfiltrowane. Reszta prefiksów jest oczyszczona z białych znaków występujących przed i po nich. Cała ta procedura widoczna jest na poniższym fragmencie kodu.
+
+            \lstinputlisting[language=Python, firstline=58, lastline=62, frame=single, caption=Odczytanie wszystkich prefiksów z rekordu]{listings.txt}
+
+            Sporym kłopotem jaki wyniknął podczas przetwarzania plików było to, że nazwy jednostek DXCC w plikach \texttt{dxcclist.txt} i \texttt{cty.dat} nieznacznie się różnią lub zapisane są w innej konwencji (np. \textbf{Spratly Is.} i \textbf{Spratly Islands}). To utrudniało wyszukiwanie już zapisanych jednostek DXCC w bazie. Gdy idealne dopasowanie nazwy nie było możliwe, konieczne było dopasowanie tych nazw fragmentami. Skrypt ucinał kolejno od końca po jednym znaku i próbował znaleźć wszystkie pasujące nazwy jednostek DXCC. Po znalezieniu takich dopasowań konieczna była ręczna weryfikacja. Administrator po ustaleniu pasującej nazwy musi wpisać jej numer na liście znalezionych. Podczas przetwarzania zaistniało kilka przypadków, że żadna nazwa nie pasowała do poszukiwanej. Po analizie danych okazało się, że są to jednostki, które nie figurują już na liście DXCC, więc mogły być pominięte.
+
+            Po utworzeniu odpowiedniej relacji nowego rekordu z tabeli Prefix z pasującym rekordem z tabeli Entity koniecznym było dopisanie wszystkich prefiksów zebranych z pliku. Rozdzielenie łańcucha znaków zawierającego prefiks na poszczególne części zrealizowane zostało za pomocą wyrażenia regularnego, które poszukiwało w danym łańcuchu znaku ,,\textbf{=}'', właściwego prefiksu, liczby w nawiasach okrągłych oznaczających inną strefę CQ oraz liczby w nawiasach kwadratowych oznaczających inną strefę ITU. W przypadku błędu w~dopasowaniu łańcucha znaków do wyrażenia regularnego, wypisywany jest on na konsolę, aby administrator mógł ręcznie zweryfikować jego poprawność i w późniejszym czasie dodać go do bazy. Poprawnie dopasowane łańcuchy znaków rozdzielane są na szczegóły prefiksów i dodawane do bazy danych.  
+
+            \lstinputlisting[language=Python, firstline=66, lastline=72, frame=single, caption=Dodawanie prefiksów do bazy danych]{listings.txt}
+
+            Powyższy listing przedstawia funkcję tworzącą rekord prefiksu do bazy danych. W~przypadku pól \texttt{ituz} i \texttt{cqz} dodatkowo została zastosowana funkcja \textbf{or}. Gdy w łańcuchu znaków nie zostanie znaleziony fragment z inną strefą ITU lub strefą CQ, zostaje do pola przypisana wartość jaka jest domyślna dla całej jednostki DXCC odczytana z pierwszej linii rekordu w pliku \texttt{cty.dat}.
 \end{document}
