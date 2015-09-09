@@ -666,7 +666,7 @@
             \subsection{Przygotowanie bazy danych}
             Na tym etapie w bazie pojawiła się pierwsza relacja pomiędzy tabelami. Przygotowane zostały modele jednostki DXCC (\texttt{Entity}) oraz prefiksów przyporządkowany do tych jednostek (\texttt{Prefix}). 
 
-            \lstinputlisting[language=Python, firstline=1, lastline=3, frame=single, caption=Klasa modelu \texttt{Entity}]{models.txt}
+            \lstinputlisting[language=Python, firstline=47, lastline=49, frame=single, caption=Klasa modelu \texttt{Entity}]{models.py}
 
             \noindent Model \texttt{Entity} zawiera 2 pola:
             \begin{description}
@@ -674,7 +674,7 @@
                 \item[name] - Nazwa jednostki DXCC.
             \end{description}
 
-            \lstinputlisting[language=Python, firstline=5, lastline=10, breaklines=true, frame=single, caption=Klasa modelu \texttt{Prefix}]{models.txt}
+            \lstinputlisting[language=Python, firstline=70, lastline=75, breaklines=true, frame=single, caption=Klasa modelu \texttt{Prefix}]{models.py}
 
             \clearpage
             \noindent Model \texttt{Prefix} zawiera 5 pól:
@@ -769,7 +769,61 @@
 
             Na listingu~\ref{lst:operator_model} przedstawiona została klasa operatora, która poprzez pole \texttt{user} pozostaje w relacji jeden-do-jednego z klasą użytkownika w Django (\texttt{User}). Klasa \texttt{Operator} dodaje dwa istotne pola - callsign (znak wywoławczy operatora) oraz jego lokator. Profil operatora musi być uzupełniony przez użytkownika po rejestracji nowego konta w serwisie.
 
-            \lstinputlisting[language=Python, label={lst:operator_model}, firstline=75, lastline=78, frame=single, caption=Klasa Operator w modelu bazy danych]{listings.txt}
+            \lstinputlisting[language=Python, label={lst:operator_model}, firstline=22, lastline=25, frame=single, caption=Klasa Operator w modelu bazy danych]{models.py}
 
             Język Python daje możliwość tego, aby zastosować dziedziczenie i stworzyć klasę \texttt{Operator} dziedziczącą po klasie \texttt{User}, co nieco uprościłoby zapytania do bazy. Jednak przewagą przyjęcia relacji jeden-do-jednego nad dziedziczeniem jest to, że klasa \texttt{User} nadal istnieje w modelu bazy danych i wszystkie mechanizmy Django mogą funkcjonować praktycznie bez żadnych zmian. Gdyby zostało zastosowane dziedziczenie, wszystkie mechanizmy (logowanie, wylogowanie, rejestracja itp.) musiałyby być przepisane lub napisane od nowa.
+
+        \section{Przetwarzanie dziennika łączności}
+        Jedną z istotniejszych części całego systemu jest dodanie przez użytkownika swojego dziennika łączności, czyli całej swojej dotychczasowej działalności i osiągnięć. System, który ma podpowiadać użytkownikowi ciekawe nowości musi wiedzieć co ma pominąć. Jak zostało przyjęte, system będzie przyjmował pliki dzienników w formacie ADIF. Zawierają one dużo informacji, z czego tylko część jest istotna dla działania systemu. Następnie koniecznym będzie dodanie kolejnej klasy do modelu bazy danych.
+
+            \subsection{Analiza pliku ADIF}
+            Plik w formacie ADIF może przechowywać różne informacje na temat łączności. Istotnymi z perspektywy systemu są informacje:
+            \begin{itemize}
+                \item Z kim przeprowadzono łączność
+                \item Kiedy łączność została przeprowadzona
+                \item Na jakim paśmie lub częstotliwości
+                \item Za pomocą jakiej modulacji
+                \item Jakie zostały wymienione raporty RST
+                \item Czy łączność została potwierdzona
+            \end{itemize}
+            Wszystkie te informacje można znaleźć w pliku. Czas zapisany jest jako 3 oddzielne pola: data (dzień, miesiąc, rok), czas (data i godzina) rozpoczęcia łączności oraz czas zakończenia łączności. Pełny czas łączności może zostać zapisany z połączenia daty i czasu rozpoczęcia łączności z użyciem pola bazy danych typu \texttt{datetime}. Potwierdzenie łączności funkcjonuje także jako 3 różne pola - każde odnoszące się do innej formy potwierdzenia. Jest to potwierdzenie tradycyjnymi kartami \textbf{QSL}, oraz potwierdzenia elektroniczne w~systemach \textbf{eQSL} i \textbf{LoTW}.
+
+            Pominięte zostaną inne nieistotne pola z pliku takie jak na przykład:
+            \begin{itemize}
+                \item Imię korespondenta
+                \item Adres
+                \item Lokator
+                \item Dystans pomiędzy stacjami
+                \item Moce urządzeń
+            \end{itemize}
+
+            \subsection{Przygotowanie bazy danych}
+            Wszystkie istotne pola zostały zapisane w klasie QSO\footnote{QSO - Skrót radiowy kodu Q oznaczający łączność radiową.}. Jej struktura widoczna jest na poniższym listingu.
+
+            \lstinputlisting[language=Python, breaklines=true, label={lst:qso_model}, firstline=90, lastline=106, frame=single, caption=Klasa QSO]{models.py}
+
+            Jeżeli w szczegółach łączności nie zostaną znalezione informacje o jej potwierdzeniu, łączność domyślnie zostanie oznaczona jako niepotwierdzona. Dla wygody przetwarzania dodane zostało także pole w relacji jeden-do-wielu do klasy \texttt{Prefix}. Jak także można zauważyć, została dodana klasa \texttt{Band} w modelu bazy danych. Przedstawiona została na listingu~\ref{lst:band_model}. Klasa zawiera nazwę pasma, a także początkową i końcową częstotliwość.
+            \lstinputlisting[language=Python, breaklines=true, label={lst:band_model}, firstline=58, lastline=61, frame=single, caption=Klasa Band]{models.py}
+            Klasa \texttt{Band} została stworzona aby łatwo kontrolować poprawność dodawanych danych z plików dzienników, a także aby konkretne pasma nazwać a potem wybierać z listy dostępnych w panelu filtrowania.
+
+            \subsection{Przetwarzanie pliku ADIF}
+            Przetwarzaniem pliku ADIF zajmuje się klasa \texttt{AdiLogParser}. Po zleceniu skryptowi przetwarzania pliku pierwszą rzeczą po jego otwarciu jest ominięcie nagłówka. W przypadku tego systemu nagłówek nie niesie ze sobą żadnych istotnych informacji, więc jest on pomijany. Reszta linii jest rozdzielana na pojedyncze rekordy wg. znacznika \texttt{<EOR>}. Następnie każdy z rekordów rozdzielany jest na poszczególne pola. Po podzieleniu wszystkie pola są przyporządkowane do odpowiednich typów zmiennych zgodnie ze zdefiniowanym kluczem. Jeżeli jakieś pole nie znajduje się w kluczu, zostaje automatycznie pomijane jako nieistotne. Większość zmiennych przekształcana jest przez proste rzutowania na zmienne całkowite (\textbf{int}), dziesiętne (\textbf{float}) lub w ogóle nie są przekształcane, ponieważ są łańcuchami znaków. Jest jednak kilka typów pól wymagających bardziej złożonych przekształceń. Są to na przykład pole \texttt{QSO\_DATE}, gdzie data jest zapisana w formacie \textbf{YYYYMMDD}. Należy te cyfry rozdzielić i przypisać do zmiennej języka Python typu \texttt{datetime.date} - funkcja ta pokazana jest na listingu~\ref{lst:ascii_to_date}
+            \lstinputlisting[language=Python, breaklines=true, label={lst:ascii_to_date}, firstline=75, lastline=81, frame=single, caption=Funkcja ascii\_to\_date]{listings.txt}
+            Analogicznie zachowuje się funkcja \texttt{ascii\_to\_time} przekształcająca pole \texttt{TIME\_ON} na zmienną \texttt{datetime.time}.
+
+            Wszystkie pola zapisane zostają w zmiennej typu \textbf{dict} (słownik). Ostatnim krokiem przetwarzania pliku jest połączenie zmiennych \texttt{QSO\_DATE} i \texttt{TIME\_ON} do jednej zmiennej \texttt{DATE} typu \texttt{datetime.datetime}.
+
+            \subsection{Zapis danych do bazy}
+            Gdy cały plik zostanie przetworzony, cały zbiór danych zostaje przekazany do skryptu zajmującego się zapisem danych do bazy. Wszystkie potrzebne wartości pól odczytywane są z przekazanych słowników. Może się zdarzyć, że któregoś pola zabrakło w parsowanym rekordzie. Wówczas do pola przypisywana jest wartość domyślna. Na przykład w przypadku braku raportu RST do pola przypisywana jest pusta wartoś \texttt{None}, a w przypadku braku pola oznaczającego potwierdzenie łączności przypisywana jest wartość \texttt{False} oznaczająca łączność niepotwierdzoną. Dla każdego z rekordów tworzony jest nowy obiekt w bazie danych lub aktualizowany. Istotny fragment pokazuje poniższy fragment skryptu.
+            \lstinputlisting[language=Python, breaklines=true, label={lst:ascii_to_date}, firstline=84, lastline=106, frame=single, caption=Zapis łączności do bazy danych]{listings.txt}
+            Funkcja \texttt{get\_or\_create} próbuje pobrać z bazy danych obiekt łączności, który charakteryzują pola:
+            \begin{description}
+                \item[call] - znak wywoławczy rozmówcy
+                \item[date] - data przeprowadzenia łączności
+                \item[band] - pasmo
+                \item[frequency] - częstotliwość
+                \item[locator] - lokator rozmówcy
+                \item[mode] - modulacja
+            \end{description}
+            Jeżeli któraś z tych wartości się różni, należy sklasyfikować łączność jako nową. W przypadku gdy tak opisanej łączności nie ma, tworzony jest nowy obiekt ze paramatrami pól opisanymi w argumencie \texttt{defaults}. Jeżeli obiekt tej łączności już w bazie istnieje, jest on pobierany i aktualizowane są w nim pola potwierdzenia łączności, a następnie obiekt ten jest ponownie zapisywany w bazie.
 \end{document}
