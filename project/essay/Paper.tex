@@ -50,7 +50,11 @@
     \tableofcontents
 
     \chapter{Wstęp}
-    TODO
+    Celem pracy jest stworzenie projektu systemu, który na podstawie wymagań poszczególnych użytkowników, będzie przyporządkowywał pobierane na bieżąco informacje z systemu służącego do dzielenia się informacjami pomiędzy radioamatorami.
+
+    Projekt powstał z myślą o ludziach, którzy nie mają możliwości poświęcenia dużej ilości czasu na pracę przy sprzęcie radiowym, a mimo wszystko chcą realizować ciekawe łączności z nowymi rejonami świata. Jest on także skierowany do ludzi, którzy bardzo poważnie podchodzą do swojego hobby jakim jest krótkofalarstwo i poświęcają czas aby zdobywać osiągnięcia polegające na przeprowadzeniu łączności z określoną liczbą różnych krajów. Początki takiej zabawy są łatwe - w bliskiej odległości łatwo słyszalnych jest duża liczba stacji nadających z różnych krajów. Dużo jest także krajów leżących w znacznej odległości, lecz posiadająca dużo aktywnych radioamatorów. Niekończące się szukanie pożądanych stacji może skutecznie zniechęcić. Dużą wygodą jest możliwość śledzenia na bieżąco ciekawych wydarzeń (zrealizowanych łączności) w systemie internetowym. Taką możliwość daje system DX Cluster służący do wzajemnego powiadaniamia się radioamatorów o przeprowadzeniu łączności z rzadko spotykaną stacją. Problem w tym, że liczba tych informacji może dochodzić nawet do kilku tysięcy w ciągu jednego dnia. Sporym udogodnieniem byłoby stworzenie systemu, który na podstawie potrzeb użytkownika potrafił wychwycić wartościowe łączności i mu je przedstawić.
+
+    Poniższa praca skupia się na rozwiązaniu tego problemu. W rozdziale~\ref{sec:teoretical_description} opisywana jest praca krótkofalarska, jej obszary zainteresowań oraz problemu na jakie napotykają się radioamatorzy. Rozdział~\ref{sec:collecting_entities} przedstawia pojęcia związane z tematem niniejszej pracy. W części~\ref{sec:problem_description} sformułowany został problem, który będzie rozwiązywany oraz jego główne założenia. W rozdziale~\ref{sec:existing_possibilities} zaprezentowan zostaną różne możliwości, które mogą być wykorzystane do rozwiązania postawionego problemu. Treść rozdziału~\ref{sec:project_realization} będzie przedstawieniem kolejnych etapów pracy nad projektem. Zostały w nim opisane poszczególne zagadanienia, części projektu oraz sposób ich wykorzystania w projekcie. W istotnych partiach przedstawiona została szczegółowa konfiguracja poszczególnych modułów. Rozdział~\ref{sec:summit} będzie podsumowaniem pracy, opisem dodatkowych możliwości rozwoju projektu oraz jego słabych punktów.
 
     \chapter{Problematyka amatorskich systemów radiowych}
     \label{sec:teoretical_description}
@@ -62,12 +66,12 @@
         Duża część pracy radioamatora to próby, eksperymenty, budowanie swoich projektów a następnie wymiana doświadczeń z innymi. Zwykle są to wnioski na podstawie krótkich obserwacji, lecz niejednokrotnie są to duże i konkretne artykuły prezentowane w czasopismach branżowych. Wymieniane są spostrzeżenia dotyczące techniki radioamatorskiej, rozprzestrzeniania się fal elektromagnetycznych w~poszczególnych zakresach itp. Często w ten sposób społeczność radioamatorów przyczynia się do rozwoju wiedzy i~techniki. 
 
         \section{Krótkofalarstwo}
-        Terminem krótkofalarstwo określa się hobby polegające na nawiązywaniu łączności z~innymi stacjami radioamatorskimi za pomocą nadajników radiowych. W~przypadku nowoczesnych sposobów komunikacji (np. poczta elektroniczna, komunikatory Internetowe, telefonia komórkowa), nieważny jest sposób przesłania informacji z~punktu A do punku~B, a sama informacja. W wypadku krótkofalarstwa większy nacisk kładzie się na sposób przesłania informacji (sprzęt radiowy, rodzaj emisji, pasmo, anteny itd) a także w wielu przypadkach na sam fakt przeprowadzonej łączności dalekiego dasięgu. Łączność ze stacją, która jest aktywna przykładowo jednego losowego dnia w roku może być bardzo dużym wyzwaniem. Podczas samych łączności krótkofalarskich istotnymi informacjami wymienianymi przez użytkowników stacji są ich osobiste znaki wywoławcze oraz raporty o~słyszalności i~sile odebranego sygnału, a~także wykorzystanych antenach, radioodbiornikach, programach komputerowych użytych do wykorzystania modulacji cyfrowych i innych parametrach związanych z~aktualnie przeprowadzaną łącznością. Samo krótkofalarstwo jest dziedziną zainteresowań o~bogatym wachlarzu możliwości.
+        Krótkofalarstwo to hobby skupiające ludzi zafascynowanych nawiązywaniem łączności z~innymi stacjami radioamatorskimi za pomocą nadajników radiowych. Nowoczesne sposoby komunikacji (np. poczta elektroniczna, komunikatory Internetowe, telefonia komórkowa) nie przykładają wagi do tego, w jaki sposób przesyłana jest informacja z~punktu A do punku~B, a sama informacja. W wypadku krótkofalarstwa nacisk kładzie się na sam sposób przesłania informacji (sprzęt radiowy, rodzaj emisji, pasmo, anteny itd), a także w wielu przypadkach na sam fakt przeprowadzonej łączności dalekiego dasięgu lub podsczas słabych warunków propagacji fali elektromagnetycznej. Łączność ze stacją, która jest aktywna tylko raz w roku może być bardzo dużym wyzwaniem. Podczas samych łączności krótkofalarskich istotnymi informacjami wymienianymi przez użytkowników stacji są ich osobiste znaki wywoławcze oraz raporty o~słyszalności i~sile odebranego sygnału, a~także wykorzystanych antenach, radioodbiornikach, programach komputerowych użytych do wykorzystania modulacji cyfrowych i innych parametrach związanych z~aktualnie przeprowadzaną łącznością. Samo krótkofalarstwo jest dziedziną zainteresowań o~bogatym wachlarzu możliwości.
 
             \subsection{Edukacja}
-            (!!! COPIED !!!) Jednym z~korzyści jakie niesie ze sobą ten temat, to ogromna ilość wiedzy z~różnych lecz poniekąd pokrewnych sobie dziedzin. Taka wiedza może zostać przekazana uczniom szkół w~czasie zajęć obejmujących zagadnienia ściśle powiązane z~krótkofalarstwem. Bogatą wiedzę można także pozyskać uczestnicząc w~spotkaniach klubów krótkofalarskich lub uczestnicząc w~zajęciach prowadzonych przez takie kluby. Przekazywane tam informacje są najbardziej usystematyzowane. Rozwiązanie takie daje także możliwości skorzystania z~klubowych radiostacji. Ostatnim ze sposobów podjęcia takiej wiedzy jest nauka samodzielna korzystając z~rozmaitej literatury tematycznej, publikacji lub artykułów sporządzonych samodzielnie przez radioamatorów z~całego świata.
+            Istotną zaletą tej sfery zainteresowań, jest ogromna ilość wiedzy z~różnych lecz poniekąd pokrewnych sobie dziedzin. Można taką wiedzę przekazać uczniom szkół w~czasie zajęć obejmujących zagadnienia ściśle powiązane z~krótkofalarstwem lub uczyć różnych pozornie niezwiązanych pojęć na podstawie pracy ze sprzętem radiowym. Bogatą wiedzę można także pozyskać uczestnicząc w~spotkaniach klubów krótkofalarskich lub uczestnicząc w~zajęciach organizowanych przez takie kluby. Przekazywane tam informacje są najbardziej usystematyzowane i praktyczne. Rozwiązanie takie daje także możliwości skorzystania z klubowego (często bardzo zaawansowanego) sprzętu radiowego. Ostatnim ze sposobów podjęcia takiej wiedzy jest samodzielna nauka wykorzystująca bogactwo literatury tematycznej, publikacji lub artykułów sporządzonych samodzielnie przez radioamatorów z~całego świata.
 
-            Przede wszystkim radioamator uczy się przy okazji pasji dużo z~dziedziny telekomunikacji. Poznaje rodzaje anten, które wykorzystuje się w~pracy z~różnymi pasmami a także ich budowę. Uczy się także typów modulacji oraz rodzajów emisji. W~przypadku elektroniki krótkofalarstwo daje szansę poznania zasad działania różnych urządzeń elektronicznych oraz zagadnienia przetwarzania sygnałów. Budowanie automatycznych przełączników lub sterowników rotorów antenowych wiąże się z~poznaniem zagadnień z~dziedziny automatyki. Krótkofalarstwo wprowadza także wiele wiedzy z~zakresu informatyki, gdzie radioamator może wykorzystać do transmisji informacji różne rodzaje emisji cyfrowych lub stworzyć swój własny system SDR\footnote{SDR (ang. Software Defined Radio, radio programowalne) – system komunikacji radiowej, w~którym działanie podstawowych elementów elektronicznych (takich jak mieszacze, filtry, modulatory i~demodulatory) jest realizowane za pomocą programu komputerowego.} i~korzystać ze swojego oddalonego o~znaczną odległość radia za pośrednictwem Internetu lub dać możliwość korzystania ze swoich anten i~prowadzenia nasłuchu innym radioamatorom. Na pograniczu leżą także takie dziedziny nauki jak kryptografia, w~przypadku gdy użytkownicy dwóch stacji chcą się porozumiewać zachowując poufność przesyłanych informacji. Istotną umiejętnością jest także znajomość języków obcych. Bez tego prawie niemożliwym jest prowadzenie łączności z~radioamatorami posługującymi się innymi językami. Krótkofalarstwo wprowadza także wiele umiejętności stricte powiazanych z tą dziedziną - umiejętność komunikacji za pomocą telegrafii (alfabetem Morse'a), znajomość fonetycznej reprezentacji liter w różnych językach (\mbox{A -- Alpha/Adam}, B -- Bravo/Barbara, C -- Charlie/Celina, itd.).
+            Przy okazji pasji, radioamator uczy się dużo z~dziedziny telekomunikacji. Poznaje rodzaje anten wykorzystywanych w~pracy z~różnymi pasmami, a także zasady ich budowy oraz sposobów pomiaru ich wydajności. Poznaje także typy modulacji oraz rodzaje emisji. W~przypadku elektroniki, krótkofalarstwo daje szansę poznania zasad działania różnych urządzeń elektronicznych oraz zagadnienia przetwarzania sygnałów. Budowanie automatycznych przełączników lub sterowników rotorów antenowych wiąże się z~poznaniem zagadnień z~dziedziny automatyki. Krótkofalarstwo wiąże się obecnie także z informatyką, gdzie radioamator może wykorzystać do transmisji informacji różne rodzaje emisji cyfrowych lub stworzyć swój własny system SDR\footnote{SDR (ang. Software Defined Radio, radio programowalne) – system komunikacji radiowej, w~którym działanie podstawowych elementów elektronicznych (takich jak mieszacze, filtry, modulatory i~demodulatory) jest realizowane za pomocą programu komputerowego.} i~korzystać ze swojego oddalonego o~znaczną odległość radia za pośrednictwem Internetu lub dać możliwość korzystania ze swoich anten i~prowadzenia nasłuchu innym radioamatorom. Korzystając z programów komputerowych można także sterować bardziej zaawansowanymi urządzeniami radiowymi. Na pograniczu leżą także takie dziedziny nauki jak kryptografia, w~przypadku gdy użytkownicy dwóch stacji chcą zachować poufność przesyłanych informacji. Istotną umiejętnością jest także znajomość języków obcych. Bez tego prawie niemożliwym jest prowadzenie łączności z~radioamatorami z innych krajów. Krótkofalarstwo wprowadza także wiele umiejętności stricte powiazanych z tą dziedziną - umiejętność komunikacji za pomocą telegrafii (alfabetem Morse'a), znajomość fonetycznej reprezentacji liter w różnych językach (\mbox{A -- Alpha/Adam}, B -- Bravo/Barbara, C -- Charlie/Celina, itd.).
 
             Jest to jedna z~nielicznych pasji, która pozwala na wykorzystanie w globalnych łącznościach własnoręcznie stworzonego sprzętu. Społeczność krótkofalowców popiera i~wręcz dopinguje budowanie i~wykorzystanie własnych urządzeń radiowych, anten a także pozostałego oprzyrządowania niezbędnego w~pracy lub ułatwiającego pracę radioamatora - jak na przykład przełączniki antenowe, wzmacniacze, klucze telegraficzne itp) oraz programów komputerowych - do transmisji danych różnymi typami emisji, do monitorowania pracy radioamatora lub do sterowania pracą radioodbiornika za pomocą komputera. Dodatkowym atutem jest brak konieczności posiadania jakichkolwiek homologacji lub zezwoleń na korzystanie z~własnych urządzeń, co jest ogromną zaletą w przeciwieństwie do pasm CB, gdzie urządzenie musi być homologowane i mieć określone warunki pracy lub pasm PMR (w jakich pracują na przykład proste urządzenia Walkie-Talkie), gdzie urządzenie musi być o bardzo niskiej mocy, mieć na stale przyczepioną antenę i trwale zamkniętą obudowę aby uniemożliwić ingerencję ze strony użytkowników. Najwięcej osób używa jednak urządzeń fabrycznych. Jest to droższe rozwiązanie, ale dużo łatwiejsze aby od razu zacząć komunikację z innymi.
 
@@ -77,7 +81,7 @@
             Wielu radioamatorów angażuje się także w~szkolenie innych ludzi w~zakresie krótkofalarstwa lub dziedzin ściśle z~nim powiązanych. To nieoceniona pomoc dla początkujących, która pozwala łatwiej zacząć przygodę z~krótkofalarstwem i wdrożyć się tematykę bez konieczności czytania wielu potężnych tomów literatury lub czasopism branżowych.
 
             \subsection{Hobby}
-            (!!! COPIED !!!) Najwięcej ludzi skłania się do krótkofalarstwa z~powodu hobby. Posiada wiele dyscyplin jak zawody, wyprawy, prowadzenie łączności dalekiego zasięgu, eksperymentowanie z~różnymi typami emisji lub po prostu pozostawanie w~kontakcie z~przyjaciółmi korzystając z~innego środka komunikacji od popularnych w~dzisiejszych czasach telefonii komórkowej czy Internetu.
+            Najwięcej ludzi skłania się do krótkofalarstwa z~powodu hobby. Posiada wiele dyscyplin jak zawody, wyprawy, prowadzenie łączności dalekiego zasięgu, eksperymentowanie z~różnymi typami emisji lub po prostu pozostawanie w~kontakcie z~przyjaciółmi korzystając z~innego środka komunikacji od popularnych w~dzisiejszych czasach telefonii komórkowej czy Internetu.
 
                 \subsubsection{Zawody}
                     \begin{wrapfigure}{r}{0.4\textwidth}
@@ -105,14 +109,15 @@
                     \end{wrapfigure}
                 Do prowadzenia łączności ze znajomymi mieszkającymi w~naszym otoczeniu wystarczy tani nadajnik przenośny, jak pokazany na rysunku~\ref{fig:ukf_handheld} lub samochodowy pracujący na pasmach UKF. Stosunkowo mała moc urządzeń pozwala na objęcie swoim zasięgiem czasami nawet całego miasta. W~przypadku gdy taki zasięg staje się niewystarczający, w~orężu radioamatorów pozostają tzw. przemienniki - urządzenia montowane na znacznych wysokościach (wysokich obiektach miejskich, wzniesieniach terenu), które odbierają sygnał i~nadają go powtórnie z~dużo większą mocą. Skutkuje to wielokrotnym zwiększeniem zasięgu prowadzonych łączności nawet do kilkuset kilometrów. Przemienniki amatorskie nie nadają cały czas, aby nie zużywały energii gdy nikt z~nich nie korzysta. W~celu skorzystania z~takiego przemiennika należy go wcześniej ,,otworzyć'' sygnałem akustycznym o~określonej częstotliwości, jednym z~tonów DTMF lub sygnałów CTCSS.
 
+OK
                 \subsubsection{Łączności dalekiego zasięgu (DX)}
-                (!!! Copied !!!) Radioamatorzy, którzy korzystają z~bardziej zaawansowanych urządzeń i~anten mogą pracować z~innymi rodzajami emisji oraz na innych pasmach (fale krótkie (KF), fale średnie). Pozwala to na realizację łączności na dużo większe odległości - opierając się na samej mocy i~charakterystyce emitowanego sygnału, wykorzystując zjawiska pogodowe, zjawisko odbicia fal lub korzystając z~amatorskich satelitów komunikacyjnych działających w~paśmie UKF. Można dzięki temu nawiązywać łączności międzykontynentalne na dystansach rzędu tysięcy kilometrów.
+                Krótkofalowcy, korzystający z~bardziej zaawansowanych urządzeń i~anten mogą pracować z~innymi rodzajami emisji oraz na innych pasmach (fale krótkie (KF), fale średnie). Pozwala to na realizację łączności na dużo większe odległości - opierając się na samej mocy i~charakterystyce emitowanego sygnału, wykorzystując zjawiska pogodowe, zjawisko odbicia fal lub korzystając z~amatorskich satelitów komunikacyjnych działających w~paśmie UKF. Można dzięki temu nawiązywać łączności międzykontynentalne na dystansach rzędu tysięcy kilometrów.
 
                     \paragraph{Fale odbite od warstw jonosfery}
-                    Łączności dalekiego zasięgu na falach krótkich można zrealizować korzystając z~nadajników małej mocy i~nieskomplikowanych drutowych anten wykorzystując zjawisko odbicia fal od jonosfery. Zjawisko to występuje powszechnie i~w~zależności od pory dnia i~aktywności słonecznej umożliwia łączności na odległość od kilkuset do kilkunastu tysięcy kilometrów. Łączności z~najbardziej odległymi stacjami prowadzi się poprzez wielokrotne odbicia, niekiedy pokonujące dłuższą drogę wokół kuli ziemskiej.
+                    Najpopularniejszym sposobem realizacji łączności dalekiego zasięgu na falach krótkich jest skorzystanie z~nadajników małej mocy i~nieskomplikowanych drutowych anten wykorzystując zjawisko odbicia fal od jonosfery. Zjawisko to występuje powszechnie i~w~zależności od pory dnia i~aktywności słonecznej umożliwia łączności na odległość od kilkuset do kilkunastu tysięcy kilometrów. Łączności z~najbardziej odległymi stacjami prowadzi się poprzez wielokrotne odbicia, niekiedy kierując antenę w kierunku przeciwnym do stacji, gdzie fala pokonuje dłuższą drogę wokół kuli ziemskiej.
 
                     \paragraph{Fale odbite od powierzchni księżyca}
-                    Jednym z~najbardziej niezwykłych rodzajów łączności są te z~wykorzystaniem odbicia fali od powierzchni księżyca (EME). Do tego typu łączności wykorzystuje się zaawansowane systemy antenowe (jak przedstawiona na rysunku~\ref{fig:eme_antenna} oraz nadajniki o~wysokiej mocy. Przy EME wymagana jest duża precyzja oraz doświadczenie w~prowadzeniu takich łączności, przez co jest to dziedzina krótkofalarstwa która odstrasza początkujących radioamatorów. 
+                    Jednym z~najbardziej efektownych rodzajów łączności są te realizowane z~wykorzystaniem odbicia fali radiowej od powierzchni księżyca (EME). Do tego typu łączności wykorzystuje się zaawansowane systemy antenowe (jak przedstawiona na rysunku~\ref{fig:eme_antenna} oraz nadajniki o~wysokiej mocy. Przy łącznościach wykorzystujących odbicia od powierzchni księżyca wymagana jest duża precyzja oraz doświadczenie w~prowadzeniu takich łączności, oraz kosztowny sprzęt, przez co jest to dziedzina krótkofalarstwa która odstrasza początkujących radioamatorów. 
 
                     Antena powinna być skierowana dokładnie w~kierunku księżyca, który pozostaje w~ruchu względem powierzchni ziemi. W~związku z~tym aby powszechnie wykorzystywanymi są skomplikowane systemy obracania anten. W~przypadku złego ustawienia anteny najczęstszymi zakłóceniami sygnału są zniekształcenia czoła fali w~wyniku nakładania się fal odbitych. Typowymi dla tego rodzaju łączności są zjawiska odbioru własnego echa po około 2 sekundach od wysłania komunikatu oraz niewyjaśnione dotąd echo z~dużym opóźnieniem. Skutkiem tego jest otrzymanie przez nadawcę swojego komunikatu ale po czasie dochodzącym nawet do kilku minut.
 
@@ -130,7 +135,7 @@
                     Łączności wykonywane tą techniką ze względu na małą skuteczność, małą pewność transmisji oraz trudności związane z~jej wykonaniem realizują tylko radioamatorzy.
 
                     \paragraph{Łączności satelitarne}
-                    Krótkofalowcy korzystają także ze swoich satelitów. Takich satelitów niskoorbitalnych\footnote{Satelita niskoorbitalny - satelita krążący wokół Ziemi po orbicie kołowej na wysokości 10 tys. km - 500 tys. km} jest kilkadziesiąt i~co jakiś czas wysyłane są kolejne. Fale pasma UKF pozwalają na przeprowadzenie łączności z~astronautami z~międzynarodowej stacji kosmicznej ISS a także na łączności pomiędzy radioamatorami. Korzystanie z~satelitów wymaga znajomości ich pozycji na niebie, parametrów pracy oraz ciągłego korygowania ustawienia anteny. Także sama komunikacja wygląda nieco inaczej niż w~przypadku normalnej łączności. W~przypadku satelity wiadomości nadawane są na częstotliwości zwanej ,,uplink'' i~odbierane na częstotliwości oznaczonej jako ,,downlink''. Jest to uwarunkowane zasadą pracy satelity. Odbiera ona sygnały z~jednej częstotliwości i~retransmituje te same sygnały ze zwiększoną mocą na innej częstotliwości - podobnie jak to dzieje się w~przypadku przemienników amatorskich.
+                    Krótkofalowcy korzystają także z amatorskich satelitów telekomunikacyjnych. Takich satelitów niskoorbitalnych\footnote{Satelita niskoorbitalny - satelita krążący wokół Ziemi po orbicie kołowej na wysokości 10 tys. km - 500 tys. km} jest kilkadziesiąt i~sukcesywnie w przestrzeń kosmiczną wysyłane są kolejne. Dzięki tym satelitom i charakterystyce wykorzystywanych fal pasma UKF możliwe jest przeprowadzenie łączności pomiędzy radioamatorami.Bardzo ciekawym osiągnięciem jest także przeprowadzenie na falach UKF łączności z~astronautami z~międzynarodowej stacji kosmicznej ISS. Korzystanie z~satelitów wymaga znajomości ich pozycji na niebie, parametrów pracy oraz ciągłego korygowania ustawienia anteny. Także sama komunikacja wygląda nieco inaczej niż w~przypadku normalnej łączności. W~przypadku satelity wiadomości nadawane są na częstotliwości zwanej ,,uplink'' i~odbierane na częstotliwości oznaczonej jako ,,downlink''. Jest to uwarunkowane zasadą pracy satelity. Odbiera ona sygnały z~jednej częstotliwości i~retransmituje te same sygnały ze zwiększoną mocą na innej częstotliwości - podobnie jak to dzieje się w~przypadku przemienników amatorskich.
                         \begin{wrapfigure}{r}{0.4\textwidth}
                             \vspace{-25pt}
                             \begin{center}
@@ -144,15 +149,15 @@
                     W~związku z~tym, że pozycja anteny musi być na bieżąco korygowana, stosuje się skomplikowane systemy obracania anten lub rolę tę przejmuje sam radioamator i~pozycję anteny koryguje ręcznie korzystając z~takich konstrukcji jak pokazana na rysunku~\ref{fig:example_sat_construction}.
 
                     \paragraph{Inne typy łączności}
-                    Sporadycznie radioamatorzy korzystają do zrealizowania łączności z~takich zjawisk jak odbicia fal radiowych od zorzy polarnej, meteorytów a nawet chmur burzowych.
+                    Interesującymi sposobami realizacji łączności dalekiego zasięgu jest skorzystanie z~takich zjawisk jak odbicia fal radiowych od zórz polarnych, meteorytów czy nawet chmur burzowych.
 
                 \subsubsection{Wyprawy}
-                (!!! Copied !!!) W~społeczności krótkofalarskiej popularnymi są także wyprawy zwane inaczej DXpedycjami. Radioamatorzy w~pojedynkę lub w~zorganizowanej grupie wraz z~członkami klubu zdobywają górę lub niezamieszkały teren aby tam utworzyć tymczasową stację i~przeprowadzić łączności z~innymi stacjami. Taki proces często nazywany jest aktywowaniem kraju.
+                Pasją wielu ludzi jest połączenie aktywności radiowej i turystycznej, czego połączeniem są populare wyprawy zwane inaczej DXpedycjami. Zespoły, kluby, zorganizowane grupy bądź radioamatorzy w pojedynkę osiedlają się na terenie niezamieszkałej wyspy, bądź zdobywają góry,  aby tam utworzyć tymczasową stację i~przeprowadzić łączności z~innymi stacjami. Taki proces często nazywany jest aktywowaniem regionu.
 
                 \subsubsection{QSL}
                 Podstawowym wymogiem do uznania każdej wykonanej łączności jest wymiana znaków wywoławczych operatorów stacji oraz wymiana raportów słyszalności i~siły sygnału. To wystarczy, żeby uznać łączność za zrealizowaną. Oficjalnym i~bardzo eleganckim potwierdzeniem łączności są karty QSL\footnote{QSL - Jeden z~symboli Kodu Q używanego w~telegrafii i~krótkofalarstwie. Domyślnym jego znaczeniem tego symbolu jest potwierdzenie łączności.}. Są wizytówkami radioamatorów oraz kartami z~dokładnym opisem zrealizowanej łączności. Dla pewnej grupy krótkofalowców stanowią one swego rodzaju trofea ze swojej służby radiowej. Wielu z~nich skupia się na ustanawianiu łączności z~jak największą ilością stacji z~odrębnych krajów. Jest to ciekawe wyzwanie z~tego powodu, że wraz ze ,,zdobywaniem'' kolejnych krajów, stopień trudności znacząco rośnie, ponieważ istnieją kraje, w~których liczba radioamatorów jest bardzo mała, region kuli ziemskiej uznany w~społeczeństwie krótkofalarskim jako kraj jest niezamieszkały lub ze względów politycznych działalność krótkofalarska nie może funkcjonować.
 
-                Istanieją dodatkowo organizaje, które promują tego typu działaność hobbystyczną i~za szczególne osiągnięcia przyanają dyplomy. Wydawane są one na podstawie łączności potwierdzonych kartami QSL. Do najpopularniejszych dyplomów zaliczają się:
+                Istanieją dodatkowo organizacje, które promują tego typu działaność hobbystyczną i~za szczególne osiągnięcia przyanają dyplomy. Wydawane są one na podstawie łączności potwierdzonych kartami QSL. Do najpopularniejszych dyplomów zaliczają się:
                 \begin{itemize}
                     \item DX Century Club - najbardziej popularny wydawany przez ARRL\footnote{ARRL (The American Radio Relay League) - największe stowarzyszenie zrzeszające krótkofalowców i radioamatorów w USA. Jest organizacją non-profit. Dostarcza informacji technicznych, udziela pomocy entuzjastom krótkofalarstwa a także wspiera kilka programów edukacyjnych w kraju. Wydaje także dyplom DX Century Club.} dyplom świadczący o przeprowadzeniu łączności z co najmniej 100 krajami z listy DXCC.
                     \item IOTA\footnote{IOTA - ang. Islands on the Air, Wyspy w eterze} - wydawany przez Radio Society of Great Britain za łączności z wyspami i grupami wysp świata, a nie z krajami z listy DXCC. Z racji tego, że nie ma na świecie krótkofalowca, który mógłby się pochwalić potwierdzonymi łąćznościami ze wszystkimi wyspami wymienionymi w oficjalnym zestawieniu, dyplom IOTA wydawany jest za potwierdzoe łączności ze 100 wyspami oznaczonymi różnymi numerami kontrolnymi zgodnymi z przewodnikiem dyplomowym przy czym w tej liczbie musi być po jednej łączności z każdym z 7 kontynentów. Dyplom ten jest jednym z~powodów, dla których ludzie poświęcając swój wolny czas w czasie urlopu, wakacji czy emerytury organizują wyprawy na często maleńkie i niezamieszkałe wyspy aby po pierwsze daną wyspę ,,aktywować'' lub skłonić komitet do przynania wyspie odrębnego numeru. Polskimi wyspami zaliczanymi do programu IOTA są: Wolin (o~numerze EU 132) oraz Uznam (nr EU 129). Pomimo tego, że są to wyspy zamieszkałe, zostało przeprowadzonych na ich teren kilka krótkofalarskich wypraw w celu ich ,,aktywowania''.
@@ -160,7 +165,7 @@
                     \item Worked All States - dyplom sponsorowany przez ARRL, wręczany krótkofalowcom, którzy przeprowadzili kompletną i potwierdzoną łączność z innymi radiostacjami położonymi w każdym z 50 stanów USA.
                 \end{itemize}
 
-                Właśnie ta tematyka (kolekcjonowanie krajów z którymi została przeprowadzona łączność) będzie poruszona w tej pracy. Zagadnienia bardziej szczegółowo z nią powiązane zostanę opisane w kolejnym rozdziale.
+                Właśnie ta tematyka (kolekcjonowanie krajów z którymi została przeprowadzona łączność) będzie poruszona w tej pracy. Zagadnienia bardziej szczegółowo z nią powiązane zostaną opisane w kolejnym rozdziale.
 
     \chapter{Tematyka i problemy związane z kolekcjonowaniem krajów}
     \label{sec:collecting_entities}
@@ -814,7 +819,7 @@
             Wszystkie pola zapisane zostają w zmiennej typu \textbf{dict} (słownik). Ostatnim krokiem przetwarzania pliku jest połączenie zmiennych \texttt{QSO\_DATE} i \texttt{TIME\_ON} do jednej zmiennej \texttt{DATE} typu \texttt{datetime.datetime}.
 
             \subsection{Zapis danych do bazy}
-            Gdy cały plik zostanie przetworzony, cały zbiór danych zostaje przekazany do skryptu zajmującego się zapisem danych do bazy. Wszystkie potrzebne wartości pól odczytywane są z przekazanych słowników. Może się zdarzyć, że któregoś pola zabrakło w parsowanym rekordzie. Wówczas do pola przypisywana jest wartość domyślna. Na przykład w przypadku braku raportu RST do pola przypisywana jest pusta wartoś \texttt{None}, a w przypadku braku pola oznaczającego potwierdzenie łączności przypisywana jest wartość \texttt{False} oznaczająca łączność niepotwierdzoną. Dla każdego z rekordów tworzony jest nowy obiekt w bazie danych lub aktualizowany. Istotny fragment pokazuje poniższy fragment skryptu.
+            Gdy cały plik zostanie przetworzony, cały zbiór danych zostaje przekazany do skryptu zajmującego się zapisem danych do bazy. Wszystkie potrzebne wartości pól odczytywane są z przekazanych słowników. Może się zdarzyć, że któregoś pola zabrakło w parsowanym rekordzie. Wówczas do pola przypisywana jest wartość domyślna. Na przykład w przypadku braku raportu RST do pola przypisywana jest pusta wartoś \texttt{None}, a w przypadku braku pola oznaczającego potwierdzenie łączności przypisywana jest wartość \texttt{False} oznaczająca łączność niepotwierdzoną. Dla każdego z rekordów tworzony jest nowy obiekt w~bazie danych lub aktualizowany. Istotny fragment pokazuje poniższy fragment skryptu.
             \lstinputlisting[language=Python, breaklines=true, label={lst:ascii_to_date}, firstline=84, lastline=106, frame=single, caption=Zapis łączności do bazy danych]{listings.txt}
             Funkcja \texttt{get\_or\_create} próbuje pobrać z bazy danych obiekt łączności, który charakteryzują pola:
             \begin{description}
@@ -826,4 +831,198 @@
                 \item[mode] - modulacja
             \end{description}
             Jeżeli któraś z tych wartości się różni, należy sklasyfikować łączność jako nową. W przypadku gdy tak opisanej łączności nie ma, tworzony jest nowy obiekt ze paramatrami pól opisanymi w argumencie \texttt{defaults}. Jeżeli obiekt tej łączności już w bazie istnieje, jest on pobierany i aktualizowane są w nim pola potwierdzenia łączności, a następnie obiekt ten jest ponownie zapisywany w bazie.
+
+        \section{Filtrowanie spotów wg. potrzeb użytkowników}
+        Kluczowym fragmentem całego projektu jest dopasowanie 3 elementów systemu - dotychczasowych osiągnięć radioamatora (zapisów jego dziennika), nowych wydarzeń odczytywanych z systemu DX Cluster (spoty) oraz potrzeb radioamatora. Do ostatniego elementu potrzebna była kolejna klasa w bazie danych dodająca filtry dla każdego z użytkowników. W projekcie użytkownicy mogą filtrować nowe spoty na podstawie pasm, na których pracują oraz systemu potwierdzeń łączności. Jeżeli radioamator ma kilka łączności potwierdzonych w systemie \textbf{eQSL}, lecz skupia się na łącznościach potwierdzonych w~systemie \textbf{LoTW}, może taki filtr do siebie dostosować. Takich filtrów można dodać wiele, w projekcie przedstawiona została tylko idea i sposób takiego dopasowania. Klasa \texttt{Filter} modelu bazy danych przedstawiona została poniżej.
+        \lstinputlisting[language=Python, breaklines=true, label={lst:ascii_to_date}, firstline=164, lastline=169, frame=single, caption=Zapis łączności do bazy danych]{models.py}
+        Domyślnie po rejestracji użytkownik filtry użytkownika skonfigurowane tak, że spoty ze wszystkich pasm są interesujące, ale łączność potwierdzona w którymkolwiek z systemów czyni spot nie wartym uwagi. Aby system generował poprawne podpowiedzi, użytkownik musi na początku skofigurować swoje filtry.
+
+        Algorytm dopasowujący przyjmuje 2 argumenty - obiekt nowego spotu oraz obiekt operatora. Pierwszym krokiem jest identyfikacja spotu pod względem pasma. Zrealizowane jest to jako zapytanie do klasy \texttt{Band} o wyszukanie pasma, którego początek ma niższą, a koniec wyższą częstotliwość niż podana w spocie. Jeżeli takie pasmo nie zostanie znalezione w bazie spot można sklasyfikować jako błędny (listing~\ref{lst:spot_classification}).
+        \lstinputlisting[language=Python, breaklines=true, label={lst:spot_classification}, firstline=109, lastline=117, frame=single, caption=Klasyfikacja częstotliwości do pasma]{listings.txt}
+        Kolejnym krokiem jest odczytanie z bazy zapisanego filtru operatora. Z tego filtru początkowo pobierane są interesujące go pasma. Jeżeli pasmo nowego spotu znajduje się na liście pożądanych przez użytkownika, spot wstępnie klasyfikowany jest jako interesujący. Następnie z nowego spotu konieczne jest pozyskanie poprawnego prefiksu. Najpierw testowany jest cały znak wywoławczy pod kątek prefiksów, które muszą być dokładnie dopasowane. Jeżeli takiego ,,idealnego'' prefiksu nie ma, znak obcinany jest od końca aż prefiks zostanie odnaleziony w bazie. W przypadku gdy pętla odrzuci całą długość znaku i nie znajdzie żadnego prefiksu, spot zostaje sklasyfikowany jako niepoprawny. Po odnalezieniu prefiksu na jaki wskazuje nowy spot, system wie do jakiej jednostki DXCC jest przyporządkowany. Następnie z bazy pobierane są \textbf{wszystkie} prefiksy tej jednostki i porównywane są z dziennikiem operatora. Wybierane są z dziennika operatora wszystkie łączności z prefiksami jednostki DXCC z aktualnego spotu. W następnej kolejności wszystkie te łączności są sprawdzane pod kątem potwierdzenia w poszczególnych systemach. Jedna potwierdzona łączność w danym systemie wystarczy, aby uczynić spot potencjalnie mało interesującym. Na koniec wszystkie parametry są porównywane z filtrem operatora. Jeżeli pasmo pasmo pasuje i operator nie ma jeszcze potwierdzonej łączności w którymś z interesujących systemów z danej jednostki DXCC, system określa spot jako \textbf{interesujący}. Filtrowanie działa na bieżąco, więc spot raz określony jako mało interesujący po zmianie parametrów może zostać natychmiastowo sklasyfikowany jako interesujący.
+
+        \section{Interfejs WWW}
+        Elementem łączącym wszystkie komponenty projektowanego systemu jest interfejs WWW do jego obsługi. Został on stworzony za pomocą metodyki MVC obowiązującej we frameworku Django, dzięki temu wiele użytecznych mechanizmów było już gotowych do użycia. Pierwszym elementem interfejsu był panel administracyjny służący do nadzorowania zawartości bazy danych, zarządzania kontami użytkowników i ewentualnej edycji wszystkich danych. Następnie koniecznym było stworzenie wszystkich kluczowych podstron serwisu:
+        \begin{itemize}
+            \item Rejestracja i logowanie użytkowników
+            \item Edycja konta użytkownika i profilu operatora
+            \item Edycja filtru operatora
+            \item Dodawanie pliku dziennika do systemu
+            \item Główne okno z listą najnowszych spotów
+        \end{itemize}
+        Po zakończeniu pracy nad podstronami kolejnym krokiem było przygotowanie mechanizmu dodawania pliku dziennika przez użytkowników. Po stworzeniu całego szkieletu interfejsu WWW zostały dodane elementy szablonu graficznego, a na końcu zastosowana została technologia Ajax do poprawy komfortu korzystania z serwisu.
+
+            \subsection{Panel administracyjny}
+            \begin{wrapfigure}{r}{0.5\textwidth}
+                \vspace{-30pt}
+                \begin{center}
+                    \includegraphics[width=0.45\textwidth]{django_admin}
+                \end{center}
+                \vspace{-20pt}
+                \caption{Główne okno panelu administracyjnego}
+                \vspace{-10pt}
+                \label{fig:admin}
+            \end{wrapfigure}
+            Projektowanie panelu administracyjnego przy użyciu frameworka Django sprowadza się do określenia jakie klasy modelu bazy danych mają zostać przedstawione. Zostało to określone w pliku \texttt{admin.py} w folderze aplikacji \texttt{dx}. Koniecznym było zaimportowanie wszystkich potrzebnych klas modelu bazy a następnie zarejestrowanie ich dedykowanymi funkcjami (listing~\ref{lst:admin}). Widoczność panelu administracyjnego w aplikacji jest domyślnie włączona, więc po tej operacji panel dostępny jest jako podstrona serwisu pod adresem \texttt{/admin}. Tam po zalogowaniu przez administratora (lub użytkownika z uprawnieniami dostępu do panelu) widoczne są poszczególne klasy (rys~\ref{fig:admin}). Po kliknięciu w dowolną klasę otwiera się okno ze wszystkimi obiektami danej klasy w bazie danych. Każdy z nich można edytować, usunąć bądź korzystając z menu dodać zupełnie nowe.
+
+            \lstinputlisting[language=Python, breaklines=true, label={lst:admin}, firstline=120, lastline=128, frame=single, caption=Konfiguracja panelu administracyjnego]{listings.txt}
+
+            \subsection{Rejestracja i logowanie użytkowników}
+            Podstawą projektowanego serwisu są użytkownicy. Muszą oni mieć możliwość zakładania nowych kont oraz logowania się do nich. Django samo w sobie dostarcza bardzo wygodnych mechanizmów do pracy z użytkownikami, lecz jak to zostało wcześniej wspomniane, w przypadku tego projektu mechanizm użytkowników musiał być rozbudowany o kilka elementów. 
+
+                \subsubsection{Rejestracja}
+                Do samej rejestracji nowego użytkownika w systemie wykorzystany został wbudowany formularz \texttt{UserCreationForm} dostępny w pakiecie \texttt{django.contrib.auth.forms}. Obsługuje on sprawdzanie poprawności wprowadzonych danych, rozmaite błędy, które mogą wystąpić podczas rejestracji itp. Gdy do systemu trafi poprawnie wypełniony formularz rejestracyjny zostaje użytkownikowi założone nowe konto, a także do tego konta zostaje dołączony nowy profil klasy \texttt{Operator} oraz nowy, prywatny dla użytkownika filtr (z powiązanej relacją klasy \texttt{Filter}). Po poprawnej rejestracji użytkownik od razu zostaje zalogowany do systemu.
+
+                \subsubsection{Logowanie}
+                Logowanie do systemu zrealizowane jest za pomocą wbudowanego mechanizmu. Nie było żadnej konieczności rozbudowy tego mechanizmu.
+
+            \subsection{Edycja konta użytkownika i profilu operatora}
+            Do edycji szczegółów konta użytkownika i profilu operatora zostały utworzone osobne formularze.
+
+                \subsubsection{Edycja konta użytkownika}
+                Do edycji konta użytkownika został wykorzystany formularz automatycznie generowany za pomocą klasy widoku \texttt{UpdateView} z pakietu \texttt{django.views.generic.edit}. Klasa ta do poprawnego działania potrzebuje określenia kilku kluczowych parametrów konfiguracyjnych. Są to:
+                \begin{itemize}
+                    \item Klasa modelu który będzie edytowany
+                    \item Pola z tej klasy, które mają być dostępne do edycji
+                    \item Adres na jaki ma być przeniesiony użytkownik po przesłaniu poprawnego formularza
+                    \item Klasa szczegółów formularza (jaki typ pól do wprowadzania wartości mają się pojawić oraz ich dodatkowe style)
+                    \item Funkcja pobierająca z bazy odpowiedni obiekt do edycji.
+                \end{itemize}
+                Cała przygotowana klasa przedstawiona została na listingu poniżej.
+                \lstinputlisting[language=Python, breaklines=true, firstline=131, lastline=139, frame=single, caption=Automatyczne generowanie formularza edycji konta użytkownika]{listings.txt}
+                Do edycji konta użytkownika zostały wybrane tylko 3 pola: \textbf{imię}, \textbf{nazwisko} oraz \textbf{adres e-mail}. Inne pola (np. uprawnienia lub data rejestracji) nie powinny być dostępne do edycji przez użytkownika, więc nie są pokazywane w formularzu.
+
+                Wszystkie edytowane pola pobierają wartości ze standardowego pola tekstowego oznaczonego w Django jako \texttt{CharField} a na stronie przedstawiane są jako \texttt{TextInput}.
+
+                \subsubsection{Edycja profilu operatora}
+                Analogicznie sytuacja przedstawiała się w przypadku klasy \texttt{Operator}. Został przygotowany widok, który automatycznie generuje formularz dla tej klasy. Wybrane zostały pola \texttt{callsign} (znak wywoławczy operatora) oraz \texttt{locator} (lokator stacji). Zapis klasy widoku pokazany jest poniżej.
+                \lstinputlisting[language=Python, breaklines=true, firstline=142, lastline=150, frame=single, caption=Automatyczne generowanie formularza edycji profilu operatora]{listings.txt}
+
+                Podobnie jak w poprzednim formularzu, wszystkie pola posługują się komponentami \texttt{CharField}.
+
+            \subsection{Edycja filtru operatora}
+            \begin{wrapfigure}{O}{0.42\textwidth}
+                \vspace{-30pt}
+                \begin{center}
+                    \includegraphics[width=0.4\textwidth]{filter_edit}
+                \end{center}
+                \vspace{-20pt}
+                \caption{Edycja filtru operatora}
+                \vspace{-30pt}
+                \label{fig:filter_edit}
+            \end{wrapfigure}
+            Struktura formularza do edycji filtru operatora została przygotowana identycznie do formularzy z~poprzedniego podpunktu. Istotną różnicę stanowią komponenty wejściowe do przekazywania wartości pól. W przypadku pola \texttt{bands} odnoszącego się do pasm, których pracuje operator, możliwe jest przekazanie dowolnej kombinacji wartości ze z góry ustalonej listy (zapisanej w bazie danych). W formularzu Django jest to realizowane za pomocą komponentu \texttt{ModelMultipleChoiceField}, a przedstawiane na stronie jako pole \texttt{SelectMultiple}. Pozostałe parametry filtru to pola definiujące, z~którego systemu potwierdzeń użytkownik korzysta. Są to trzy pola realizowane przez komponent \texttt{BooleanField}, a~na stronie realizowane jako \texttt{CheckboxInput}~(rys.~\ref{fig:filter_edit}).
+
+            \subsection{Przetwarzanie pliku dziennika}
+            Aby przekazać do systemu plik z dziennikiem łączności, użytkownik musi mieć dostępny do tego celu specjalny formularz umożliwiający wysyłanie plików na serwer, a następnie system musi odpowiedni się tym plikiem posłużyć. W przypadku plików z dużą ilością zapisanych historycznych łączności, przetwarzanie ich oraz dodawanie wszystkich rekordów do bazy danych może zająć dużo czasu. W takim przypadku rozsądnym rozwiązaniem jest poinformowanie użytkownika o stanie zaawansowania przetwarzania.
+
+                \subsubsection{Formularz wysyłania pliku dziennika}
+                \begin{wrapfigure}{O}{0.42\textwidth}
+                    \vspace{-30pt}
+                    \begin{center}
+                        \includegraphics[width=0.4\textwidth]{log_upload}
+                    \end{center}
+                    \vspace{-20pt}
+                    \caption{Formularz wysyłania pliku dziennika}
+                    \vspace{-10pt}
+                    \label{fig:log_upload}
+                \end{wrapfigure}
+                Formularz wysyłania plików jest bardzo prosty. Zawiera jedno pole wyboru pliku z dysku. W pakiecie Django to pole reprezentowane jest przez klasę \texttt{FileField}, a jego reprezentacja na stronie to komponent \texttt{FileInput} (rys.~\ref{fig:log_upload}).
+
+                Po wybraniu pliku i zaakceptowaniu formularza plik zostaje wysłany do serwera, gdzie powinien zostać zapisany i przetworzony.
+
+                \subsubsection{Zachowanie systemu po odebraniu pliku dziennika}
+                Teoretycznie system po odebraniu pliku powinien jak najszybciej odczytać z niego dane i przejść do wykonywania dalszych czynności. Niestety w przypadku dużych plików czynności związane z plikiem zajmują dużo czasu, a do momentu odpowiedzi od serwera przeglądarka użytkownika nie wyświetla żadnych treści. To sprawia, że aplikacja internetowa nie jest zbyt przyjazna dla użytkownika.
+
+                Dobrym rozwiązaniem jest tymczasowe zapisanie przesyłanego pliku na dysku i wywołanie w innym procesie przetwarzającej go funkcji i jak najszybsze wysłanie użytkownikowi odpowiedzi od serwera, aby mógł dalej korzystać z systemu. Do wygodnego utworzenia tymczasowego pliku na dysku wykorzystana została klasa języka Python o nazwie \texttt{NamedTemporaryFile} znajdująca się w pakiecie \texttt{tempfile}. Klasa ta dobiera czysto losową nazwę pliku i zapisuje ją w folderze plików tymczasowych. Dodatkowo plik może zniknąć po usunięciu jego obiektu w skrypcie. Aby tego uniknąć należy zastosować parametr konstruktora tymczasowego pliku \texttt{delete=False}. Dzięki temu nawet po zakończeniu działania skryptu plik pozostanie na dysku w miejscu gdzie był zapisany.
+
+                Aby skopiować zawartość przesyłanego pliku do pliku tymczasowego należy źródłowy plik otworzyć i po kolei odczytywać segmenty danych i zapisywać je do pliku docelowego.
+
+                \lstinputlisting[language=Python, breaklines=true, label={lst:handle_file}, firstline=153, lastline=164, frame=single, caption=Operacje na odebranym pliku dziennika]{listings.txt}
+
+                Po zapisaniu pliku na dysku koniecznym było uruchomienie skryptu w odrębnym procesie. Wykorzystane zostały dwa mechanizmy:
+                \begin{itemize}
+                    \item Własne polecenia zarządzania dostępne w Django.
+                    \item Funkcja \texttt{Popen} z pakietu \texttt{subprocess} do tworzenia nowego procesie.
+                \end{itemize}
+
+                Aby wykonać operacje na pliku dziennika łączności wystarczyłby zwykły skrypt w języku Python, lecz to wymagałoby dodatkowych czynności z inicjalizacją środowiska projektu, globalnych zmiennych używanych w projekcie oraz ręcznego podłączenia się do bazy danych. Dzięki wykorzystaniu poleceń zarządzania \textbf{Django Custom Command} skrypt automatycznie znajduje się w pakiecie projektu i wszystkie konfiguracje, zmienne oraz baza danych dostępne są dla niego tak samo, jakby był elementem aplikacji. Uruchomienie skryptu sprowadza się do wydania w linii poleceń systemu komendy:
+
+                \texttt{\$ python manage.py parse\_log <file\_name> <user\_name>}\\
+
+                \noindent Parametr \texttt{parse\_log} to nazwa skryptu umieszczonego w podkatalogu aplikacji \textbf{dx} o ścieżce: \texttt{dx/management/commands}. Parametr \texttt{file\_name} to nazwa tymczasowego pliku gotowego to wykonania na nim operacji. Ostatni parametr \texttt{user\_name} to nazwa użytkownika dodającego do swojego konta plik dziennika łączności.
+
+                Jak zostało pokazane na końcu listingu~\ref{lst:handle_file}, nowy proces tworzony jest komendą \texttt{subprocess.Popen}, której jedynym parametrem jest lista argumentów wywołania nowego procesu. Dzięki tej operacji uruchamiany jest skrypt, a przeglądarka użytkownika dostaje odpowiedź od serwera, co przyczynia się do tego, że użytkownik nie musi czekać na zakończenie przetwarzania całego pliku, tylko może korzystać z systemu niezależnie od tego procesu.
+
+                \subsubsection{Informacja o postępie przetwarzania}
+                W przypadku dużych plików dzienników łączności czas oczekiwania na przetworzenie przez skrypt może sięgać nawet kilku minut. Bardzo dobrą praktyką jest poinformowanie użytkownika jaki jest stan postępu przetwarzania tego pliku. Do tego celu została przygotowana ostatnia klasa modelu bazy danych, \texttt{FileProcessingProgress}, przedstawiona poniżej. 
+                \lstinputlisting[language=Python, firstline=152, lastline=155, breaklines=true, frame=single, caption=Klasa modelu \texttt{FileProcessingProgress}]{models.py}
+                Zawiera ona 3 pola:
+                \begin{description}
+                    \item[operator] - Pole identyfikujące, do którego operatora zapisany jest postęp przetwarzania pliku
+                    \item[progress] - Liczba dotychczas przetworzonych rekordów
+                    \item[goal] - Łączna liczba rekordów w pliku dziennika łączności
+                \end{description}
+                W momencie wysłania do systemu pliku dziennika, taki rekord jest tworzony dla konkretnego użytkownika w bazie. Aktualizacja tego rekordu dokonywana jest po dodaniu kolejnej łączności (\textbf{QSO}) do bazy danych. Po zakończeniu przetwarzania rekord jest usuwany z bazy.
+
+                \begin{figure}[hb!]
+                    \centering
+                    \includegraphics[width=0.5\textwidth]{progress}
+                    \caption{Pasek postępu przetwarzania pliku dziennika}
+                    \label{fig:progress}
+                \end{figure}
+
+                Postęp widoczny jest na podstronie wysyłania pliku (rys.~\ref{fig:progress}). Podczas ładowania podstrony sprawdzana jest obecność rekordu użytkownika w bazie. Jeżeli rekord zostanie znaleziony, pokazywany jest pasek postępu, w przeciwnym razie pokazywany jest normalny formularz dodawania pliku.
+
+            \subsection{Główne okno z listą najnowszych spotów}
+            Na stronie głównej dostępna jest lista 10 najnowszych odebranych z systemu DX Cluster spotów. Wyświetlane są dokładnie te same dane, jakie zostały odebrane z Clustera, z tą różnicą, że poszczególne pola zostały rozdzielone do osobnych kolumn tabeli. Różnica pojawia się po zalogowaniu użytkownika, dodaniu przez niego dziennika łączności i poprawnym skonfigurowaniu filtru. Zaznaczone są wówczas kolorem zielonym łączności interesujące dla danego użytkownika. Przykładowy wynik odpowiedzi systemu dla najnowszych danych przedstawiony został na rysunku~\ref{fig:main}, gdzie przedstawiona została strona główna aplikacji.
+            \begin{figure}[hb!]
+                \centering
+                \includegraphics[width=\textwidth]{main}
+                \caption{Strona główna aplikacji wraz z zaznaczonymi interesującymi spotami}
+                \label{fig:main}
+            \end{figure}
+
+            \subsection{Szablon graficzny}
+            Cała wizualna strona aplikacji internetowej przygotowana została w języku HTML z użyciem publicznie dostępnego szablonu kaskadowych arkuszy stylów (CSS) - \textbf{Bootstrap} w wersji 3. Dotyczy to całej oprawy graficznej, menu, wszystkich komponentów prezentowanych na stronie. Elementy są dopasowane tak, aby strona była wygodna do korzystania także za pomocą urządzeń mobilnych (rys~\ref{fig:mobile}).
+
+        \section{Użycie technologii Ajax}
+        Aby uczynić zwiększyć komfort korzystania z aplikacji, została użyta technologia Ajax. Została wykorzystana do automatycznego odświeżania tabeli na stronie głównej oraz paska postępu na podstronie dodawania dziennika łączności. Komunikacja pomiędzy skryptami w jezyku JavaScript zapisanymi w szablonach stron a funkcjami widoków Django opiera się na przesyłaniu pakietów danych zapisanych w formacie \textbf{JSON}.
+
+            \subsection{Pasek postępu}
+            Odświeżanie paska postępu przetwarzania pliku dziennika łączności polega na okresowym wysłaniu przez kod JavaScript zapytania do serwera. Zwrócony zostaje pakiet danych zawierający informacje:
+            \begin{itemize}
+                \item Czy przetwarzanie zostało zakończone
+                \item Jeżeli przetwarzanie dalej trwa, jakie jest jego procentowe zaawansowanie
+            \end{itemize}
+            To pozwala na łatwą i estetyczną prezentację informacji użytkownikowi. Pozycja paska postępu zmieniana jest na bieżąco zgodnie z odpowiedziami od serwera. W momencie zakończenia przetwarzania pliku kolor paska zmienia się z niebieskiego na zielony, aby jednoznacznie poinformować o tym fakcie użytkownika.
+
+            \subsection{Tabela z najnowszymi spotami}
+            Odświeżanie tabeli na stronie głównej polega na wysłaniu do serwera zapytania zawierającego numer identyfikacyjny ostatniego pokazanego spotu. Gdy serwer znajdzie w swojej bazie spot z większym numerem identyfikacyjnym (co oznacza spot nowszy), wysyła odpowiedź do sktyptu JavaScript znajdującego się na stronie głównej. W tym momencie najstarszy z 10 spotów zostaje usunięty z tabeli, a na jej szczyt trafia spot najnowszy.
+
+            \begin{figure}[hb!]
+                \centering
+                \includegraphics[width=0.3\textwidth]{mobile}
+                \caption{Główne okno systemu otwarte w telefonie komórkowym}
+                \label{fig:mobile}
+            \end{figure}
+
+    \chapter{Ocena systemu i podsumowanie}
+    \label{sec:summit}
+    W projekcie zostały spełnione założenia, które zostały przedstawione w rozdziale~\ref{sec:problem_description}. System dostępny jest dla wszystkich, umożliwia korzystanie wielu osobom na raz (zarówno ze zwykłych komputerów jak i z urządzeń mobilnych). Poprawnie przetwarza pliki zapisane w standardzie ADIF, jest intuicyjny i estetyczny (nie prezentuje użytkownikowi niepotrzebnych lub mylnych informacji).
+
+    Przy pierwszym korzystaniu z systemu, od razu można czerpać informacje z tabeli najnowszych spotów pobranych z systemu DX Cluster. Pełnia funkcjonalności ukazuje się jednak po założeniu przez użytkownika konta w systemie, wysłaniu do systemu pliku dziennika łączności krótkofalarskich oraz skonfigurowaniu osobistego filtru. System wówczas w jasny sposób prezentuje konkretne informacje.
+
+    Zaprojektowany system może okazać się bardzo dużą pomocą dla ludzi, którzy nie mają możliwości poświęcić dużej ilości czasu na pracę krótkofalarską, a jednak chcą bawić się w realizację nowych, ciekawych łączności. Przewagą tego systemu nad innymi tego typu rozwiązaniami jest to, że nie działa on lokalnie, a jest dostępny z każdego miejsca z dostępem do internetu. 
+
+    System ma ogromny potencjał rozbudowy - dodania większej ilości filtrów, możliwości przeglądania i edycji swoich dzienników łączności przez użytkowników, możliwość dodawania w locie nowych zrealizowanych łączności. Systemy zarządzania dziennikami łączności w Internecie istnieją już w społeczności krótkofalarskiej, lecz brakuje im funkcji, jakie wprowadza ten projekt.
+
+    Istnieją także elementy systemu, które mogłby zostać poprawione. W projekcie została zastosowana baza danych SQLite. Zużywa ona mimum zasobów, jednak jej wydajność może być niewystarczająca do obsługi dużej liczby użytkowników. Patrząc z drugiej strony, taki system jako darmowy może zostać uruchomiony indywidualnie przez każdego użytkownika. Jest łatwy w instalacji oraz prosty w administracji. Wówczas wydajność bazy danych nie będzie miała żadnego znaczenia.
+
+    \nocite{*}
+    \addcontentsline{toc}{chapter}{Bibliografia}
+    \bibliography{bibliografia}
+
+    \listoffigures
+
 \end{document}
